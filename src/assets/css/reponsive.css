@@ -1,0 +1,13 @@
+/*  Small devices (tablets, 768px and up)  */
+@media (max-width: 768px ) {
+   .modal-content{
+       left: -3% !important;
+   }
+}
+/*  Medium devices (desktops, 992px and up)  */
+@media (max-width: 970px ) {
+    
+}
+/*  Large devices (large desktops, 1200px and up)  */
+@media (min-width: 1200px ) {
+}
