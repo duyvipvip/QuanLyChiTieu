@@ -4,6 +4,6 @@ import { templateJitUrl } from '@angular/compiler';
 @Component({
     selector: "choose-wallet",
     templateUrl: "./choose-wallet.component.html",
-    styleUrls: ["./choose-wallet.component.css"]
+    styleUrls: ["./choose-wallet.component.scss"]
 })
-export class ChooseWalletTemplate{}
+export class ChooseWalletComponent{}

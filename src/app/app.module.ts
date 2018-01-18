@@ -1,3 +1,5 @@
+import { TransactionComponent } from './client/template/transaction/transaction.component';
+import { AddWalletComponent } from './client/template/wallet/add-wallet/add-wallet.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { AdminComponent } from './admin/admin.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,14 +10,14 @@ import { ClientLoginComponent } from './client/login/clientlogin.component';
 import { Route } from '@angular/compiler/src/core';
 import {RouterModule, Routes} from '@angular/router';
 import { ClientRegisterComponent } from './client/register/clientregister.component';
-import { ChooseWalletTemplate } from './client/template/choose-wallet/choose-wallet.component';
-import { AddWalletComponent } from './client/template/add-wallet/add-wallet.component';
 import { MenuComponent } from './client/template/menu/menu.component';
 import { HeaderComponent } from './client/template/header/header.component';
 import { FooterComponent } from './client/template/footer/footer.component';
-import { ChooseTransactionComponent } from './client/template/choose-transaction/choose-transaction';
 import { templateJitUrl } from '@angular/compiler';
 import { ChangeTransaction } from './client/template/change-transaction/change-transaction';
+import { WalletComponent } from './client/template/wallet/wallet.component';
+import { ChooseWalletComponent } from './client/template/wallet/choose-wallet/choose-wallet.component';
+import { transition } from '@angular/core/src/animation/dsl';
 
 // CONFIG ROUTER
 const appRoutes: Routes = [
@@ -39,13 +41,18 @@ const appRoutes: Routes = [
     AdminComponent,
 
     // PHẦN TEMPLATE
-    ChooseWalletTemplate,
-    AddWalletComponent,
     MenuComponent,
     HeaderComponent,
     FooterComponent,
-    ChooseTransactionComponent,
     ChangeTransaction,
+
+    // PHẦN WALLET
+    WalletComponent,
+    AddWalletComponent,
+    ChooseWalletComponent,
+
+    // PHẦN TRANSACTION
+    TransactionComponent,
   ],
   imports: [
     BrowserModule,
