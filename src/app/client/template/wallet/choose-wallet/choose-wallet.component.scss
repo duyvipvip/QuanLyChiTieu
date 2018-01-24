@@ -4,7 +4,15 @@
 .item-content-modal:hover{background-color:rgba(51, 51, 51, 0.1);cursor:pointer;}
 .item-content-modal span{color:rgb(51, 51, 51);font-size:16px;}
 .item-content-modal img{width:48px;height:48px;}
-.item-content-modal span.name-vallet{position:absolute;top:7px;left:52px;}
+i{
+    float: right;
+    margin-top: 12px;
+    color: rgb(45, 184, 76);
+}
+a{
+    display: block;
+}
+.item-content-modal span.name-vallet{position:absolute;top:7px;left:52px;text-transform: capitalize;}
 .item-content-modal span.money-vallet{position:absolute;top:26px;left:52px;color:rgba(0, 0, 0, 0.54);font-size:14px;}
 p{color:rgba(51, 51, 51, 0.54);font-size:14px;}
 .header-modal, #chonvi h4{color:rgb(51, 51, 51);font-size:22px;}

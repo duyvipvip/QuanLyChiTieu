@@ -5,22 +5,29 @@
             <div class="modal-header">
                 <h4 class="modal-title">Chọn Ví</h4>
                 <span class="close-button" data-dismiss="modal">×</span>
+               
             </div>
             <div class="modal-body">
-                <div class="item-content-modal">
+                <div class="item-content-modal" (click)='chooseAllWallet($event)'>
                     <img src="https://static.moneylover.me/img/icon/ic_category_all.png" alt="">
                     <span>Tất cả các ví</span>
+                    <i class="fa fa-check" aria-hidden="true"></i>
                 </div>
                 <p>Tiền mặt</p>
-                <div class="item-content-modal">
-                    <img src="https://static.moneylover.me/img/icon/icon.png" alt="">
-                    <span class="name-vallet">vanduy</span>
-                    <span class="money-vallet">2,299,992 ₫</span>
+                <div class="item-content-modal" *ngFor="let wallet of dataWallets" (click)="chooseWallet($event)">
+                    <a>
+                        <img src="https://static.moneylover.me/img/icon/icon.png" alt="">
+                        <span class="name-vallet">{{ wallet.namewallet }}</span>
+                        <span class="money-vallet">{{ wallet.money }}</span>
+                        <input type="hidden" value="{{ wallet._id }}">
+                        <i aria-hidden="true"></i>
+                    </a>
+                    
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light btn-cancel" data-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-success btn-add" data-toggle="modal" data-target="#themvi">Thêm Ví</button>
+                <button type="button" class="btn btn-success btn-add" data-dismiss="modal" (click)="submit()">Chọn</button>
             </div>
         </div>
 

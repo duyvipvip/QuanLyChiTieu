@@ -6,7 +6,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 //CONNECT ĐẾN DATABASE
-mongoose.connect('mongodb://vietanhdh:151296@ds131782.mlab.com:31782/vietanhdh');
+mongoose.connect('mongodb://havanduy:havanduy@ds261527.mlab.com:61527/wallet', {useMongoClient: true});
+mongoose.Promise = global.Promise;
 
 // PORT ĐỂ TRUY CẬP APPLICATION
 const port = process.env.port || 3000;

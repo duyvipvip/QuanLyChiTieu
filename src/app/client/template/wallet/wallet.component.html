@@ -5,10 +5,10 @@
                 <div class="choose-wallet">
                     <a class="my-trigger" data-toggle="modal" data-target="#chonvi">
                         <img src="https://static.moneylover.me/img/icon/ic_category_all.png" alt="">
-                        <p class="name-wallet">Tất Cả Các Ví
+                        <p class="name-wallet">{{ dataWalletChoose.namewallet }}
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </p>
-                        <p class="money-wallet">5,000,000</p>
+                        <p class="money-wallet">{{ dataWalletChoose.money | number:'1.0-0' }}</p>
                     </a>
                 </div>
                 <div class="button-add" data-toggle="modal" data-target="#themvi">
@@ -16,22 +16,22 @@
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </button>
                 </div>
-                <div class="button-edit" data-toggle="modal" data-target="#editwallet">
+                <div class="button-edit" data-toggle="modal" data-target="#edit-wallet" (click)="submitExit()">
                     <button tabindex="0" type="button">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
             <!-- MODAL CHỌN VÍ-->
-            <choose-wallet></choose-wallet>
+            <app-choose-wallet [dataWallets]='dataWallets' (emitChooseWallet)='chooseWallet($event)'></app-choose-wallet>
             <!-- MODAL CHỌN VÍ-->
 
             <!-- PHẦN MODAL THÊM VÍ -->
-            <add-wallet></add-wallet>
+            <app-add-wallet></app-add-wallet>
             <!-- PHẦN MODAL THÊM VÍ -->
 
-            <!-- PHẦN MODAL CHANGE VÍ -->
-            <!-- <app-change-wallet></app-change-wallet> -->
+            <!-- PHẦN MODAL EDIT VÍ -->
+            <app-edit-wallet [dataEditWallet]='dataWalletChoose'></app-edit-wallet>
         </div>
     </div>
 </section>

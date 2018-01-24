@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var walletSchema   = mongoose.Schema({
+    namewallet: String,
+    money: Number,
+}, { collection: 'wallet'});
 
-}, { collection: 'Danhgianhac'});
-
-module.exports = mongoose.model('Danhgianhac', walletSchema);
+module.exports = mongoose.model('wallet', walletSchema);
