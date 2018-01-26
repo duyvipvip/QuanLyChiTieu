@@ -1,4 +1,6 @@
+import { IWallet } from './../../../../model/wallet.model';
 import { Component, Input } from '@angular/core';
+import { Wallet } from '../../../../service/wallet.service';
 
 @Component({
     styleUrls: ['edit-wallet.component.scss'],
@@ -8,14 +10,24 @@ import { Component, Input } from '@angular/core';
 
 export class EditWalletComponent{
 
-    @Input() dataEditWallet: object;
+    @Input() dataEditWallet: IWallet;
+    dataUpdateWallet: IWallet;
 
+    constructor(private Wallet:Wallet){}
 
-    constructor(){
-        
+    // GỦI DỮ LIỆU CHỈNH SỬA
+    submitEditWallet(name, money, id){
+        this.dataUpdateWallet = {
+            _id: id.value,
+            money : money.value,
+            namewallet: name.value
+        }
+        this.Wallet.updateDataWallet(this.dataUpdateWallet)
+        .then((result) => console.log(result));
     }
-
-    submitEdit(){
-        console.log(this.dataEditWallet);
-    }
+   // GỦI ID XOÁ
+   submitRemoveWallet(id){
+        this.Wallet.deleteDataWallet(id.value)
+        .then((result) => console.log(result));
+   }
 }

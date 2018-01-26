@@ -41,3 +41,8 @@
 .label-cbx .checkbox svg polyline{fill:none;stroke:#FFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:18px;stroke-dashoffset:18px;transition:all 0.3s ease;}
 .label-cbx > span{pointer-events:none;vertical-align:middle;}
 .invisible{position:absolute;z-index:-1;width:0;height:0;opacity:0;}
+
+i{
+    cursor: pointer;
+    color: #fff;
+}

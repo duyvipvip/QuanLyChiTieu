@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="group">
-                        <input type="text" required placeholder="Tên ví của bạn ?">
+                        <input type="text" #nameWallet required placeholder="Tên ví của bạn ?">
                         <span class="bar"></span>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="group">
-                        <input type="text" required placeholder="Đơn vị tiền tệ">
+                        <input type="text" #moneyWallet required placeholder="Số tiền">
                         <span class="bar"></span>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-add" data-toggle="modal" data-target="#themvi">Thêm</button>
+                <button type="button" class="btn btn-success btn-add" (click)="submitAddWallet(nameWallet, moneyWallet)">Thêm</button>
             </div>
         </div>
     </div>

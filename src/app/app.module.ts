@@ -23,6 +23,7 @@ import { ChooseWalletComponent } from './client/template/wallet/choose-wallet/ch
 import { transition } from '@angular/core/src/animation/dsl';
 import { Wallet } from './service/wallet.service';
 import { EditWalletComponent } from './client/template/wallet/edit-wallet/edit-wallet.component';
+import { FormsModule } from '@angular/forms';
 
 // CONFIG ROUTER
 const appRoutes: Routes = [
@@ -63,6 +64,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false }

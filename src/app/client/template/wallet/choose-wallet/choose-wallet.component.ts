@@ -9,9 +9,7 @@ import { templateJitUrl } from '@angular/compiler';
 export class ChooseWalletComponent{
     selectedWalletId: string;
 
-    constructor(){
-
-    }
+    constructor(){}
 
     @Input() dataWallets: Array<any>;
     @Output() emitChooseWallet = new EventEmitter();
