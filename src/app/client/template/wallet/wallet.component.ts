@@ -1,5 +1,7 @@
 import { IWallet } from './../../../model/wallet.model';
 import { Wallet } from './../../../service/wallet.service';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { NotificationsService } from 'angular2-notifications';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,6 +11,8 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class WalletComponent implements OnInit{
+    
+
     dataWallets: IWallet[] = [];
     dataWalletChoose: IWallet = {
         _id: 0,
@@ -17,10 +21,11 @@ export class WalletComponent implements OnInit{
     };
     stringTotalMoney: number = 0;
 
-    constructor(private Wallet:Wallet){ 
-    }
+    constructor(private Wallet:Wallet, protected notif:NotificationsService){ }
     
     ngOnInit(){
+        
+
         // LẤY TẤT CẢ CÁC VÍ
         this.Wallet.getDataWallets()
         .then(result => {
@@ -62,6 +67,10 @@ export class WalletComponent implements OnInit{
 
     submitExit() {
         console.log('duy');
+        this.notif.success('Success','Yeahhh successfull create notification',{
+              timeOut: 3000,
+            }
+        );
     }
     
 }

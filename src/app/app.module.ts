@@ -3,7 +3,8 @@ import { Route } from '@angular/compiler/src/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 import { HttpModule } from '@angular/http';
-
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TransactionComponent } from './client/template/transaction/transaction.component';
 import { AddWalletComponent } from './client/template/wallet/add-wallet/add-wallet.component';
@@ -24,6 +25,7 @@ import { transition } from '@angular/core/src/animation/dsl';
 import { Wallet } from './service/wallet.service';
 import { EditWalletComponent } from './client/template/wallet/edit-wallet/edit-wallet.component';
 import { FormsModule } from '@angular/forms';
+import { ChooseTransactionComponent } from './client/template/transaction/choose-transaction/choose-transaction';
 
 // CONFIG ROUTER
 const appRoutes: Routes = [
@@ -60,11 +62,14 @@ const appRoutes: Routes = [
 
     // PHẦN TRANSACTION
     TransactionComponent,
+    ChooseTransactionComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     FormsModule,
+    SimpleNotificationsModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false }

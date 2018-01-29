@@ -33,7 +33,7 @@
         
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-add" (click)="submitEditWallet(name , money, id)" [disabled]="dataEditWallet._id === 0 ? true:false ">Chỉnh sửa</button>
+                <button type="button" class="btn btn-success btn-add" data-dismiss="modal" (click)="submitEditWallet(name , money, id)" [disabled]="dataEditWallet._id === 0 ? true:false ">Chỉnh sửa</button>
             </div>
         </div>
     </div>
