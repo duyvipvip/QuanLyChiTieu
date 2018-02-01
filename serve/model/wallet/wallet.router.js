@@ -34,8 +34,7 @@ module.exports = function(app){
 
     // CHỈNH SỬA VÍ CÓ ID LÀ
     app.post('/api/wallet/update/:id', (req, res) => {
-        console.log('ok');
-        console.log(req.body.money+'fefe');
+        
         database.findByIdAndUpdate({_id: req.params.id}, req.body , function(err){
             if(err){
                 res.send(err);

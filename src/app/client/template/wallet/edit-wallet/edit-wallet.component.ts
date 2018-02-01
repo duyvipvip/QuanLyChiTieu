@@ -16,7 +16,11 @@ export class EditWalletComponent{
     @Input() dataEditWallet: IWallet;
     dataUpdateWallet: IWallet;
 
-    constructor(private Wallet:Wallet, protected notif:NotificationsService, private router : Router){}
+    constructor(private Wallet:Wallet
+        , protected notif:NotificationsService
+        , private router : Router){
+            
+        }
 
     // GỦI DỮ LIỆU CHỈNH SỬA
     submitEditWallet(name, money, id){
@@ -27,8 +31,11 @@ export class EditWalletComponent{
         }
         this.Wallet.updateDataWallet(this.dataUpdateWallet)
         .then((result) => {
-            this.router.navigateByUrl('duy');
-            this.router.navigateByUrl('/');
+            
+            //console.log(this.router.url);
+            this.router.navigateByUrl(this.router.url).then((result) => {
+                console.log(result);
+            });
             this.notif.success('Success','Chỉnh sửa ví thành công',{
                 timeOut: 3000,
             }

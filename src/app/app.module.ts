@@ -1,3 +1,4 @@
+import { Debt_LoanSevice } from './service/debt-loan.service';
 import {RouterModule, Routes} from '@angular/router';
 import { Route } from '@angular/compiler/src/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -26,17 +27,28 @@ import { Wallet } from './service/wallet.service';
 import { EditWalletComponent } from './client/template/wallet/edit-wallet/edit-wallet.component';
 import { FormsModule } from '@angular/forms';
 import { ChooseTransactionComponent } from './client/template/transaction/choose-transaction/choose-transaction';
+import { InCome } from './service/income.service';
+import { Expense } from './service/expense.service';
 
 // CONFIG ROUTER
 const appRoutes: Routes = [
+  { path: '', redirectTo: 'wallet', pathMatch: 'full'}, 
+
   // DƯỜNG DẪN PATH ĐẾN TRANG CHỦ
-  { path: '', component:  ClientHomeComponent},
+  { path: 'wallet', component:  ClientHomeComponent},
+
+  // DƯỜNG DẪN PATH ĐẾN TRANG CHỦ CHUYỀN VÀO ID VÍ
+  { path: 'wallet/:idwallet', component:  ClientHomeComponent},
+
   // ĐƯỜNG DẪN PATH ĐẾN TRANG LOGIN
   {path: 'dangnhap', component: ClientLoginComponent},
+
   // ĐƯỜNG DẪN URL ĐẾN TRANG ĐĂNG KÍ
   {path: 'dangki', component: ClientRegisterComponent},
+
   // ĐƯỜNG DẪN ĐẾN TRANG 404
   {path: '**', component: PageNotFoundComponent}
+  
 ];
 
 @NgModule({
@@ -75,7 +87,7 @@ const appRoutes: Routes = [
       { enableTracing: false }
     )
   ],
-  providers: [Wallet],
+  providers: [Wallet, InCome, Expense, Debt_LoanSevice],
   bootstrap: [AppComponent]
 })
 

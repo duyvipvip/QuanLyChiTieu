@@ -8,26 +8,21 @@
                
             </div>
             <div class="modal-body">
-                <div class="item-content-modal" (click)='chooseAllWallet($event)'>
+                <div class="item-content-modal" [routerLink]="['/wallet']" data-dismiss="modal">
                     <img src="https://static.moneylover.me/img/icon/ic_category_all.png" alt="">
                     <span>Tất cả các ví</span>
-                    <i class="fa fa-check" aria-hidden="true"></i>
+                    <i class="{{ chooseWallet('') }}" aria-hidden="true"></i>
                 </div>
                 <p>Tiền mặt</p>
-                <div class="item-content-modal" *ngFor="let wallet of dataWallets" (click)="chooseWallet($event)">
+                <div class="item-content-modal" *ngFor="let wallet of dataWallets" (click)="chooseWallet($event)" [routerLink]="['/wallet', wallet._id ]" data-dismiss="modal">
                     <a>
                         <img src="https://static.moneylover.me/img/icon/icon.png" alt="">
                         <span class="name-vallet">{{ wallet.namewallet }}</span>
                         <span class="money-vallet">{{ wallet.money }}</span>
                         <input type="hidden" value="{{ wallet._id }}">
-                        <i aria-hidden="true"></i>
+                        <i class="{{ chooseWallet(wallet._id) }}" aria-hidden="true"></i>
                     </a>
-                    
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light btn-cancel" data-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-success btn-add" data-dismiss="modal" (click)="submit()">Chọn</button>
             </div>
         </div>
 

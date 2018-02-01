@@ -1,6 +1,10 @@
 /* PHẦN THÊM GIAO DICH */
 .add-spend{
-    padding:15px 0px !important;
+    //padding:10px 0px !important;
+    .card-header{
+        padding: 10px 10px;
+    }
+    width: 360px;
     .img{
         width:60px;
         display:inline-block;

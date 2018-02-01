@@ -36,7 +36,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                <i class="fa fa-arrow-left" aria-hidden="true" ></i>
                 <h4 class="modal-title">Chọn Loại Giao Dich</h4>
                 <i class="fa fa-times" aria-hidden="true" data-dismiss="modal"></i>
                 
@@ -46,39 +46,52 @@
                         <li>
                             <a href="#thunhap" data-toggle="tab" class="active">THU NHẬP<div class="line"></div></a>
                         </li>
-                        <li><a href="#info" data-toggle="tab">CHI TIÊU<div class="line"></div></a></li>
-                        <li><a href="#contact" data-toggle="tab">NỢ<div class="line"></div></a></li>
+                        <li><a href="#expense" data-toggle="tab">CHI TIÊU<div class="line"></div></a></li>
+                        <li><a href="#debtloan" data-toggle="tab">NỢ<div class="line"></div></a></li>
                     </ul>
                 </div>
             </div>
             <div class="modal-body">
                 <div class="tab-content">
+
+                    <!-- PHẦN THU NHẬP -->
                     <div class="tab-pane active" id="thunhap">
                         <ul class="tab-thunhap">
-                            <li>
-                                <img src="https://static.moneylover.me/img/icon/ic_category_entertainment.png" alt="">
-                                <p>havanduy</p>
-                            </li>
-                            <li>
-                                <img src="https://static.moneylover.me/img/icon/ic_category_entertainment.png" alt="">
-                                <p>havanduy</p>
-                            </li>
-                            <li>
-                                <img src="https://static.moneylover.me/img/icon/ic_category_entertainment.png" alt="">
-                                <p>havanduy</p>
-                            </li>
-                            <li>
-                                <img src="https://static.moneylover.me/img/icon/ic_category_entertainment.png" alt="">
-                                <p>havanduy</p>
-                            </li>
-                            <li>
-                                <img src="https://static.moneylover.me/img/icon/ic_category_entertainment.png" alt="">
-                                <p>havanduy</p>
+                            <li *ngFor="let item_income of dataIncome" >
+                                <img src="{{ item_income.image }}" alt="">
+                                <p data-dismiss="modal" class='name' (click)="chooseTransaction($event)">{{ item_income.name }}</p>
+                                <input type="hidden" name="id" value="{{ item_income._id }}">
+                                <input type="hidden" name="detect" value="{{ item_income.detect }}">
                             </li>
                         </ul>
                     </div>
-                    <div class="tab-pane" id="info">Thông Tin</div>
-                    <div class="tab-pane" id="contact">Liên Hệ</div>
+                    <!-- PHẦN THU NHẬP -->
+
+                    <!-- PHẦN CHI TIÊU -->
+                    <div class="tab-pane" id="expense">
+                        <ul class="tab-thunhap">
+                            <li *ngFor="let itemExpense of dataExpense">
+                                <img src="{{ itemExpense.image }}" alt="">
+                                <p data-dismiss="modal" class='name' (click)="chooseTransaction($event)" >{{ itemExpense.name }}</p>
+                                <input type="hidden" name="id" value="{{ itemExpense._id }}">
+                                <input type="hidden" name="detect" value="{{ itemExpense.detect }}">
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- PHẦN CHI TIÊU -->
+                   
+                    <!-- PHẦN NỢ -->
+                    <div  class="tab-pane" id="debtloan">
+                        <ul  class="tab-thunhap">
+                            <li  *ngFor="let item_debtloan of dataDebtLoan" >
+                                <img src="{{ item_debtloan.image }}" alt="">
+                                <p data-dismiss="modal" class='name' (click)="chooseTransaction($event)">{{ item_debtloan.name }}</p>
+                                <input type="hidden" name="id" value="{{ item_debtloan._id }}">
+                                <input type="hidden" name="detect" value="{{ item_debtloan.detect }}">
+                            </li>
+                        </ul>
+                    </div>
+                     <!-- PHẦN NỢ -->
                 </div>
             </div>
         </div>

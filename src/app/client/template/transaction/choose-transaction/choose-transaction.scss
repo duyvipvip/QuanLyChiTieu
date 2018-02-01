@@ -9,6 +9,9 @@
 #choose-transaction p{color:rgba(51, 51, 51, 0.54);font-size:14px;}
 .close-button{float:right;width:1.5rem;line-height:1.5rem;text-align:center;cursor:pointer;border-radius:0.25rem;background-color:lightgray;}
 .close-button:hover{background-color:darkgray;} */
+:host{
+    font-size: 14px;
+}
 
 .clr{
     clear: both;
@@ -81,16 +84,19 @@ ul.tab-thunhap{
         float: left;
         list-style: none;
         text-align: center;
-        cursor: pointer;
-        &:hover{
+        &:hover{    
             background-color: rgba(51, 51, 51, 0.1);
         }
+        
         img{
             width: 48px;
             height: 48px;
         }
         p{
+            cursor: pointer;
             text-transform: capitalize;
+           
         }
+        
     }
 }

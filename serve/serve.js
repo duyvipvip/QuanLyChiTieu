@@ -16,7 +16,10 @@ const port = process.env.port || 3000;
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
-var wallet  = require('./model/wallet/wallet.router.js')(app);
+const wallet  = require('./model/wallet/wallet.router')(app);
+const income  = require('./model/income/income.router')(app);
+const expense = require('./model/expense/expense.router')(app);
+const debt_loan = require('./model/debt-loan/debt-loan.router')(app);
 
 serve.listen(port, () =>{
     console.log(`serve hoạt động trên port ${port}`);
