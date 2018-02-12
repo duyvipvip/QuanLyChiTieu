@@ -1,0 +1,23 @@
+<div class="modal fade" id="choose-wallet-transaction" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Chọn Ví</h4>
+                <span class="close-button" data-dismiss="modal">×</span>
+               
+            </div>
+            <div class="modal-body">
+                <div class="item-content-modal" *ngFor="let wallet of dataWallets"  data-dismiss="modal">
+                    <img (click)="chooseNameWallet($event)" src="https://static.moneylover.me/img/icon/icon.png" alt="">
+                    <span class="name-vallet" (click)="chooseNameWallet($event)">{{ wallet.namewallet }}</span>
+                    <span class="money-vallet" (click)="chooseNameWallet($event)">{{ wallet.money }}</span>
+                    <input type="hidden" value="{{ wallet._id }}" name="id">
+                    <input type="hidden" value="{{ wallet.money }}" name="money">
+                    <i class="{{ chooseWallet(wallet._id) }}" aria-hidden="true"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

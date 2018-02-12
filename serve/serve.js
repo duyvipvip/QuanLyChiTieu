@@ -1,13 +1,20 @@
 const path  = require('path');
-var express = require('express');
-var app     = express();
-var serve   = require('http').createServer(app);
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+const express = require('express');
+const app     = express();
+const serve   = require('http').createServer(app);
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
-//CONNECT ĐẾN DATABASE
-mongoose.connect('mongodb://havanduy:havanduy@ds261527.mlab.com:61527/wallet', {useMongoClient: true});
-mongoose.Promise = global.Promise;
+const walletRouter = require("./routers/wallet.router");
+const incomeRouter = require("./routers/income.router");
+const expenseRouter = require("./routers/expense.router");
+const debt_loanRouter = require("./routers/debt-loan.router");
+const userRouter = require("./routers/user.router");
+const savingRouter = require("./routers/saving.router");
+const walletTransactionRouter = require("./routers/walletTransaction.router");
+const savingTransactionRouter = require("./routers/savingtransaction.router");
+const db = require('./database/database');
+
 
 // PORT ĐỂ TRUY CẬP APPLICATION
 const port = process.env.port || 3000;
@@ -16,10 +23,14 @@ const port = process.env.port || 3000;
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
-const wallet  = require('./model/wallet/wallet.router')(app);
-const income  = require('./model/income/income.router')(app);
-const expense = require('./model/expense/expense.router')(app);
-const debt_loan = require('./model/debt-loan/debt-loan.router')(app);
+app.use("/api", walletRouter);
+app.use("/api", incomeRouter);
+app.use("/api", expenseRouter);
+app.use("/api", debt_loanRouter);
+app.use("/api", userRouter);
+app.use("/api", savingRouter);
+app.use("/api", savingTransactionRouter);
+app.use("/api", walletTransactionRouter);
 
 serve.listen(port, () =>{
     console.log(`serve hoạt động trên port ${port}`);

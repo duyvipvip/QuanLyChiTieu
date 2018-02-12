@@ -1,18 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, RequestMethod, Headers } from '@angular/http';
 import { IWallet } from '../model/wallet.model';
+
 import 'rxjs/add/operator/map';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
-export class Wallet{
-    
+export class WalletService{
+    private _allWallet:BehaviorSubject<IWallet[]> = new BehaviorSubject(new Array());
+    private _onlyWallet:BehaviorSubject<IWallet> = new BehaviorSubject({} as IWallet);
     constructor(private Http:Http){}
     
+    get getAllWallet(){
+        return this._allWallet.asObservable();
+    }
+
+    get getonlyWallet(){
+        return this._onlyWallet.asObservable();
+    }
+
     // LẤY TẤT CẢ CÁC VÍ
     getDataWallets(): Promise<any>{
         return this.Http.get('http://localhost:3000/api/wallet')
         .toPromise()
-        .then(response => response.json())
+        .then(data => {
+            this._allWallet.next(data.json());
+            return data.json();
+        })
         .catch(err => err);
     }
     
@@ -20,24 +34,29 @@ export class Wallet{
     getDataWalletId(id): Promise<any>{
         return this.Http.get(`http://localhost:3000/api/wallet/${id}`)
         .toPromise()
-        .then(response => response.json())
+        .then(data => {
+            //this._onlyWallet.next(data.json());
+            return data.json();
+        })
         .catch(err => err);
     }
     
     // LẤY TỔNG TIỀN CÁC VÍ
-    getTotalWallet(): Promise<any>{
+    getTotalWallet(){
         return this.Http.get('http://localhost:3000/api/wallet')
         .toPromise()
-        .then((response) => {
+        .then(data => {
             let total = 0;
-            response.json().data.forEach((value) => {
+            data.json().forEach((value) => {
                 total += value.money;
             })
             return total;
+            
         })
         .catch(err => err);
+       
     }
-
+   
     // UPDATE 1 VI
     updateDataWallet(wallet: IWallet){
         const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -55,7 +74,6 @@ export class Wallet{
 
     // ADD 1 VÍ
     addDataWallet(wallet: IWallet){
-        console.log(wallet);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({
             headers: headers,
@@ -82,5 +100,21 @@ export class Wallet{
            return response;
        })
        .catch(err => err);
+    }
+
+    // THÊM GIAO DỊCH CHO VÍ
+    addTransactionWallet(transition){
+        console.log(transition);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Post
+          });
+        return this.Http.post('http://localhost:3000/api/wallettransaction/create', JSON.stringify(transition), {headers:headers})
+        .toPromise()
+        .then((response) => {
+           return response;
+        })
+        .catch(err => err);
     }
 }

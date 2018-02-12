@@ -1,6 +1,11 @@
 export interface ITransaction{
-    _id: any
-    name: String;
-    image?: String;
-    detect: String;
+    _id: String
+    groupcategory: String;
+    notetransaction: String;
+    datecreatetransaction: String;
+    moneytransaction: String;
+    imagecategory:String;
+    categorytransaction: String;
+    idwallet: String,
+    taguser: Array<String>;
 }

@@ -1,0 +1,78 @@
+<div class="modal fade" id="chinhsuachitieu" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <i data-dismiss="modal" class="fa fa-times fa-2x" aria-hidden="true"></i>
+                <h4 class="modal-title">Sửa Giao Dịch</h4>
+                <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+            </div>
+            <div class="modal-body">
+                <div class="row-item"  data-toggle="modal" data-target="#choose-category">
+                    <div class="img">
+                        <img src="{{ _transaction.imagecategory }}" alt="">
+                    </div>
+                    <span class="choose-category category"> {{ _transaction.categorytransaction }}
+                        <i aria-hidden="true" class="fa fa-caret-down"></i>
+                    </span>
+
+                </div>
+                <div class="row-item">
+                    <div class="img">
+                        <i class="fa fa-usd" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="group">
+                        <input type="text" value="{{ _transaction.moneytransaction }}" required placeholder="Số tiền">
+                        <span class="bar"></span>
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="img">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="group">
+                        <input type="text" value="{{ _transaction.notetransaction }}" required placeholder="Ngi chú">
+                        <span class="bar"></span>
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="img">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="group">
+                        <input type="text" value="{{ _transaction.taguser }}" required placeholder="Với">
+                        <span class="bar"></span>
+                    </div>
+                </div>
+                <div class="footer-row-item row">
+                    <div class="col-6 item-left" (click)="pickerEditTransaction.open()">
+                        <p class="week">{{ _transaction.datecreatetransaction | date: 'EEEE'}}</p>
+                        <p class="day-of-month">{{ _transaction.datecreatetransaction | date: 'dd'}}</p>
+                        <p class="month-and-year">Tháng {{ _transaction.datecreatetransaction | date: 'MM' }} {{ _transaction.datecreatetransaction | date: 'yyyy'}}</p>
+                    </div>
+                    <mat-form-field>
+                        <input (dateChange)="changeDate($event)"  matInput [matDatepicker]="pickerEditTransaction" [value]="_transaction.datecreatetransaction">
+                        <mat-datepicker  #pickerEditTransaction></mat-datepicker>
+                    </mat-form-field>
+                    <div class="col-6 item-right" (click)="changeWallet(_transaction.idwallet)"  data-toggle="modal" data-target="#choose-wallet-report">
+                        <span class="title-wallet" (click)="changeWallet(_transaction.idwallet)" >Chọn Ví</span>
+                        <span class="choose-category" (click)="changeWallet(_transaction.idwallet)" >{{ nameWallet }}
+                            <i aria-hidden="true" class="fa fa-caret-down" (click)="changeWallet(_transaction.idwallet)" ></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-add" (click)="submitUpdate()">Chỉnh sửa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PHẦN CHỌN CATEGORY -->
+<app-choose-category-report (outputChooseCategory)="outputChooseCategory($event)"></app-choose-category-report>
+<!-- PHẦN CHỌN VÍ -->
+<app-choose-wallet-report [inputIdWallet]="inputIdWallet" (outputIdWallet)="outputIdWallet($event)"></app-choose-wallet-report>

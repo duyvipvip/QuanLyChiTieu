@@ -1,0 +1,148 @@
+/* PHẦN THÊM GIAO DICH */
+.add-spend{
+    padding:0px 0px 15px 0px !important;
+    .card-header{
+        padding: 10px 10px;
+    }
+    width: 360px;
+    .img{
+        width:16%;
+        display:inline-block;
+        text-align:center;
+        img{width:48px;height:48px;}
+    }
+    i{width:48px;color:#757575!important;text-align:center;margin-top: 5px;}
+    .row-item{
+        margin:25px 0px;
+        &:first-child{
+            margin-top: 6px;
+        }
+        &:last-child{
+            margin-bottom: 6px;
+        }
+    }
+    .item-content-modal{position:relative;margin:5px 0px;padding:3px 0px;}
+    .choose-category{
+        cursor:pointer;
+        width: 70%;
+        height: 35px;
+        i{float: right;}
+    }
+    .category{width: 78% !important;}
+    .choose-category:last-child{width: 100%;}
+    .footer-row-item{height:100px;width:100%;border-top:1px solid rgba(0,0,0,.12);margin:10px 0px 0px 0px;}
+    .item-left{
+        height:100%;
+        text-align:center;
+        border-right:1px solid rgba(0,0,0,.12);
+        p{
+            margin:0px;
+        }
+        p.week{
+            font-size:12px;
+            text-transform:uppercase;
+            color:grey;
+            line-height:48px;
+        }
+        p.day-of-month{
+            font-size:48px;
+            color:#333;
+            margin-top:-28px;
+        }
+        p.month-and-year{
+            font-size:12px;
+            color:grey;
+            line-height:48px;
+            margin-top:-28px;
+            text-transform: uppercase;
+        }
+    }
+    .row{
+        margin:0px;
+    }
+    button{
+        margin-left:15px;
+        margin-top:15px;
+    }
+    .item-right{
+        height:100%;
+    }
+    .title-wallet{
+        font-size:12px;
+    }
+    .choose-category{
+        border-bottom:1px solid rgba(0,0,0,.12);
+    }
+    .choose-category i{
+        display:inline-block;
+        margin-left:30px;
+        width:15px;}
+    .card-close{
+        margin-top: 15px;
+    }
+    .card-close:hover{
+        cursor: pointer;
+    }
+    .card-body{
+        padding: 15px 0px 20px 0px;
+    }
+}
+.item-left{
+    cursor: pointer;
+}
+input.expense::placeholder, input.loan::placeholder{
+    color:red;
+}
+input.income::placeholder, input.debt::placeholder{
+    color:rgb(3, 155, 229);
+}
+/* HIỆU ỨNG INPUT */
+.group{
+    width:78%;
+    display:inline-block;
+    input{
+        font-size:16px;
+        padding:10px 10px 5px 0px;
+        display:block;
+        width:100%;
+        border:none;
+        border-bottom:1px solid rgba(0, 0, 0, 0.12);
+        &:focus ~ .bar:before, &:focus ~ .bar:after{
+            width:50%;
+        }
+        
+        &:focus{
+            outline:none;border-bottom:0px
+        }
+        
+    }
+    &:focus ~ label, &:valid ~ label{
+        top:-20px;
+        font-size:14px;
+        color:rgb(45, 184, 76);
+    }
+    .bar{
+        position:relative;
+        display:block;
+        width:100%;
+    }
+    .bar:before, .bar:after{
+        content:'';height:2px;
+        width:0;
+        bottom:1px;
+        position:absolute;
+        background:rgb(45, 184, 76);
+        transition:0.2s ease all;
+        -moz-transition:0.2s ease all;
+        -webkit-transition:0.2s ease all;
+    }
+    .bar:before{
+        left:50%;
+    }
+    .bar:after{
+        right:50%;
+    }
+}
+.col-lg-4{
+    margin: 0px auto;
+}

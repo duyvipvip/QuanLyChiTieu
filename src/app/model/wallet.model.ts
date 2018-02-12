@@ -1,5 +1,6 @@
 export interface IWallet{
     _id?: any
     namewallet: String;
-    money: number;
+    money: any;
+    transition?: Array<any>;
 }

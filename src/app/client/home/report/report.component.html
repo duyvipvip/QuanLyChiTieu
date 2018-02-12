@@ -1,0 +1,76 @@
+<section class="feeds no-padding-top">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Trending Articles-->
+            <div class="col-lg-6 report-overview">
+                <div class="articles card">
+                    <div class="card-header d-flex align-items-center">
+                        <h2 class="h3">TỔNG QUAN </h2>
+                        <div class="badge badge-rounded bg-green">4 New </div>
+                    </div>
+                    <div class="card-body no-padding row">
+                        <div class="lable-money col-8">
+                            <p>Tiền vào</p>
+                            <p>Tiền ra</p>
+                        </div>
+                        <div class="money col-4">
+                            <p>{{ arrTransactions.totalAllMoneyIn }} đ</p>
+                            <p>{{ arrTransactions.totalAllMoneyOut }} đ</p>
+                            <div class="line"></div>
+                            <span>{{ arrTransactions.remain }} đ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Check List -->
+            <div class="col-lg-6 report-detail">
+                <div class="checklist card">
+                    
+                    <div class="card-header d-flex align-items-center">
+                        <h2 class="h3">Báo cáo chi tiết </h2>
+                    </div>
+                    <div class="card-body no-padding">
+                        <div class="content-card-body">
+                            <div *ngFor="let arrTransaction of arrTransactions" class="item" >
+                                    <div class="row">
+                                        <div class="date-view col-6">
+                                            <span class="view-day">{{ arrTransaction.dateGroupTransaction }}</span>
+                                            <span class="view-date">
+                                                <span class="days">Monday</span>
+                                                <span class="months">Tháng {{ arrTransaction.monthGroupTransaction }} {{ arrTransaction.yearGroupTransaction }}</span>
+                                            </span>
+                                        </div>
+                                        <div class="amount col-6">
+                                            <span>{{ arrTransaction.totalMoney }} ₫</span>
+                                        </div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="row row-item" *ngFor="let transaction of arrTransaction" (click)="chooseTransaction(transaction)" data-toggle="modal" data-target="#chinhsuachitieu">
+                                        <div class="col-6 left">
+                                            <div class="img">
+                                                <img src="{{ transaction.imagecategory }}" alt="">
+                                            </div>
+                                            <div class="info-detail">
+                                                <p>{{ transaction.categorytransaction }}</p>
+                                                <p>{{ transaction.notetransaction }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 right">
+                                            <p class="red">{{ transaction.moneytransaction }} ₫</p>
+                                        </div>
+    
+                                    </div>
+                                
+                                <div class="line"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PHẦN MODAL CHỈNH SỬA GIAO DỊCH -->
+<app-update-transaction [transaction]="objchooseTransaction" ></app-update-transaction>
