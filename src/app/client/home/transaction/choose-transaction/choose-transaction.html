@@ -10,7 +10,7 @@
                 <div class="tab">
                     <ul class="nav nav-tabs">
                         <li>
-                            <a href="#thunhap" data-toggle="tab" class="active">THU NHẬP<div class="line"></div></a>
+                            <a href="#income" data-toggle="tab" class="active">THU NHẬP<div class="line"></div></a>
                         </li>
                         <li><a href="#expense" data-toggle="tab">CHI TIÊU<div class="line"></div></a></li>
                         <li><a href="#debtloan" data-toggle="tab">NỢ<div class="line"></div></a></li>
@@ -21,15 +21,16 @@
                 <div class="tab-content">
 
                     <!-- PHẦN THU NHẬP -->
-                    <div class="tab-pane active" id="thunhap">
+                    <div class="tab-pane active" id="income">
                         <ul class="tab-thunhap">
                             <li *ngFor="let item_income of dataIncome" >
-                                <img src="{{ item_income.image }}" alt="">
+                                <img src="assets/images/{{item_income.image}}.png" alt="">
                                 <p data-dismiss="modal" class='name' (click)="chooseTransaction($event)">{{ item_income.name }}</p>
                                 <input type="hidden" name="id" value="{{ item_income._id }}">
                                 <input type="hidden" name="detect" value="{{ item_income.detect }}">
                             </li>
                         </ul>
+                       
                     </div>
                     <!-- PHẦN THU NHẬP -->
 
@@ -37,7 +38,7 @@
                     <div class="tab-pane" id="expense">
                         <ul class="tab-thunhap">
                             <li *ngFor="let itemExpense of dataExpense">
-                                <img src="{{ itemExpense.image }}" alt="">
+                                <img src="assets/images/{{itemExpense.image}}.png" alt="">
                                 <p data-dismiss="modal" class='name' (click)="chooseTransaction($event)" >{{ itemExpense.name }}</p>
                                 <input type="hidden" name="id" value="{{ itemExpense._id }}">
                                 <input type="hidden" name="detect" value="{{ itemExpense.detect }}">
@@ -50,7 +51,7 @@
                     <div  class="tab-pane" id="debtloan">
                         <ul  class="tab-thunhap">
                             <li  *ngFor="let item_debtloan of dataDebtLoan" >
-                                <img src="{{ item_debtloan.image }}" alt="">
+                                <img src="assets/images/{{item_debtloan.image}}.png" alt="">
                                 <p data-dismiss="modal" class='name' (click)="chooseTransaction($event)">{{ item_debtloan.name }}</p>
                                 <input type="hidden" name="id" value="{{ item_debtloan._id }}">
                                 <input type="hidden" name="detect" value="{{ item_debtloan.detect }}">

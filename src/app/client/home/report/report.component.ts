@@ -12,6 +12,7 @@ import { ITransaction } from '../../../model/transaction.model';
 export class ReportComponent{
     idWalletUrl: String = "";
     arrTransactions: Array<any> = [];
+    
     // GÁN DỮ LIỆU INPUT CHO COMPONET CON
     objchooseTransaction: ITransaction = {
         _id: "",
@@ -29,19 +30,15 @@ export class ReportComponent{
     constructor(private WalletTransactionService: WalletTransactionService, private route: ActivatedRoute){
         // LẤY ID WALLET TỪ URL
         route.paramMap
-        .subscribe((params) => {
-            if(params['params'].idwallet != undefined){
-                this.idWalletUrl = params['params'].idwallet;
+            .subscribe((params) => {
+                this.idWalletUrl = (params['params'].idwallet == undefined) ? '' : params['params'].idwallet;
+                
                 // LẤY DATA GÁN CHO OBJECT dataWalletChoose ĐỂ XUẤT THÔNG TIN NÊN
-                this.WalletTransactionService.getTransactionToIDWallet(this.idWalletUrl)
-                    .then((data) => {
-                        this.arrTransactions = data;
-                    })
-                    .catch((err) => {
-
-                    })
-            }
-        })
+                this.WalletTransactionService.getTransactionToIDWallet(this.idWalletUrl);
+                this.WalletTransactionService.getAllTransaction.subscribe((data) => {
+                    this.arrTransactions = data;
+                })
+            })
     }
 
     // LẤY GIAO DỊCH MÀ USER CHỌN ĐỂ CHỈNH SỬA 

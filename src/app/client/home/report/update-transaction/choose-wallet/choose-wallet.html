@@ -9,12 +9,12 @@
             </div>
             <div class="modal-body">
                 <div class="item-content-modal" *ngFor="let wallet of dataWallets"  data-dismiss="modal">
-                    <img (click)="chooseNameWallet($event)" src="https://static.moneylover.me/img/icon/icon.png" alt="">
-                    <span class="name-vallet" (click)="chooseNameWallet($event)">{{ wallet.namewallet }}</span>
-                    <span class="money-vallet" (click)="chooseNameWallet($event)">{{ wallet.money }}</span>
+                    <img (click)="chooseWallet($event)" src="https://static.moneylover.me/img/icon/icon.png" alt="">
+                    <span class="name-vallet" (click)="chooseWallet($event)">{{ wallet.namewallet }}</span>
+                    <span class="money-vallet" (click)="chooseWallet($event)">{{ wallet.money }}</span>
                     <input type="hidden" value="{{ wallet._id }}" name="id">
                     <input type="hidden" value="{{ wallet.money }}" name="money">
-                    <i class="{{ chooseWallet(wallet._id) }}" aria-hidden="true"></i>
+                    <i class="{{ iconTick(wallet._id) }}" aria-hidden="true"></i>
                 </div>
             </div>
 

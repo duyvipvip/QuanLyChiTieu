@@ -1,5 +1,5 @@
 import { WalletService } from './../../../../../service/wallet.service';
-import { Component, Input, OnChanges , OnInit, EventEmitter, Output} from '@angular/core';
+import { Component, Input, EventEmitter, Output} from '@angular/core';
 
 @Component({
     selector: 'app-choose-wallet-report',
@@ -7,41 +7,28 @@ import { Component, Input, OnChanges , OnInit, EventEmitter, Output} from '@angu
     styleUrls: ['choose-wallet.scss'],
 })
 
-export class ChooseWalletReportComponent implements OnChanges, OnInit{
+export class ChooseWalletReportComponent{
     
     private _inputIdWallet: String;
     dataWallets: Array<any>;
 
-    @Input() set inputIdWallet(idwallet){
-        this._inputIdWallet = idwallet;
-    }
+    @Input() set inputIdWallet(idwallet){ this._inputIdWallet = idwallet; }
     @Output() outputIdWallet: EventEmitter<String> = new EventEmitter<String>();
+
     constructor(private WalletService:WalletService){
+        // LẤY TẤT CẢ CÁC VÍ HIỆN THỊ LÊN
         this.getDataWallets();
-        this.inputIdWallet
-    }
-
-    ngOnChanges(){
-       
-    }
-
-    ngOnInit(){
-        //console.log(this.inputIdWallet);
     }
 
     // NGƯỜI DÙNG CHỌN VÍ MÀ HỌ MUỐN THAY ĐỔI
-    chooseNameWallet(event){
-        let eleChoose = event.target.parentNode;
-        let id = eleChoose.querySelectorAll('input[name=id]')[0].value;
+    chooseWallet(event){
+        let idwallet = event.target.parentNode.querySelectorAll('input[name=id]')[0].value;
         // GỬI RA COMPONET UPDATE
-        this.outputIdWallet.emit(id);
+        this.outputIdWallet.emit(idwallet);
     }
-    chooseWallet(_idWallet){
-        if(_idWallet == this._inputIdWallet){
-            return "fa fa-check";
-        }
-        return '';
-    }
+
+    // HIỆN THỊ ICON
+    iconTick(_idWallet){ return (_idWallet == this._inputIdWallet) ? "fa fa-check" : '' }
 
      // HÀM LẤY DATA TẤT CÁ CẢ VÍ
      getDataWallets() {

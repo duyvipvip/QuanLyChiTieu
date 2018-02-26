@@ -90,10 +90,10 @@
 .item-left{
     cursor: pointer;
 }
-input.expense::placeholder, input.loan::placeholder{
+input.expense::placeholder, input.loan::placeholder, .loan, .expense{
     color:red;
 }
-input.income::placeholder, input.debt::placeholder{
+input.income::placeholder, input.debt::placeholder, .income, .debt{
     color:rgb(3, 155, 229);
 }
 /* HIỆU ỨNG INPUT */

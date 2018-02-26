@@ -32,7 +32,10 @@ export class AddWalletComponent{
             // LOAD LẠI DATA VÍ KHI THÊM MỚI VÍ VÀO
             this.WalletService.getDataWallets()
                 .then((data) => {
-                    this.toastr.success('Thêm ví thành công ! ', 'Success ! ');
+                    this.toastr.success('Thêm ví thành công ! ', 'Thành công ! ');
+                })
+                .catch((err) => {
+                    this.toastr.error('Thêm ví thất bại ! ', 'Thất bại ! ');
                 })
         });
         

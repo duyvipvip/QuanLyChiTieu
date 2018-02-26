@@ -1,3 +1,8 @@
+import { AddBudgetComponent } from './client/budget/add-budget/add-budget.conponent';
+import { ChooseBudgetComponent } from './client/budget/choose-budget/choose-budget.component';
+import { BudgetComponent } from './client/budget/budget.component';
+import { MyCurrencyPipe } from './pipe/myCurrency.pipe';
+import { NumberPipe } from './pipe/number.pipe';
 import { ChooseWalletReportComponent } from './client/home/report/update-transaction/choose-wallet/choose-wallet';
 import { ChooseCategoryReportComponent } from './client/home/report/update-transaction/choose-category/choose-category';
 import { UpdateTransactionComponent } from './client/home/report/update-transaction/update-transaction';
@@ -7,7 +12,6 @@ import { ChooseTransactionComponent } from './client/home/transaction/choose-tra
 import { EditWalletComponent } from './client/home/wallet/edit-wallet/edit-wallet.component';
 import { ChooseWalletComponent } from './client/home/wallet/choose-wallet/choose-wallet.component';
 import { WalletComponent } from './client/home/wallet/wallet.component';
-import { DatePickerComponent } from './client/home/transaction/datepicker/datepicker.component';
 import { AddWalletComponent } from './client/home/wallet/add-wallet/add-wallet.component';
 import { TransactionComponent } from './client/home/transaction/transaction.component';
 import { ITagModel } from './model/tagmodel.model';
@@ -55,6 +59,9 @@ const appRoutes: Routes = [
   // ĐƯỜNG DẪN URL ĐẾN TRANG ĐĂNG KÍ
   {path: 'dangki', component: ClientRegisterComponent},
 
+  // DƯỜNG DẪN URL DẾN TRANG BUDGET
+  {path: 'bugget', component: BudgetComponent},
+
   // ĐƯỜNG DẪN ĐẾN TRANG 404
   {path: '**', component: PageNotFoundComponent}
   
@@ -68,6 +75,8 @@ const appRoutes: Routes = [
     ClientRegisterComponent,
     PageNotFoundComponent,
     AdminComponent,
+    NumberPipe,
+    MyCurrencyPipe,
 
     // PHẦN TEMPLATE
     MenuComponent,
@@ -83,15 +92,18 @@ const appRoutes: Routes = [
     // PHẦN TRANSACTION
     TransactionComponent,
     ChooseTransactionComponent,
-    DatePickerComponent,
     ChooseWalletTransactionComponent,
 
     // PHẦN REPORT
     ReportComponent,
     UpdateTransactionComponent,
     ChooseCategoryReportComponent,
-    ChooseWalletReportComponent
-    
+    ChooseWalletReportComponent,
+
+    // PHẦN BUDGET
+    BudgetComponent,
+    ChooseBudgetComponent,
+    AddBudgetComponent
   ],
   imports: [
     BrowserModule,

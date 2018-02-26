@@ -34,7 +34,6 @@ function createSavingTransaction(bodyTransaction){
 
 // XOÁ MỘT KHOẢN TIẾT KIỆM
 function deleteSavingTransaction(bodyTransaction){
-    console.log(bodyTransaction)
     return userModel.update(
         {
             _id: bodyTransaction.iduser, "savings._id": bodyTransaction.idsaving, "savings.transaction._id": bodyTransaction.idtransaction

@@ -1,0 +1,68 @@
+<div class="modal fade" id="addbudget" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm Ví</h4>
+                    <span class="close-button" data-dismiss="modal">×</span>
+                </div>
+                <div class="modal-body">
+                    <div class="row-item">
+                        <div class="img">
+                            <img src="https://static.moneylover.me/img/icon/icon.png" alt="">
+                        </div>
+    
+                        <div class="group">
+                            <input type="text"  required placeholder="Tên ngân sách ?">
+                            <span class="bar"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row-item">
+                        <div class="img">
+                            <i class="fa fa-usd" aria-hidden="true"></i>
+                        </div>
+    
+                        <div class="group">
+                            <input type="text" required placeholder="Số tiền ngân sách">
+                            <span class="bar"></span>
+                        </div>
+                    </div>
+                    <div class="row-item">
+                        <div class="img">
+                            <i class="fa fa-usd" aria-hidden="true"></i>
+                        </div>
+    
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="dp3" placeholder="Input disabled" disabled>
+                            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="row-item">
+                        <div class="img">
+                            <i class="fa fa-usd" aria-hidden="true"></i>
+                        </div>
+    
+                        <div class="group">
+                            <input type="text" required placeholder="Ngày kết thúc">
+                            <span class="bar"></span>
+                        </div>
+                    </div>
+                    <div class="row-item">
+                        <div class="img">
+                            <i class="fa fa-usd" aria-hidden="true"></i>
+                        </div>
+    
+                        <div class="group">
+                            <input type="text" required placeholder="Chọn ví">
+                            <span class="bar"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success btn-add" (click)="submitAddWallet(nameWallet, moneyWallet)" data-dismiss="modal">Thêm ví</button>
+                </div>
+            </div>
+        </div>
+    </div>

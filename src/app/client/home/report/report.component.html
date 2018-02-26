@@ -14,10 +14,12 @@
                             <p>Tiền ra</p>
                         </div>
                         <div class="money col-4">
-                            <p>{{ arrTransactions.totalAllMoneyIn }} đ</p>
-                            <p>{{ arrTransactions.totalAllMoneyOut }} đ</p>
+                            <p [ngStyle]="{ color: '#039be5' }">{{ arrTransactions.totalAllMoneyIn | numberpipe | number:'1.0-0'}} đ</p>
+                            <p [ngStyle]="{ color: 'red' }">{{ arrTransactions.totalAllMoneyOut | numberpipe | number:'1.0-0'}} đ</p>
                             <div class="line"></div>
-                            <span>{{ arrTransactions.remain }} đ</span>
+                            <span *ngIf="arrTransactions.remain > 0" [ngStyle]="{ color: '#039be5' }">{{ arrTransactions.remain | numberpipe |  number:'1.0-0'}} đ</span>
+                            <span *ngIf="arrTransactions.remain < 0" [ngStyle]="{ color: 'red' }">{{ arrTransactions.remain | numberpipe | number:'1.0-0'}} đ</span>
+                            <span *ngIf="arrTransactions.remain == 0" [ngStyle]="{ color: 'red' }">0 đ</span>
                         </div>
                     </div>
                 </div>
@@ -41,22 +43,23 @@
                                             </span>
                                         </div>
                                         <div class="amount col-6">
-                                            <span>{{ arrTransaction.totalMoney }} ₫</span>
+                                            <span *ngIf="arrTransaction.totalMoney > 0" [ngStyle]="{ color: '#039be5' }">{{ arrTransaction.totalMoney | numberpipe | number:'1.0-0'}} ₫</span>
+                                            <span *ngIf="arrTransaction.totalMoney < 0" [ngStyle]="{ color: 'red' }">{{ arrTransaction.totalMoney | numberpipe | number:'1.0-0'}} ₫</span>
                                         </div>
                                     </div>
                                     <div class="line"></div>
-                                    <div class="row row-item" *ngFor="let transaction of arrTransaction" (click)="chooseTransaction(transaction)" data-toggle="modal" data-target="#chinhsuachitieu">
-                                        <div class="col-6 left">
+                                    <div class="row row-item" *ngFor="let transaction of arrTransaction" (click)="chooseTransaction(transaction)" data-toggle="modal" data-target="#edit-transaction">
+                                        <div class="col-7 left">
                                             <div class="img">
-                                                <img src="{{ transaction.imagecategory }}" alt="">
+                                                <img src="assets/images/{{transaction.imagecategory}}.png" alt="">
                                             </div>
                                             <div class="info-detail">
                                                 <p>{{ transaction.categorytransaction }}</p>
                                                 <p>{{ transaction.notetransaction }}</p>
                                             </div>
                                         </div>
-                                        <div class="col-6 right">
-                                            <p class="red">{{ transaction.moneytransaction }} ₫</p>
+                                        <div class="col-5 right">
+                                            <p class="{{ transaction.groupcategory }}">{{ transaction.moneytransaction | numberpipe | number:'1.0-0' }} ₫</p>
                                         </div>
     
                                     </div>

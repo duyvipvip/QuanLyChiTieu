@@ -8,7 +8,7 @@
                         <p class="name-wallet">{{ dataWalletChoose.namewallet }}
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </p>
-                        <p class="money-wallet">{{ dataWalletChoose.money | number:'1.0-0' }}</p>
+                        <p class="money-wallet">{{ dataWalletChoose.money | number:'1.0-0' }} đ</p>
                     </a>
                 </div>
                 <div class="button-add" data-toggle="modal" data-target="#themvi">
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <!-- MODAL CHỌN VÍ-->
-            <app-choose-wallet [dataWallets]='dataWallets'></app-choose-wallet>
+            <app-choose-wallet></app-choose-wallet>
             <!-- MODAL CHỌN VÍ-->
 
             <!-- PHẦN MODAL THÊM VÍ -->

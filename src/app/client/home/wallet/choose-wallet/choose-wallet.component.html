@@ -11,16 +11,16 @@
                 <div class="item-content-modal" [routerLink]="['/wallet']" data-dismiss="modal">
                     <img src="https://static.moneylover.me/img/icon/ic_category_all.png" alt="">
                     <span>Tất cả các ví</span>
-                    <i class="{{ chooseWallet('') }}" aria-hidden="true"></i>
+                    <i class="{{ iconTick('') }}" aria-hidden="true"></i>
                 </div>
                 <p>Tiền mặt</p>
-                <div class="item-content-modal" *ngFor="let wallet of dataWallets" (click)="chooseWallet($event)" [routerLink]="['/wallet', wallet._id ]" data-dismiss="modal">
+                <div class="item-content-modal" *ngFor="let wallet of dataWallets"  [routerLink]="['/wallet', wallet._id ]" data-dismiss="modal">
                     <a>
                         <img src="https://static.moneylover.me/img/icon/icon.png" alt="">
                         <span class="name-vallet">{{ wallet.namewallet }}</span>
-                        <span class="money-vallet">{{ wallet.money }}</span>
+                        <span class="money-vallet">{{ wallet.money | number:'1.0-0' }} đ</span>
                         <input type="hidden" value="{{ wallet._id }}">
-                        <i class="{{ chooseWallet(wallet._id) }}" aria-hidden="true"></i>
+                        <i class="{{ iconTick(wallet._id) }}" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>

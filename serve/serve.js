@@ -1,7 +1,7 @@
 const path  = require('path');
 const express = require('express');
 const app     = express();
-const serve   = require('http').createServer(app);
+// const serve   = require('http').createServer(app);
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
@@ -32,6 +32,6 @@ app.use("/api", savingRouter);
 app.use("/api", savingTransactionRouter);
 app.use("/api", walletTransactionRouter);
 
-serve.listen(port, () =>{
+app.listen(port, () =>{
     console.log(`serve hoạt động trên port ${port}`);
 });

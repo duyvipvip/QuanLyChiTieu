@@ -16,7 +16,6 @@ export class ChooseCategoryReportComponent{
     dataExpense: Array<any> = [];
     dataDebtLoan: Array<any> = [];
     @Output() outputChooseCategory: EventEmitter<ICategoryTransaction> = new EventEmitter<ICategoryTransaction>();
-    objCategory: ICategoryTransaction;
 
     constructor(private InCome: InCome,
         private Expense: Expense,
@@ -31,22 +30,22 @@ export class ChooseCategoryReportComponent{
         let eleChoose = event.target.parentNode;
         let detect = eleChoose.querySelectorAll('input[name=detect]')[0].value;
         let name = eleChoose.querySelectorAll('p')[0].textContent;
-        let image = eleChoose.querySelectorAll('img')[0].src;
-
-        this.objCategory = {
+        let image = eleChoose.querySelectorAll('img')[0].src.split('/');
+        image = image[image.length - 1].split('.')[0];
+        let objCategory = {
             name: name,
             detect: detect,
             image: image
         }
-        this.outputChooseCategory.emit(this.objCategory);
+        this.outputChooseCategory.emit(objCategory);
     }
 
     // ============================ FUNCTION ===========================
+
     // LẤY DATA THU NHẬP TỪ CSDL
     getDataIncomes() {
         this.InCome.getDataIncomes().then((result) => {
-            this.dataIncome = result.data;
-            
+            this.dataIncome = result.data; 
         });
     }
 

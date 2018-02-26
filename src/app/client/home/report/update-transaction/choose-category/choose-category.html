@@ -24,7 +24,7 @@
                     <div class="tab-pane active" id="thunhap">
                         <ul class="tab-thunhap">
                             <li *ngFor="let item_income of dataIncome" >
-                                <img src="{{ item_income.image }}" alt="">
+                                <img src="assets/images/{{item_income.image}}.png" alt="">
                                 <p data-dismiss="modal" class='name' (click)="chooseCategory($event)">{{ item_income.name }}</p>
                                 <input type="hidden" name="id" value="{{ item_income._id }}">
                                 <input type="hidden" name="detect" value="{{ item_income.detect }}">
@@ -37,7 +37,7 @@
                     <div class="tab-pane" id="chitieu">
                         <ul class="tab-thunhap">
                             <li *ngFor="let itemExpense of dataExpense">
-                                <img src="{{ itemExpense.image }}" alt="">
+                                <img src="assets/images/{{itemExpense.image}}.png" alt="">
                                 <p data-dismiss="modal" class='name' (click)="chooseCategory($event)" >{{ itemExpense.name }}</p>
                                 <input type="hidden" name="id" value="{{ itemExpense._id }}">
                                 <input type="hidden" name="detect" value="{{ itemExpense.detect }}">
@@ -50,7 +50,7 @@
                     <div  class="tab-pane" id="no">
                         <ul  class="tab-thunhap">
                             <li  *ngFor="let item_debtloan of dataDebtLoan" >
-                                <img src="{{ item_debtloan.image }}" alt="">
+                                <img src="assets/images/{{item_debtloan.image}}.png" alt="">
                                 <p data-dismiss="modal" class='name' (click)="chooseCategory($event)">{{ item_debtloan.name }}</p>
                                 <input type="hidden" name="id" value="{{ item_debtloan._id }}">
                                 <input type="hidden" name="detect" value="{{ item_debtloan.detect }}">

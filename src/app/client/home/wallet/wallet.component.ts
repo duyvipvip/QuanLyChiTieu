@@ -28,16 +28,13 @@ export class WalletComponent implements OnInit{
         .subscribe((params) => {
             if(params['params'].idwallet != undefined){
                 this.idWalletUrl = params['params'].idwallet;
-                // LẤY DATA GÁN CHO OBJECT dataWalletChoose ĐỂ XUẤT THÔNG TIN NÊN
+                // LẤY VÍ ĐƯỢC CHỌN HIỆN THỊ NÊN GIAO DIỆN
                 this.getDataWalletId(this.idWalletUrl);   
             }
         })
     }
     
     ngOnInit(){
-        // LẤY TẤT CẢ CÁC VÍ
-        this.getDataWallets();
-
         if(this.idWalletUrl != ''){
             // LẤY DATA GÁN CHO OBJECT dataWalletChoose ĐỂ XUẤT THÔNG TIN NÊN
             this.getDataWalletId(this.idWalletUrl); 
@@ -47,18 +44,18 @@ export class WalletComponent implements OnInit{
         }
     }
 
-    submitExit() {
-       // console.log('duy');
-    }
-
     // =========================== FUNCTION ====================================
 
     // HÀM LẤY DATA WALLET TỪ MỘT ID
     getDataWalletId(idwallet){
-        this.WalletService.getDataWalletId(idwallet);
-        this.WalletService.getonlyWallet.subscribe((data) => {
-            this.dataWalletChoose = data;
-        });
+        this.WalletService.getDataWallets();
+        this.WalletService.getAllWallet.subscribe((data) => {
+            data.forEach(element => {
+                if(element._id == idwallet){
+                    this.dataWalletChoose = element;
+                }
+            });
+        })
     }
 
     // HÀM LẤY TỔNG TIỀN TẤT CẢ CÁC VÍ
@@ -73,16 +70,4 @@ export class WalletComponent implements OnInit{
                 };
             }) 
     }
-
-    // HÀM LẤY DATA TẤT CÁ CẢ VÍ
-    getDataWallets() {
-        this.WalletService.getDataWallets();
-        this.WalletService.getAllWallet.subscribe((wallet) => {
-            this.dataWallets = wallet;
-        })
-        
-    }
-
-    
-    
 }

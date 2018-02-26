@@ -79,7 +79,7 @@ a{
 
 
 ul.tab-thunhap{
-    li{
+    > li{
         width: 113px;
         float: left;
         list-style: none;
@@ -95,7 +95,7 @@ ul.tab-thunhap{
         p{
             cursor: pointer;
             text-transform: capitalize;
-           
+            font-size: 12px;
         }
         
     }

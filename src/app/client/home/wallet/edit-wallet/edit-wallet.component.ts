@@ -33,13 +33,14 @@ export class EditWalletComponent{
         }
         this.WalletService.updateDataWallet(this.dataUpdateWallet)
         .then((result) => {
+            // CHỈNH SỬA XONG CẬP NHẬT LẠI GIAO DIỆN MỚI
             this.WalletService.getDataWallets();
-            this.WalletService.getDataWalletId(id.value);
             this.toastr.success('Chỉnh sửa ví thành công ! ', 'Success ! ');        
         });
         
         
     }
+
    // GỦI ID XOÁ
    submitRemoveWallet(id){
         this.WalletService.deleteDataWallet(id.value)

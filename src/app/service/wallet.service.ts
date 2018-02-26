@@ -8,24 +8,28 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class WalletService{
     private _allWallet:BehaviorSubject<IWallet[]> = new BehaviorSubject(new Array());
-    private _onlyWallet:BehaviorSubject<IWallet> = new BehaviorSubject({} as IWallet);
     constructor(private Http:Http){}
     
     get getAllWallet(){
         return this._allWallet.asObservable();
     }
 
-    get getonlyWallet(){
-        return this._onlyWallet.asObservable();
-    }
-
     // LẤY TẤT CẢ CÁC VÍ
     getDataWallets(): Promise<any>{
         return this.Http.get('http://localhost:3000/api/wallet')
         .toPromise()
-        .then(data => {
-            this._allWallet.next(data.json());
-            return data.json();
+        .then(wallets => {
+            let data = [];
+            wallets.json().forEach(wallet => {
+                let totalMoney = 0;
+                wallet.transactions.forEach(transactions => {
+                    totalMoney += Number(transactions.moneytransaction);
+                });
+                wallet.money = totalMoney;
+                data.push(wallet)
+            });
+            this._allWallet.next(data);
+            return data;
         })
         .catch(err => err);
     }
@@ -35,10 +39,8 @@ export class WalletService{
         return this.Http.get(`http://localhost:3000/api/wallet/${id}`)
         .toPromise()
         .then(data => {
-            //this._onlyWallet.next(data.json());
             return data.json();
         })
-        .catch(err => err);
     }
     
     // LẤY TỔNG TIỀN CÁC VÍ
@@ -51,10 +53,8 @@ export class WalletService{
                 total += value.money;
             })
             return total;
-            
         })
         .catch(err => err);
-       
     }
    
     // UPDATE 1 VI

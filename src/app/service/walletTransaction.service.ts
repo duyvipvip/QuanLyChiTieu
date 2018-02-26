@@ -1,27 +1,80 @@
+import { ITransaction } from './../model/transaction.model';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { transition } from '@angular/core/src/animation/dsl';
-import { Http } from '@angular/http';
+import { Http, RequestOptions , Headers, RequestMethod} from '@angular/http';
 import { Injectable } from '@angular/core';
 @Injectable()
 export class WalletTransactionService{
+    private _allTransaction:BehaviorSubject<ITransaction[]> = new BehaviorSubject(new Array());
+    constructor(private Http: Http){}
 
-    constructor(private Http: Http){
-
+    get getAllTransaction(){
+        return this._allTransaction.asObservable();
     }
 
+    // LẤY TẤT CẢ CÁC GIAO DỊCH CỦA 1 VÍ
     getTransactionToIDWallet(idWallet){
-        return this.Http.get('http://localhost:3000/api/wallettransaction/getonly/'+ idWallet)
+        return this.Http.get('http://localhost:3000/api/wallettransaction/getonly?idWallet='+ idWallet)
             .toPromise()
             .then((data) => {
-                let arrTransaction = data.json()[0].transactions;
-                let resultThenFormat = this.formatArrayWalletTransaction(arrTransaction);
+                let resultThenFormat = this.groupTransaction(data.json());
+                this._allTransaction.next(resultThenFormat);
                 return resultThenFormat;
             })
             .catch((err) => {
                 return err;
             })
-
     }
 
+    // UPDATE GIAO DỊCH CỦA 1 VÍ
+    updateTransaction(transition){
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Post
+          });
+       return this.Http.post('http://localhost:3000/api/wallettransaction/update', JSON.stringify(transition), {headers:headers})
+       .toPromise()
+       .then((response) => {
+           return response;
+       })
+       .catch(err => err);
+    }
+    
+    // XOÁ GIAO DỊCH CỦA 1 VÍ
+    removeTransaction(idwallet, idtransaction){
+        let objRemoveTransaction = {
+            "idwallet": idwallet,
+            "idtransaction": idtransaction
+        }
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Post
+          });
+       return this.Http.post('http://localhost:3000/api/wallettransaction/remove', JSON.stringify(objRemoveTransaction), {headers:headers})
+       .toPromise()
+       .then((response) => {
+           return response;
+       })
+       .catch(err => err);
+    }
+
+    // LẤY TẤT CẢ CÁC TRANSACTION TỪ TẤT CẢ CÁC VÍ
+    groupTransaction(arrTransactionAllWallet){
+        let newArrTransactionAllWallet = [];
+        arrTransactionAllWallet.forEach((arrTransactionWallet) => {
+            arrTransactionWallet.transactions.forEach((transactions) => {
+                newArrTransactionAllWallet.push(transactions);
+            });
+        })
+        newArrTransactionAllWallet.sort(function(a,b){
+            a = new Date(a.datecreatetransaction);
+            b = new Date(b.datecreatetransaction);
+            return b - a;
+        });
+        return this.formatArrayWalletTransaction(newArrTransactionAllWallet);
+    }
 
     formatArrayWalletTransaction(walletTransactions){
         // KHAI BÁO 1 MẢNG RỖNG ĐỂ CHỨA MẢNG SAU KHI GOM NHÓM CÁC GIAO DỊCH XONG

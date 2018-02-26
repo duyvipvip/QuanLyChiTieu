@@ -12,10 +12,10 @@
                     <div class="card-body">
                         <div class="row-item">
                             <div class="img">
-                                <img src="{{ chooseDataTransaction.image }}" alt="">
+                                <img src="assets/images/{{transaction.imagecategory}}.png" alt="">
                             </div>
                             
-                            <span class="choose-category category" data-toggle="modal" data-target="#choose-transaction">{{ chooseDataTransaction.name }}
+                            <span class="choose-category category" data-toggle="modal" data-target="#choose-transaction">{{ transaction.categorytransaction }}
                                 <i aria-hidden="true" class="fa fa-caret-down"  ></i>
                             </span>
                         </div>
@@ -25,7 +25,7 @@
                             </div>
 
                             <div class="group">
-                                <input name="money" type="text" required placeholder="Số tiền">
+                                <input name="money" class="{{ this.transaction.groupcategory }}" [(ngModel)]="transaction.moneytransaction"  type="text" required placeholder="Số tiền">
                                 <span class="bar"></span>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                             </div>
 
                             <div class="group">
-                                <input type="text" name="note" required placeholder="Ngi chú">
+                                <input type="text" name="note" [(ngModel)]="transaction.notetransaction" required placeholder="Ngi chú">
                                 <span class="bar"></span>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                         </mat-form-field>
                         <div class="col-lg-6 col-6 item-right">
                             <span class="title-wallet">Chọn Ví</span>
-                            <span class="choose-category" data-toggle="modal" data-target="#choose-wallet-transaction">{{ selectWallet.namewallet }}
+                            <span class="choose-category" data-toggle="modal" data-target="#choose-wallet-transaction">{{ nameWallet }}
                                 <i aria-hidden="true" class="fa fa-caret-down"></i>
                             </span>
                         </div>
@@ -76,10 +76,10 @@
                 </div>
             </div>
             <!-- PHẦN MODAL CHỌN GIAO DICH -->
-            <app-choose-transaction [dataIncome]="dataIncome" [dataExpense]="dataExpense" [dataDebtLoan]="dataDebtLoan" (chooseDataTransaction)="chooseTransaction($event)"></app-choose-transaction>
+            <app-choose-transaction  (chooseDataTransaction)="chooseTransaction($event)"></app-choose-transaction>
             
             <!-- PHẦN MODAL CHỌN VÍ -->
-            <app-choose-wallet-transaction (outputSelectIDWallet)="eventoutputSelectIDWallet($event)" [inputSelectWallet]="selectWallet"></app-choose-wallet-transaction>
+            <app-choose-wallet-transaction (outputSelectIDWallet)="eventoutputSelectIDWallet($event)" [inputSelectWallet]="transaction.idwallet"></app-choose-wallet-transaction>
         </div>
     </div>
 </section>

@@ -15,6 +15,15 @@ var walletSchema   = mongoose.Schema({
             detecttransaction: String
         }
     ],
+    budgets: [
+        {
+            name: String,
+            money: String,
+            datestart: Date,
+            dateend: Date,
+            idwallet:String
+        }
+    ]
 }, { collection: 'wallet'});
 
 module.exports = mongoose.model('wallet', walletSchema);

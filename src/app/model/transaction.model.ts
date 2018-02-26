@@ -1,5 +1,5 @@
 export interface ITransaction{
-    _id: String
+    _id?: String
     groupcategory: String;
     notetransaction: String;
     datecreatetransaction: String;
@@ -8,4 +8,5 @@ export interface ITransaction{
     categorytransaction: String;
     idwallet: String,
     taguser: Array<String>;
+    idwalletold?: String;
 }

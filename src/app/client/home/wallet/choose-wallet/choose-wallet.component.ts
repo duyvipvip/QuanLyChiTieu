@@ -1,3 +1,5 @@
+import { WalletService } from './../../../../service/wallet.service';
+import { IWallet } from './../../../../model/wallet.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, Input, OnInit , Output, EventEmitter } from '@angular/core';
 import { templateJitUrl } from '@angular/compiler';
@@ -8,13 +10,10 @@ import { templateJitUrl } from '@angular/compiler';
     styleUrls: ["./choose-wallet.component.scss"]
 })
 export class ChooseWalletComponent implements OnInit{
-    selectedWalletId: string;
     idWalletUrl: string = '';
+    dataWallets: IWallet[];
 
-    @Input() dataWallets: Array<any>;
-
-    constructor(private route:ActivatedRoute, private router: Router){
-
+    constructor(private route:ActivatedRoute, private router: Router, private WalletService: WalletService){
         // LẤY ID WALLET TỪ URL
         route.paramMap
         .subscribe((params) => {
@@ -25,12 +24,21 @@ export class ChooseWalletComponent implements OnInit{
     }
 
     ngOnInit(){
+        // LẤY TẤT CẢ CÁC VÍ HIỂN THỊ LÊN
+        this.getDataWallets();
     }
 
-    chooseWallet(idWallet){
-        if(idWallet == this.idWalletUrl){
-            return "fa fa-check";
-        }
-        return '';
+    iconTick(idWallet){
+        return (idWallet == this.idWalletUrl) ? 'fa fa-check' : '';
+    }
+
+    //================================= FUNCTION ================================
+    // HÀM LẤY DATA TẤT CÁ CẢ VÍ
+    getDataWallets() {
+        this.WalletService.getDataWallets();
+        this.WalletService.getAllWallet.subscribe((wallet) => {
+            this.dataWallets = wallet;
+        })
+        
     }
 }

@@ -13,7 +13,7 @@ export class ChooseWalletTransactionComponent{
     dataWallets: IWallet[] = [];
     
 
-    @Input() inputSelectWallet: IWallet;
+    @Input() inputSelectWallet;
     @Output() outputSelectIDWallet: EventEmitter<object> = new EventEmitter<object>();
     
     constructor(private WalletService: WalletService){
@@ -28,23 +28,19 @@ export class ChooseWalletTransactionComponent{
         })
     }
 
-    chooseWallet(idWallet){
-        if(idWallet == this.inputSelectWallet._id){
-            return "fa fa-check";
-        }
-        return '';
+    iconTick(idWallet){
+        return (idWallet == this.inputSelectWallet) ? 'fa fa-check' : '';
     }
 
-    chooseNameWallet(event){
+    chooseWallet(event){
         let eleChoose = event.target.parentNode;
         let id = eleChoose.querySelectorAll('input[name=id]')[0].value;
         let name = eleChoose.querySelectorAll('.name-vallet')[0].textContent;
-        let money = eleChoose.querySelectorAll('input[name=money]')[0].value;
-        this.inputSelectWallet = {
+
+        let inputSelectWallet = {
             _id: id,
             namewallet: name,
-            money: money 
         }
-        this.outputSelectIDWallet.emit(this.inputSelectWallet);
+        this.outputSelectIDWallet.emit(inputSelectWallet);
     }
 }
