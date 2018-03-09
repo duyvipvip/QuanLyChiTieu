@@ -1,29 +1,13 @@
 var mongoose = require('mongoose');
 var walletSchema   = mongoose.Schema({
-    namewallet: String,
-    money: Number,
-    transactions: [
-        {
-            categorytransaction: String,
-            imagecategory: String,
-            moneytransaction: String,
-            datecreatetransaction: Date,
-            taguser: [],
-            idwallet: String,
-            notetransaction: String,
-            groupcategory: String,
-            detecttransaction: String
-        }
-    ],
-    budgets: [
-        {
-            name: String,
-            money: String,
-            datestart: Date,
-            dateend: Date,
-            idwallet:String
-        }
-    ]
+    namewallet:{
+        type: String,
+        require: true
+    },
+    iduser: {
+        type: String,
+        require: true
+    },
 }, { collection: 'wallet'});
 
 module.exports = mongoose.model('wallet', walletSchema);

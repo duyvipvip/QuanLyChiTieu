@@ -10,12 +10,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class WalletComponent implements OnInit{
-    
+    iduser: String = "";
     idWalletUrl: string = '';
     dataWallets: IWallet[] = [];
     dataWalletChoose: IWallet = {
         _id: 0,
-        namewallet: 'Tất Cả Các Ví',
+        namewallet: 'Tổng cộng',
         money: 0,
     };
     stringTotalMoney: number = 0;
@@ -23,6 +23,7 @@ export class WalletComponent implements OnInit{
     constructor(private WalletService: WalletService,
         private route:ActivatedRoute
     ){ 
+        this.iduser = JSON.parse(localStorage.getItem('currentUser'))._id;
         // LẤY ID WALLET TỪ URL
         route.paramMap
         .subscribe((params) => {
@@ -35,13 +36,6 @@ export class WalletComponent implements OnInit{
     }
     
     ngOnInit(){
-        if(this.idWalletUrl != ''){
-            // LẤY DATA GÁN CHO OBJECT dataWalletChoose ĐỂ XUẤT THÔNG TIN NÊN
-            this.getDataWalletId(this.idWalletUrl); 
-        }else if(this.idWalletUrl == ''){
-            // LẤY TỔNG SỐ TIỀN TRONG TẤT CẢ CÁC VÍ
-            this.getTotalWallet();
-        }
     }
 
     // =========================== FUNCTION ====================================
@@ -49,10 +43,10 @@ export class WalletComponent implements OnInit{
     // HÀM LẤY DATA WALLET TỪ MỘT ID
     getDataWalletId(idwallet){
         this.WalletService.getDataWallets();
-        this.WalletService.getAllWallet.subscribe((data) => {
-            data.forEach(element => {
-                if(element._id == idwallet){
-                    this.dataWalletChoose = element;
+        this.WalletService.getAllWallet.subscribe((wallets) => {
+            wallets.forEach(wallet => {
+                if(wallet._id == idwallet){
+                    this.dataWalletChoose = wallet;
                 }
             });
         })
@@ -60,14 +54,25 @@ export class WalletComponent implements OnInit{
 
     // HÀM LẤY TỔNG TIỀN TẤT CẢ CÁC VÍ
     getTotalWallet(){
-        this.WalletService.getTotalWallet()
-            .then((value) => {
-                this.stringTotalMoney = value;
-                this.dataWalletChoose = {
-                    _id: 0,
-                    namewallet: 'Tất Cả Các Ví',
-                    money: this.stringTotalMoney,
-                };
-            }) 
+        let iduser = "0";
+        this.WalletService.getDataWallets();
+        let arrId = [];
+        this.WalletService.getAllWallet.subscribe((wallet) => {
+            this.dataWallets = wallet;
+
+            // TÌNH TỔNG TIỀN
+            wallet.forEach((item) => {
+                if(arrId.length == 0){
+                    arrId.push(item._id);
+                    this.dataWalletChoose.money = item.money;
+                }
+                for(let i =0; i< arrId.length; i++){
+                    if(arrId[i] != item._id){
+                        this.dataWalletChoose.money += item.money;
+                    }
+                }
+                
+            })
+        })
     }
 }

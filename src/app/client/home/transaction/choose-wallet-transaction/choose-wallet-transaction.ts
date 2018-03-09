@@ -28,6 +28,7 @@ export class ChooseWalletTransactionComponent{
         })
     }
 
+    // HIỆN THỊ DẤU TÍCH
     iconTick(idWallet){
         return (idWallet == this.inputSelectWallet) ? 'fa fa-check' : '';
     }

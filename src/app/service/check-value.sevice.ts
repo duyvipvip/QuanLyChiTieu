@@ -11,7 +11,7 @@ export class CheckValueSevice{
     checkItemObjectNull(value): boolean{
         value = Object.values(value);
         for(let i = 0; i< value.length; i++){
-            if(value[i] == '' || value[i] == undefined || value[i] == null ){
+            if(value[i] =='' || value[i] == undefined || value[i] == null ){
                 return true;
             }
         }

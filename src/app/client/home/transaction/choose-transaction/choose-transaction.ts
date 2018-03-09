@@ -44,7 +44,6 @@ export class ChooseTransactionComponent{
             detect: detect,
             image: image
         }
-        console.log(objTransaction);
         // GỬI OBJECT NGƯỜI DÙNG CHỌN CHO COMPONENT CHA
         this.chooseDataTransaction.emit(objTransaction);
         

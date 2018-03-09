@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { Router } from '@angular/router';
+import { UserService } from './../../service/user.service';
+import { Component, ViewContainerRef } from '@angular/core';
 
 
 @Component({
@@ -7,4 +10,30 @@ import { Component } from '@angular/core';
     styleUrls: ['./clientregister.component.scss'],
     templateUrl: './clientregister.component.html'
 })
-export class ClientRegisterComponent{}
+export class ClientRegisterComponent{
+    model: any ={};
+
+    constructor(private UserService: UserService,
+        private Router:Router,
+        public toastr: ToastsManager,
+        vcr: ViewContainerRef,
+    ){
+        this.toastr.setRootViewContainerRef(vcr);
+    }
+    register(){
+        this.UserService.createUser(this.model)
+            .then((result)=>{
+                if(result.statusCode == 400){
+                    this.toastr.warning(result.message + ' ! ', 'Warning ! ');
+                }else{
+                    this.toastr.success(result.message + ' ! ', 'Success ! ');
+                    this.Router.navigateByUrl('/dangnhap');
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                
+                this.toastr.warning(err.message + ' ! ', 'Warning ! ');
+            })
+    }
+}

@@ -35,5 +35,19 @@ ul.tag-editor{
 .modal-backdrop {
     z-index: 980 !important;
 }
+
+// phần tab saving
+.mat-tab-labels{
+    background-color: #5af158;
+}
+.mat-ink-bar{
+    background-color: green !important;
+}
+.mat-tab-label, .mat-tab-link{
+    color:black;
+    width: 50%;
+    opacity: 1 !important;
+    font-family: Arial, Helvetica, sans-serif;  
+}
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';

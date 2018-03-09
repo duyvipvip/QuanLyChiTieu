@@ -7,8 +7,14 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class WalletService{
+    private _iduser = '';
+    token = JSON.parse(localStorage.getItem('currentUser')).token;
+    
     private _allWallet:BehaviorSubject<IWallet[]> = new BehaviorSubject(new Array());
-    constructor(private Http:Http){}
+    constructor(private Http:Http){
+        this._iduser = JSON.parse(localStorage.getItem('currentUser'))._id;
+        
+    }
     
     get getAllWallet(){
         return this._allWallet.asObservable();
@@ -16,55 +22,54 @@ export class WalletService{
 
     // LẤY TẤT CẢ CÁC VÍ
     getDataWallets(): Promise<any>{
-        return this.Http.get('http://localhost:3000/api/wallet')
+        return this.Http.get('http://localhost:3000/api/wallet/all?iduser='+this._iduser)
         .toPromise()
         .then(wallets => {
             let data = [];
-            wallets.json().forEach(wallet => {
-                let totalMoney = 0;
-                wallet.transactions.forEach(transactions => {
-                    totalMoney += Number(transactions.moneytransaction);
+            return this.Http.get('http://localhost:3000/api/transaction/alltransaction')
+                .toPromise()
+                .then((transactions) => {
+                    wallets.json().forEach(wallet => {
+                        let temp = [];
+                        let totalMoney = 0;
+                        // PHẦN SỬ LÝ LẤY CÁC GIAO DỊCH CHO VÀO 1 VÍ
+                        transactions.json().forEach(transaction => {
+                            if(wallet._id == transaction.idwallet){
+                                temp.push(transaction);
+                                totalMoney += Number(transaction.moneytransaction);
+                            }
+                        });
+                        wallet.money = totalMoney;
+                        wallet.transactions = temp;
+                        data.push(wallet);
+
+                        this._allWallet.next(data);
+                        return data;
+
+                    });
                 });
-                wallet.money = totalMoney;
-                data.push(wallet)
-            });
-            this._allWallet.next(data);
-            return data;
         })
         .catch(err => err);
     }
     
-    // LẤY VÍ CÓ ID LÀ
-    getDataWalletId(id): Promise<any>{
-        return this.Http.get(`http://localhost:3000/api/wallet/${id}`)
+    // LẤY VÍ MỘT VÍ
+    getDataWalletId(idwallet): Promise<any>{
+        let iduser = this._iduser;
+        return this.Http.get(`http://localhost:3000/api/wallet/only?idwallet=`+idwallet + "&iduer="+iduser)
         .toPromise()
         .then(data => {
             return data.json();
         })
     }
-    
-    // LẤY TỔNG TIỀN CÁC VÍ
-    getTotalWallet(){
-        return this.Http.get('http://localhost:3000/api/wallet')
-        .toPromise()
-        .then(data => {
-            let total = 0;
-            data.json().forEach((value) => {
-                total += value.money;
-            })
-            return total;
-        })
-        .catch(err => err);
-    }
    
-    // UPDATE 1 VI
+    // CHỈNH SỬA 1 VÍ
     updateDataWallet(wallet: IWallet){
-        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const headers = new Headers({ 'Content-Type': 'application/json', "x-access-token": this.token });
         const options = new RequestOptions({
             headers: headers,
             method: RequestMethod.Post
-          });
-       return this.Http.post('http://localhost:3000/api/wallet/update/'+wallet._id, JSON.stringify(wallet), {headers:headers})
+        });
+       return this.Http.post('http://localhost:3000/api/wallet/update', JSON.stringify(wallet), {headers:headers})
        .toPromise()
        .then((response) => {
            return response;
@@ -72,14 +77,14 @@ export class WalletService{
        .catch(err => err);
     }
 
-    // ADD 1 VÍ
+    // THÊM 1 VÍ
     addDataWallet(wallet: IWallet){
-        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const headers = new Headers({ 'Content-Type': 'application/json', "x-access-token": this.token });
         const options = new RequestOptions({
             headers: headers,
             method: RequestMethod.Put
           });
-       return this.Http.put('http://localhost:3000/api/wallet/add', JSON.stringify(wallet), {headers:headers})
+       return this.Http.put('http://localhost:3000/api/wallet/create', JSON.stringify(wallet), {headers:headers})
        .toPromise()
        .then((response) => {
            return response;
@@ -87,14 +92,14 @@ export class WalletService{
        .catch(err => err);
     }
 
-     // REMOVE 1 VÍ
-     deleteDataWallet(id){
-        const headers = new Headers({ 'Content-Type': 'application/json' });
+     // XOÁ 1 VÍ
+     deleteDataWallet(idwallet){
+        const headers = new Headers({ 'Content-Type': 'application/json', "x-access-token": this.token });
         const options = new RequestOptions({
             headers: headers,
             method: RequestMethod.Delete
-          });
-       return this.Http.delete('http://localhost:3000/api/wallet/delete/'+ id, {headers:headers})
+        });
+       return this.Http.post('http://localhost:3000/api/wallet/delete', { "idwallet": idwallet }, {headers:headers})
        .toPromise()
        .then((response) => {
            return response;
@@ -102,19 +107,5 @@ export class WalletService{
        .catch(err => err);
     }
 
-    // THÊM GIAO DỊCH CHO VÍ
-    addTransactionWallet(transition){
-        console.log(transition);
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        const options = new RequestOptions({
-            headers: headers,
-            method: RequestMethod.Post
-          });
-        return this.Http.post('http://localhost:3000/api/wallettransaction/create', JSON.stringify(transition), {headers:headers})
-        .toPromise()
-        .then((response) => {
-           return response;
-        })
-        .catch(err => err);
-    }
+   
 }

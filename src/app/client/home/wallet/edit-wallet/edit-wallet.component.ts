@@ -1,9 +1,10 @@
+import { TransactionService } from './../../../../service/transaction.service';
 import { ViewContainerRef } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { IWallet } from './../../../../model/wallet.model';
 import { Component, Input } from '@angular/core';
 import { WalletService } from '../../../../service/wallet.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     styleUrls: ['edit-wallet.component.scss'],
@@ -19,6 +20,8 @@ export class EditWalletComponent{
     constructor(private WalletService: WalletService,
         private router : Router,
         public toastr: ToastsManager,
+        private TransactionService: TransactionService,
+        private ActivatedRoute: ActivatedRoute,
         vcr: ViewContainerRef
     ){
         this.toastr.setRootViewContainerRef(vcr);
@@ -34,7 +37,7 @@ export class EditWalletComponent{
         this.WalletService.updateDataWallet(this.dataUpdateWallet)
         .then((result) => {
             // CHỈNH SỬA XONG CẬP NHẬT LẠI GIAO DIỆN MỚI
-            this.WalletService.getDataWallets();
+            this.reloadData();
             this.toastr.success('Chỉnh sửa ví thành công ! ', 'Success ! ');        
         });
         
@@ -55,4 +58,13 @@ export class EditWalletComponent{
             this.toastr.error('Xoá ví thất bại ! ', 'Error ! ');
         })       
    }
+
+   // LOAD LẠI DATA
+    reloadData(){
+        let urlIdWallet = (this.ActivatedRoute.snapshot.params.idwallet == undefined) ? '' : this.ActivatedRoute.snapshot.params.idwallet;
+        // LOAD LẠI CẬP NHẬT BÁO CÁO
+        this.TransactionService.getTransactions(urlIdWallet);
+        // LOAD CẬP NHẬT LẠI TẤT CẢ CÁC VÍ
+        this.WalletService.getDataWallets();      
+    }
 }

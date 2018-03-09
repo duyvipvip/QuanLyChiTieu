@@ -8,10 +8,10 @@
                
             </div>
             <div class="modal-body">
-                <div class="item-content-modal" [routerLink]="['/wallet']" data-dismiss="modal">
+                <div class="item-content-modal disable" data-dismiss="modal">
                     <img src="https://static.moneylover.me/img/icon/ic_category_all.png" alt="">
-                    <span>Tất cả các ví</span>
-                    <i class="{{ iconTick('') }}" aria-hidden="true"></i>
+                    <span class="name-vallet">Tổng cộng</span>
+                    <span class="money-vallet">{{totalMoney | number:'1.0-0'}}</span>
                 </div>
                 <p>Tiền mặt</p>
                 <div class="item-content-modal" *ngFor="let wallet of dataWallets"  [routerLink]="['/wallet', wallet._id ]" data-dismiss="modal">

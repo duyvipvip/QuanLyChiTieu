@@ -1,0 +1,86 @@
+<div class="page">
+    <!-- THANH HEADER-->
+    <app-header></app-header>
+    <div class="page-content d-flex align-items-stretch">
+        <!-- PHẦN MENU -->
+        <app-menu></app-menu>
+        <div class="content-inner">
+            <!-- PHẦN HEADER CONTENT -->
+            <header class="page-header">
+                <div class="container-fluid">
+                    <h2 class="no-margin-bottom">Quản Lý Ngân Sách</h2>
+                </div>
+            </header>
+            <div class="budget-content">
+                <div class="tab">
+                    <p class="title">Budget</p>
+                    <ul class="nav nav-tabs">
+                        <li>
+                            <div class="button-add" data-toggle="modal" data-target="#addbudget">
+                                <button tabindex="0" type="button">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#running" data-toggle="tab" class="active">ĐANG SỬ DỤNG
+                                <div class="line"></div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#finished" data-toggle="tab">KẾT THÚC
+                                <div class="line"></div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <!-- PHẦN KẾ HOẠCH ĐANG CHẠY -->
+                    <div class="tab-pane active" id="running">
+                        <div class="budget col-lg-6">
+                            
+                            <div *ngFor="let budget of budgets" class="row item-budget" [routerLink]="budget._id">
+                                <div class="image col-2">
+                                    <img src="assets/images/{{ budget.imagecategory }}.png" alt="">
+                                </div>
+                                <div class="row content-item-budget col-10">
+                                    <div class="name-budget col-12">
+                                        <p>{{ budget.namecategory }}</p>
+                                        <p>{{ budget.datestart | date: 'dd/MM'}} - {{ budget.dateend | date: 'dd/MM'}}</p>
+                                    </div>
+                                    <div class="row spent-money col-12">
+                                        <div class="spent col-6">
+                                            <p> - 69,000 đ</p>
+                                        </div>
+                                        <div class="money-item col-6">
+                                            <p> + 69,000 đ</p>
+                                            <p>Còn 12 ngày</p>
+                                        </div>
+                                    </div>
+                                    <div class="cssProgress">
+                                        <div class="progress4 cssProgress-bg-danger">
+                                            <div class="cssProgress-bar cssProgress-danger cssProgress-glow" data-percent="35" ></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                    <!-- PHẦN KẾ HOẠCH ĐANG CHẠY -->
+
+                    <!-- PHẦN KẾ HOẠCH KẾT THÚC -->
+                    <div class="tab-pane" id="finished">
+
+                    </div>
+                    <!-- PHẦN KẾ HOẠCH KẾT THÚC -->
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<app-addBudget></app-addBudget>

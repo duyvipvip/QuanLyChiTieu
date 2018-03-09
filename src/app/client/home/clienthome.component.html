@@ -14,13 +14,12 @@
             <!-- PHẦN CHỌN WALLET -->
             <app-wallet></app-wallet>
 
+
             <!-- PHẦN CHỌN GIAO DỊCH -->
-            <app-transaction></app-transaction>
-            
-            
-            <!-- PHẦN HIỂN THỊ BÁO CAO CHI TIÊU -->
-            <app-report></app-report>
-            
+            <app-transaction *ngIf="checkURL"></app-transaction>
+            <div class="imgbg">
+                <img *ngIf="!checkURL" src="assets/images/nullurl.png" alt="">
+            </div>
             <!-- Page Footer-->
             <app-footer></app-footer>
         </div>

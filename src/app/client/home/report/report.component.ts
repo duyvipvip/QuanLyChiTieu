@@ -1,5 +1,5 @@
+import { TransactionService } from './../../../service/transaction.service';
 import { ActivatedRoute } from '@angular/router';
-import { WalletTransactionService } from './../../../service/walletTransaction.service';
 import { Component } from '@angular/core';
 import { ITransaction } from '../../../model/transaction.model';
 
@@ -16,6 +16,7 @@ export class ReportComponent{
     // GÁN DỮ LIỆU INPUT CHO COMPONET CON
     objchooseTransaction: ITransaction = {
         _id: "",
+        idcategory: "",
         groupcategory: '',
         notetransaction: '',
         datecreatetransaction: '',
@@ -27,15 +28,15 @@ export class ReportComponent{
     };
 
 
-    constructor(private WalletTransactionService: WalletTransactionService, private route: ActivatedRoute){
+    constructor( private route: ActivatedRoute, private TransactionService: TransactionService){
         // LẤY ID WALLET TỪ URL
         route.paramMap
             .subscribe((params) => {
                 this.idWalletUrl = (params['params'].idwallet == undefined) ? '' : params['params'].idwallet;
                 
-                // LẤY DATA GÁN CHO OBJECT dataWalletChoose ĐỂ XUẤT THÔNG TIN NÊN
-                this.WalletTransactionService.getTransactionToIDWallet(this.idWalletUrl);
-                this.WalletTransactionService.getAllTransaction.subscribe((data) => {
+                //LẤY DATA GÁN CHO OBJECT dataWalletChoose ĐỂ XUẤT THÔNG TIN NÊN
+                this.TransactionService.getTransactions(this.idWalletUrl);
+                this.TransactionService.getAllTransaction.subscribe((data) => {
                     this.arrTransactions = data;
                 })
             })

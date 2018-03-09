@@ -1,5 +1,6 @@
 export interface ITransaction{
-    _id?: String
+    _id?: String;
+    idcategory: String;
     groupcategory: String;
     notetransaction: String;
     datecreatetransaction: String;

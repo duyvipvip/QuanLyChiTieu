@@ -12,6 +12,8 @@ import { templateJitUrl } from '@angular/compiler';
 export class ChooseWalletComponent implements OnInit{
     idWalletUrl: string = '';
     dataWallets: IWallet[];
+    totalMoney: Number = 0;
+    
 
     constructor(private route:ActivatedRoute, private router: Router, private WalletService: WalletService){
         // LẤY ID WALLET TỪ URL
@@ -31,13 +33,18 @@ export class ChooseWalletComponent implements OnInit{
     iconTick(idWallet){
         return (idWallet == this.idWalletUrl) ? 'fa fa-check' : '';
     }
-
     //================================= FUNCTION ================================
     // HÀM LẤY DATA TẤT CÁ CẢ VÍ
     getDataWallets() {
         this.WalletService.getDataWallets();
+        let arrId = [];
         this.WalletService.getAllWallet.subscribe((wallet) => {
             this.dataWallets = wallet;
+            // TÌNH TỔNG TIỀN
+            this.totalMoney=0;
+            wallet.forEach((item) => {
+                this.totalMoney += item.money;
+            })
         })
         
     }

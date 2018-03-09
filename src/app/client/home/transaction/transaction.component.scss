@@ -76,7 +76,8 @@
     .choose-category i{
         display:inline-block;
         margin-left:30px;
-        width:15px;}
+        width:15px;
+    }
     .card-close{
         margin-top: 15px;
     }
@@ -143,6 +144,6 @@ input.income::placeholder, input.debt::placeholder, .income, .debt{
         right:50%;
     }
 }
-.col-lg-4{
-    margin: 0px auto;
-}
+// .col-lg-4{
+//     margin: 0px auto;
+// }

@@ -1,0 +1,31 @@
+<div class="listsavings">
+    <div class="circle" data-toggle="modal" data-target="#modalAddSaving">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+    </div>
+    <mat-tab-group>
+      <mat-tab label="Đang Áp Dụng">
+        <div class="content">
+          <div class="card saving" *ngFor="let dataSaving of dataSavings" [routerLink]="dataSaving._id">
+            <!-- <div class="card saving" mat-raised-button (click)="openDialog()" *ngFor="let dataSaving of dataSavings" [routerLink]="['/savings',dataSaving._id]"> -->
+            <div class="row">
+              <div class="img col-md-2 offset-md-2">
+                <img src="assets/images/{{dataSaving.image}}" width="70%" height="60%" alt="">
+              </div>
+              <div class="col-md-8">
+                <div class="col-md-12 name">{{dataSaving.namesaving}}</div>
+                <div class="col-md-7 target">Mục tiêu</div>
+                <div class="col-md-5">{{dataSaving.moneyend | number: '1.0-0'}} đ</div>
+                <div class="col-md-9">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Đã Kết Thúc">
+        Content 2
+      </mat-tab>
+    </mat-tab-group>
+    <app-addsaving></app-addsaving>
+    <!-- <app-detailsaving></app-detailsaving> -->
+  </div>

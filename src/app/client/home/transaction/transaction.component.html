@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- PHẦN THÊM CHI TIÊU -->
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="articles card  add-spend">
                     
                     <div class="card-header d-flex align-items-center">
@@ -75,6 +75,12 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="col-lg-6">
+                <!-- PHẦN HIỂN THỊ BÁO CAO CHI TIÊU -->
+                <app-report></app-report>
+            </div>
+            
             <!-- PHẦN MODAL CHỌN GIAO DICH -->
             <app-choose-transaction  (chooseDataTransaction)="chooseTransaction($event)"></app-choose-transaction>
             

@@ -1,64 +1,142 @@
 const router = require('express').Router();
 const walletController = require('../controller/wallet.controller');
+const auth = require("../middle-ware/auth");
 
 // LẤY HIẾT TẤT CẢ CÁC VÍ
-router.get("/wallet", getAllWallet);
-router.get("/wallet/:id", getOnlyWalletId);
-router.delete("/wallet/delete/:id", deleteWallet);
-router.put("/wallet/add", addWallet);
-router.post("/wallet/update/:id", updateWallet);
+router.get("/all", getAllWallet);
+router.get("/only", getWalletToIdWallet);
+router.post("/delete",auth.auth(), deleteWallet);
+router.put("/create", auth.auth() , addWallet);
+router.post("/update",auth.auth(), updateWallet);
 module.exports = router;
 
 function getAllWallet(req, res, next){
-    walletController.getAllWallet()
+    let iduser = req.query.iduser;
+    if (!iduser) {
+        next({
+            statusCode: 400,
+            message: "id user is required"
+        })
+    }else{
+        walletController.getAllWallet(iduser)
         .then((wallet) => {
-            res.json(wallet)
+            res.json(wallet);
         })
         .catch((err) => {
-
+            next(err);
         })
+    }   
+    
 }
 
-function getOnlyWalletId(req, res, next){
-    walletController.getOnlyWalletId(req.params.id)
+function getWalletToIdWallet(req, res, next){
+    let iduser = req.query.iduer;
+    let idwallet = req.query.idwallet;
+    if (!iduser) {
+        next({
+            statusCode: 400,
+            message: "id user is required"
+        })
+    }else if(!idwallet){
+        next({
+            statusCode: 400,
+            message: "id wallet is required"
+        })
+    }else{
+        walletController.getWalletToIdWallet(iduser, idwallet)
         .then((wallet) => {
-            res.send(wallet)
+            res.send(wallet);
         })
         .catch((err) => {
-
+            next(err);
         })
+    }
+    
 }
 
 function deleteWallet(req, res, next){
-    walletController.deleteWallet(req.params.id)
+    let idwallet = req.body.idwallet;
+    let iduser = req.user[0]._id;;
+    if (!iduser) {
+        res.send({
+            statusCode: 400,
+            message: "id user is required"
+        })
+    }else if(!idwallet){
+        res.send({
+            statusCode: 400,
+            message: "id wallet is required"
+        })
+    }else{
+        walletController.deleteWallet(iduser , idwallet)
         .then((wallet) => {
-            res.send(wallet)
+            res.send(wallet);
         })
         .catch((err) => {
-
+            next(err);
         })
+    }
+
+   
 }
 
 function addWallet(req, res, next){
-    walletController.addWallet(req.body)
+    let wallet = req.body;
+    wallet.iduser = req.user[0]._id;
+    console.log(wallet);
+    if (!wallet.namewallet) {
+        next({
+            statusCode: 400,
+            message: "name wallet is required"
+        })
+    }else if(!wallet.money){
+        next({
+            statusCode: 400,
+            message: "money wallet is required"
+        })
+    }else if(!wallet.iduser){
+        next({
+            statusCode: 400,
+            message: "id user is required"
+        })
+    }else{
+        walletController.addWallet(wallet)
         .then((wallet) => {
             res.send(wallet)
         })
         .catch((err) => {
-
+            next(err);
         })
+    }
+    
 }
 
 function updateWallet(req, res, next){
-    let id = req.params.id;
     let wallet = req.body;
-    wallet._id = id;
+    wallet.iduser = req.user[0]._id;
 
-    walletController.updateWallet(wallet)
-        .then((wallet) => {
-            res.send(wallet)
+    if (!wallet.namewallet) {
+        next({
+            statusCode: 400,
+            message: "name wallet is required"
         })
-        .catch((err) => {
-
+    }else if(!wallet.money){
+        next({
+            statusCode: 400,
+            message: "money wallet is required"
         })
+    }else if(!wallet.iduser){
+        next({
+            statusCode: 400,
+            message: "id user is required"
+        })
+    }else{
+        walletController.updateWallet(wallet)
+            .then((wallet) => {
+                res.send(wallet)
+            })
+            .catch((err) => {
+                next(err);
+            })
+    }
 }

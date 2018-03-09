@@ -7,5 +7,11 @@ import { Component } from '@angular/core';
 })
 
 export class MenuComponent{
-
+    user = {
+        "username" : JSON.parse(localStorage.getItem('currentUser')).username,
+        "hinhanh" : JSON.parse(localStorage.getItem('currentUser')).hinhanh,
+    }
+    constructor(){
+        console.log(JSON.parse(localStorage.getItem('currentUser')).username);
+    }
 }

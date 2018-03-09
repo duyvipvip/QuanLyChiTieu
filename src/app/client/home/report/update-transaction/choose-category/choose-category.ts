@@ -28,6 +28,7 @@ export class ChooseCategoryReportComponent{
 
     chooseCategory(event){
         let eleChoose = event.target.parentNode;
+        let id = eleChoose.querySelectorAll('input[name=id]')[0].value;
         let detect = eleChoose.querySelectorAll('input[name=detect]')[0].value;
         let name = eleChoose.querySelectorAll('p')[0].textContent;
         let image = eleChoose.querySelectorAll('img')[0].src.split('/');
@@ -35,7 +36,8 @@ export class ChooseCategoryReportComponent{
         let objCategory = {
             name: name,
             detect: detect,
-            image: image
+            image: image,
+            _id: id,
         }
         this.outputChooseCategory.emit(objCategory);
     }

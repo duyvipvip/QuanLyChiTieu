@@ -1,0 +1,71 @@
+<!-- Modal Add Wallet -->
+<div class="modal fade" id="modalEditSaving">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Tạo Khoản Tiết Kiệm</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-lg-2">
+                  <img src="assets/images/receber.png" width="80%" height="100%" alt="">
+                </div>
+                <div class="col-lg-10">
+                  <!-- Name -->
+                  <input type="text" class="input-add" name="Name" [(ngModel)]="dataSaving.namesaving" placeholder="Tên ...">
+                  <span class="focus-border"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-10">
+                  <br>
+                  <span>Mục tiêu</span>
+                  <br>
+                  <input type="number" class="input-add" style="width: 130px;" min="0" name="Money" [(ngModel)]="dataSaving.moneyend" placeholder="0"> đ
+                  <span style="width:130px" class="focus-border"></span>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-lg-2">
+                    <img src="assets/images/callendar.png" width="80%" height="100%" alt="">
+                </div>
+                <div class="col-lg-10">
+                    <input type="text" class="input-add" name="Name" [(ngModel)]="enddate" placeholder="Ngày kết thúc ...">
+                    <span class="focus-border"></span>
+                  </div>
+              </div>
+              <br>
+              <div class="row">
+                  <div class="col-lg-2">
+                      <img src="assets/images/walletic.png" width="80%" height="100%" alt="">
+                  </div>
+                  <div class="col-lg-10">
+                      <input type="text" class="input-add" readonly name="Name" placeholder="Tất cả các ví ...">
+                      <span class="focus-border"></span>
+                    </div>
+                </div>
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <div class="col-lg-3">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+              <div class="col-lg-7"></div>
+              <div class="col-lg-2">
+                <button type="button" (click)="updateSaving(dataSaving)" class="btn btn-success" data-dismiss="modal" data-toggle="modal"
+                  data-target="#modalAddWall">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

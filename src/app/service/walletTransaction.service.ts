@@ -14,7 +14,8 @@ export class WalletTransactionService{
 
     // LẤY TẤT CẢ CÁC GIAO DỊCH CỦA 1 VÍ
     getTransactionToIDWallet(idWallet){
-        return this.Http.get('http://localhost:3000/api/wallettransaction/getonly?idWallet='+ idWallet)
+        let iduser="0";
+        return this.Http.get('http://localhost:3000/api/wallet/only?idwallet='+ idWallet+'&iduser='+iduser)
             .toPromise()
             .then((data) => {
                 let resultThenFormat = this.groupTransaction(data.json());
@@ -63,16 +64,15 @@ export class WalletTransactionService{
     // LẤY TẤT CẢ CÁC TRANSACTION TỪ TẤT CẢ CÁC VÍ
     groupTransaction(arrTransactionAllWallet){
         let newArrTransactionAllWallet = [];
-        arrTransactionAllWallet.forEach((arrTransactionWallet) => {
-            arrTransactionWallet.transactions.forEach((transactions) => {
-                newArrTransactionAllWallet.push(transactions);
-            });
-        })
+        arrTransactionAllWallet.transactions.forEach((transactions) => {
+            newArrTransactionAllWallet.push(transactions);
+        });
         newArrTransactionAllWallet.sort(function(a,b){
             a = new Date(a.datecreatetransaction);
             b = new Date(b.datecreatetransaction);
             return b - a;
         });
+        
         return this.formatArrayWalletTransaction(newArrTransactionAllWallet);
     }
 

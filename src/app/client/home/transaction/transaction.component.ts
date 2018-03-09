@@ -1,6 +1,6 @@
+import { TransactionService } from './../../../service/transaction.service';
 import { ITransaction } from './../../../model/transaction.model';
 import { ICategoryTransaction } from './../../../model/category-transaction.model';
-import { WalletTransactionService } from './../../../service/walletTransaction.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { WalletService } from './../../../service/wallet.service';
 import { IDate } from './../../../model/date.model';
@@ -31,6 +31,7 @@ export class TransactionComponent{
     // TRANSACTION DEFAULT
     transaction : ITransaction = {
         groupcategory: '',
+        idcategory: '',
         notetransaction: '',
         datecreatetransaction: new Date().toDateString(),
         moneytransaction: '',
@@ -44,9 +45,10 @@ export class TransactionComponent{
     constructor(private FomatDateService: FomatDateService,
         private WalletService: WalletService,
         private checkvalue: CheckValueSevice,
-        private route:  ActivatedRoute,
-        private WalletTransactionService: WalletTransactionService,
+        private TransactionService: TransactionService,
+        private ActivatedRoute:  ActivatedRoute,
         public toastr: ToastsManager,
+
         vcr: ViewContainerRef
     ){
         this.toastr.setRootViewContainerRef(vcr);
@@ -80,8 +82,6 @@ export class TransactionComponent{
             
            
         }
-
-        
     }
 
     // SUMMIT GỬI GIAO DỊCH 
@@ -99,15 +99,16 @@ export class TransactionComponent{
         if(this.checkvalue.checkItemObjectNull(this.transaction) == true){
             this.toastr.warning('Vui lòng nhập đầy đủ các filed vào ! ', 'Cảnh báo ! ');
         }else{
-            this.resetData();
-            // this.WalletService.addTransactionWallet(this.transaction)
-            //     .then((data) => {
-            //         this.reloadData();
-            //         this.toastr.success('Thêm giao dịch thành công ! ', 'Thành công ! ');
-            //     })
-            //     .catch((err) => {
-            //         this.toastr.error('Thêm giao dịch thất bại ! ', 'Thất bại ! ');
-            //     })
+            this.TransactionService.createTransaction(this.transaction)
+                .then((data) => {
+                    this.toastr.success('Thêm giao dịch thành công ! ', 'Thành công ! ');
+                    this.reloadData();
+                    this.resetData();
+                    
+                })
+                .catch((err) => {
+                    this.toastr.error(err, 'Thất bại ! ');
+                })
         }
     }
 
@@ -118,6 +119,7 @@ export class TransactionComponent{
         this.transaction.groupcategory = event.detect;
         this.transaction.imagecategory = event.image;
         this.transaction.categorytransaction = event.name;
+        this.transaction.idcategory = event._id;
 
         if(this.transaction.groupcategory == 'income'){
             this.titleTransaction = this.nameButtonTransaction = 'Thêm Thu Nhập';
@@ -130,9 +132,10 @@ export class TransactionComponent{
 
     // KHI USER CHỌN NGÀY
     changeDate(event){
+        
         this.transaction.datecreatetransaction = event.value.toDateString();
         this.dateCurrent = {
-            day: this.FomatDateService.getDay(event.value.getDay()),
+            day: event.value.getDay(),
             date: event.value.getDate(),
             month: event.value.getMonth() + 1,
             year: event.value.getFullYear(),
@@ -143,7 +146,7 @@ export class TransactionComponent{
     // LẤY 1 VÍ CÓ ID LÀ
     paramIdWalletURL(){
         //LẤY ID WALLET TỪ URL
-        this.route.paramMap
+        this.ActivatedRoute.paramMap
         .subscribe((params) => {
             if(params['params'].idwallet != undefined){
                 this.WalletService.getDataWalletId(params['params'].idwallet).then((data) =>{
@@ -152,13 +155,6 @@ export class TransactionComponent{
                     
                 })
                 .catch((err) => {})
-            }else{
-                this.WalletService.getAllWallet.subscribe((value) => {
-                    if(!this.checkvalue.checkValueNull(value[0])){
-                        this.nameWallet = value[0].namewallet;
-                        this.transaction.idwallet = value[0]._id;
-                    }
-                })
             }
         })
         
@@ -172,9 +168,9 @@ export class TransactionComponent{
 
     // LOAD LẠI DATA
     reloadData(){
-        let urlIdWallet = (this.route.snapshot.params.idwallet == undefined) ? '' : this.route.snapshot.params.idwallet;
-        // LOAD CẬP NHẬT LẠI MẢNG CÁC GIAO DỊCH
-        this.WalletTransactionService.getTransactionToIDWallet(urlIdWallet);
+        let urlIdWallet = (this.ActivatedRoute.snapshot.params.idwallet == undefined) ? '' : this.ActivatedRoute.snapshot.params.idwallet;
+        // LOAD LẠI CẬP NHẬT BÁO CÁO
+        this.TransactionService.getTransactions(urlIdWallet);
         // LOAD CẬP NHẬT LẠI TẤT CẢ CÁC VÍ
         this.WalletService.getDataWallets();      
     }
@@ -184,6 +180,7 @@ export class TransactionComponent{
         this.titleTransaction = "Thêm Giao Dịch";
         this.nameButtonTransaction = "Thêm Giao Dịch";
         this.transaction = {
+            idcategory: '',
             groupcategory: '',
             notetransaction: '',
             datecreatetransaction: new Date().toDateString(),

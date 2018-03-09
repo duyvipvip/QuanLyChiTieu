@@ -1,0 +1,158 @@
+<div class="page">
+    <!-- THANH HEADER-->
+    <app-header></app-header>
+    <div class="page-content d-flex align-items-stretch">
+        <!-- PHẦN MENU -->
+        <app-menu></app-menu>
+        <div class="content-inner">
+            <!-- PHẦN HEADER CONTENT -->
+            <header class="page-header">
+                <div class="container-fluid">
+                    <h2 class="no-margin-bottom">Quản Lý Ngân Sách</h2>
+                </div>
+            </header>
+
+            <section class="dashboard-counts no-padding-bottom">
+                <div class="container-fluid">
+                    <div id="content">
+                        <div class="header-content">
+                            <div class="choose-wallet">
+                                <a class="my-trigger" data-toggle="modal" data-target="#chonvi">
+                                    <img src="assets/images/budget.png" alt="">
+                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                    <p class="name-wallet">Ngân sách</p>
+                                </a>
+                            </div>
+                            <div class="button-add" data-toggle="modal" data-target="#addbudget">
+                                <button tabindex="0" type="button">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+
+                            <div class="button-edit" data-toggle="modal" data-target="#edit-wallet">
+                                <button tabindex="0" type="button">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="budget col-lg-6">
+                                <div class="row item-budget">
+                                    <div class="image col-2">
+                                        <img src="assets/images/anuong.png" alt="">
+                                    </div>
+                                    <div class="row content-item-budget col-10">
+                                        <div class="name-budget col-12">
+                                            <p>Ăn uống</p>
+                                            <p>100,000 đ</p>
+                                        </div>
+                                        <div class="row spent-money col-12">
+                                            <div class="spent col-6">
+                                                <p>Đã chi</p>
+                                                <p>69,000 đ</p>
+                                            </div>
+                                            <div class="money-item col-6">
+                                                <p>Còn lại</p>
+                                                <p>69,000 đ</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="cssProgress">
+                                            <div class="progress4 cssProgress-bg-danger">
+                                                <div class="cssProgress-bar cssProgress-danger cssProgress-glow" data-percent="35" style="width: 5%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row item-budget">
+                                    <div class="offset-2"></div>
+                                    <div class="col-10">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                                <div class="row item-budget">
+                                    <div class="image col-2">
+                                        <img src="assets/images/calendar.png" alt="">
+                                    </div>
+                                    <div class="row content-item-budget col-10">
+                                        <div class="calendar col-11">
+                                            <p>01/02/2018 - 28/02/2018</p>
+                                            <p>Còn 12 ngày</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row item-budget">
+                                    <div class="image col-2">
+                                        <img src="assets/images/wallet.png" alt="">
+                                    </div>
+                                    <div class="row content-item-budget col-10">
+                                        <p class="name-wallet">Tiền mặt trong ví</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-5 report-detail">
+                                <div class="checklist card">
+                                    <div class="card-header d-flex align-items-center">
+                                        <h2 class="h3">Danh sách giao dịch </h2>
+                                    </div>
+                                    <div class="card-body no-padding">
+                                        <div class="content-card-body">
+                                            <div class="item">
+                                                <div class="row ">
+                                                    <p class="name-overview">Tổng quan</p>
+                                                </div>
+                                                <div class="row report-overview">
+                                                    <p class="col-6">Chi tiêu</p>
+                                                    <p class="col-6">42,000,00</p>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="row">
+                                                    <div class="date-view col-6">
+                                                        <span class="view-day">15</span>
+                                                        <span class="view-date">
+                                                            <span class="days">Monday</span>
+                                                            <span class="months">Tháng 12 2016</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="amount col-6">
+                                                        <span>12 ₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div class="row row-item" (click)="chooseTransaction(transaction)" data-toggle="modal" data-target="#edit-transaction">
+                                                    <div class="col-7 left">
+                                                        <div class="img">
+                                                            <img src="assets/images/anuong.png" alt="">
+                                                        </div>
+                                                        <div class="info-detail">
+                                                            <p>An uong</p>
+                                                            <p>ok </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-5 right">
+                                                        <p>12222 ₫</p>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="line"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<app-addBudget></app-addBudget>

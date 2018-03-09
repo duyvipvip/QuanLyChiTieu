@@ -6,45 +6,17 @@ const userSchema = new mongoose.Schema({
     },
     username: {
         type: String,
-        required: true
     },
     password: {
         type: String,
-        required: true
     },
-    use: {
-        type: Boolean,
-        default: false
+    hinhanh: {
+        type: String,
+        default: "imageuser.png"
     },
-    savings:[{
-        namesaving: {
-            type: String,
-        },
-        moneynow:{
-            type: Number,
-            default: 0            
-        },
-        moneyend: {
-            type: Number,
-        },
-        enddate:{
-            type: Date,
-        },
-        transaction:[
-            {
-                notetransaction: String,
-                moneytransaction: Number,
-                datetransaction: {
-                    type: Date,
-                    default: new Date
-                },
-                idwallet: {
-                    type: String,
-                },
-                detecttransaction: String
-            }
-        ],
-       
-    }],
-}, { collection: 'user'});
-module.exports = mongoose.model('user', userSchema);
+    kichhoat: {
+        type: String,
+        default: 'flase'
+    }
+}, { collection: 'users'});
+module.exports = mongoose.model('users', userSchema);

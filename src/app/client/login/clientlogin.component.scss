@@ -1,0 +1,30 @@
+.login-icons i.fa.fa-facebook, .login-icons i.fa.fa-twitter, .login-icons i.fa.fa-google-plus, .login-icons i.fa.fa-dribbble {
+    font-size: 1.5em;
+    color: #FFFFFF;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+    background: #3b5998;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+.login-icons ul {
+    text-align: center;
+}
+.login-icons i.fa.fa-twitter {
+    background: #55acee;
+}
+.login-icons i.fa.fa-google-plus {
+    background: #dc4e41;
+}
+.login-icons i.fa.fa-dribbble {
+    background: #ea4c89;
+}
+.login-icons ul li {
+    display: inline-block;
+    margin: 0 1em;
+}
