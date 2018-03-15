@@ -31,8 +31,6 @@ export class ClientRegisterComponent{
                 }
             })
             .catch((err) => {
-                console.log(err);
-                
                 this.toastr.warning(err.message + ' ! ', 'Warning ! ');
             })
     }

@@ -49,8 +49,10 @@ function updateTransactionWallet(bodyUpdateTransaction){
     let idWalletOld = bodyUpdateTransaction.idwalletold;
     let idWalletnew = bodyUpdateTransaction.idwallet;
     let idTransaction = bodyUpdateTransaction._id;
+    
     let objTransaction = {
         "idwallet" : idWalletnew,
+        "idcategory": bodyUpdateTransaction.idcategory,
         "iduser": bodyUpdateTransaction.iduser,
         "groupcategory" : bodyUpdateTransaction.groupcategory,
         "notetransaction" : bodyUpdateTransaction.notetransaction,
@@ -60,6 +62,7 @@ function updateTransactionWallet(bodyUpdateTransaction){
         "categorytransaction" : bodyUpdateTransaction.categorytransaction,
         "taguser" : bodyUpdateTransaction.taguser
     }
+
     // XOÁ GIAO DỊCH
     transactionModel.findByIdAndRemove(idTransaction)
         .then((transacrion) => {

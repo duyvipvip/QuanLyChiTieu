@@ -22,7 +22,6 @@ export class ClientLoginComponent{
         public toastr: ToastsManager,
         vcr: ViewContainerRef,
         private Router:Router){
-
         this.toastr.setRootViewContainerRef(vcr);
             
         // let token = JSON.parse(localStorage.getItem('currentUser')) || null;

@@ -1,9 +1,10 @@
 export interface IBudget{
+    "_id"?:String
     "idcategory": String,
     "namecategory": String,
     "imagecategory": String,
     "idwallet": String,
     "targetmoney": String,
-    "datestart": Date,
-    "dateend": Date
+    "datestart": String,
+    "dateend": String
 }

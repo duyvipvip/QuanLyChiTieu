@@ -211,7 +211,6 @@ function totalTransaction(arrWalletTransactions){
    return arrWalletTransactions;
 }
 let a = groupTransaction(array);
-console.log(a);
 
 /*
     [ [ { groupcategory: 'income',

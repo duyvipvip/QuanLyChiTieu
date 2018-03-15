@@ -1,0 +1,144 @@
+<section *ngIf="budget" class="dashboard-counts no-padding-bottom">
+    <div class="container-fluid">
+        <div id="content">
+            <div class="header-content">
+                <h4>Chi Tiết Ngân Sách</h4>
+            </div>
+
+            <div class="row">
+                <div class="budget col-lg-6">
+                    <div class="row item-budget">
+                        <div class="button-edit" data-toggle="modal" data-target="#updatebudget">
+                            <button tabindex="0" type="button">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="image col-2">
+                            <img src="assets/images/anuong.png" alt="">
+                        </div>
+                        <div class="row content-item-budget col-10">
+                            <div class="name-budget col-12">
+                                <p>{{budget.namecategory}}</p>
+                                <p>{{budget.targetmoney | number:'1.0-0'}} đ</p>
+                            </div>
+                            <div class="row spent-money col-12">
+                                <div class="spent col-6">
+                                    <p>Đã chi</p>
+                                    <p>{{budget.moneytransaction *-1 | number:'1.0-0'}} đ</p>
+                                </div>
+                                <div class="money-item col-6">
+                                    <p *ngIf="budget.moneyremain >= 0">Còn lại</p>
+                                    <p *ngIf="budget.moneyremain >= 0">{{budget.moneyremain| number:'1.0-0'}} đ</p>
+                                    <p *ngIf="budget.moneyremain < 0">Bội chi</p>
+                                    <p *ngIf="budget.moneyremain < 0">{{budget.moneyremain * -1| number:'1.0-0'}} đ</p>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="cssProgress">
+                                <div class="progress4">
+                                    <div *ngIf="budget.dateRemain <= 0" class="cssProgress-bar cssProgress-danger cssProgress-glow" data-percent="35" ></div>
+                                    <div *ngIf="budget.dateRemain > 0" class="cssProgress-bar cssProgress-danger cssProgress-glow" data-percent="35" [style.width.%]="budget.percent"></div>
+                                    
+                                </div>
+                                <div *ngIf="budget.dateRemain > 0" class="overow" [style.left.px]="budget.dateCurrent" [style.top.px]="0">
+                                    <i class="fa fa-caret-up arrow"></i>
+                                    <span>Hôm nay</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row item-budget">
+                        <div class="offset-2"></div>
+                        <div class="col-10">
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                    <div class="row item-budget">
+                        <div class="image col-2">
+                            <img src="assets/images/calendar.png" alt="">
+                        </div>
+                        <div class="row content-item-budget col-10">
+                            <div class="calendar col-11">
+                                <p>{{budget.datestart | date: 'dd/MM/yyyy'}} - {{budget.dateend | date: 'dd/MM/yyyy'}}</p>
+                                <p  *ngIf="budget.dateRemain >0">Còn {{budget.dateRemain}} ngày</p>
+                                <p  *ngIf="budget.dateRemain <= 0">Đã kết thúc</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row item-budget">
+                        <div class="image col-2">
+                            <img src="assets/images/wallet.png" alt="">
+                        </div>
+                        <div class="row content-item-budget col-10">
+                            <p class="name-wallet">Ví {{nameWallet}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5 report-detail">
+                    <div class="checklist card">
+                        <div class="card-header d-flex align-items-center">
+                            <h2 class="h3">Danh sách giao dịch </h2>
+                        </div>
+                        <div class="card-body no-padding">
+                            <div class="content-card-body">
+                                <div class="item">
+                                    <div class="row ">
+                                        <p class="name-overview">Tổng quan</p>
+                                    </div>
+                                    <div class="row report-overview">
+                                        <p class="col-6">Chi tiêu</p>
+                                        <p class="col-6">{{ budget.transactions.totalAllMoneyOut | number:'1.0-0'}} đ</p>
+                                    </div>
+                                </div>
+                                <div *ngFor="let arrTransaction of budget.transactions" class="item">
+                                    <div class="row">
+                                        <div class="date-view col-6">
+                                            <span class="view-day">{{arrTransaction.dateGroupTransaction}}</span>
+                                            <span class="view-date">
+                                                <span class="days">Monday</span>
+                                                <span class="months">Tháng {{ arrTransaction.monthGroupTransaction +1 }} {{ arrTransaction.yearGroupTransaction }}</span>
+                                            </span>
+                                        </div>
+                                        <div class="amount col-6">
+                                            <span>- {{ arrTransaction.totalMoney | numberpipe | number:'1.0-0'}} ₫</span>
+                                        </div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div  *ngFor="let transaction of arrTransaction" class="row row-item" (click)="chooseTransaction(transaction)" data-toggle="modal" data-target="#edit-transaction-budget">
+                                        <div class="col-7 left">
+                                            <div class="img">
+                                                <img src="assets/images/{{transaction.imagecategory}}.png" alt="">
+                                            </div>
+                                            <div class="info-detail">
+                                                <p>{{ transaction.categorytransaction }}</p>
+                                                <p>{{ transaction.notetransaction }} </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-5 right">
+                                                <p [ngStyle]="{ color: 'red' }">{{ transaction.moneytransaction | numberpipe | number:'1.0-0' }} ₫</p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="line"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- CẬP NHẬT LẠI GIAO DỊCH -->
+<app-update-budget></app-update-budget>
+<!-- CẬP NHẬT LẠI GIAO DỊCH -->
+<app-update-transaction-budget [transaction]="objchooseTransaction" ></app-update-transaction-budget>
+
+<!-- <app-addBudget></app-addBudget> -->

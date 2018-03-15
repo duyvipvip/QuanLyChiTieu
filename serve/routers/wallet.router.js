@@ -83,7 +83,6 @@ function deleteWallet(req, res, next){
 function addWallet(req, res, next){
     let wallet = req.body;
     wallet.iduser = req.user[0]._id;
-    console.log(wallet);
     if (!wallet.namewallet) {
         next({
             statusCode: 400,

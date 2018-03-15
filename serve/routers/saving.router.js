@@ -140,7 +140,6 @@ function deleteSaving(req, res, next) {
 function createTranSaction(req, res, next) {
 
     var bodyTranSaction = req.body;
-    // console.log(bodyTranSaction);
     savingController.createTranSaction(bodyTranSaction)
         .then(function (transaction) {
             res.json(transaction);

@@ -23,6 +23,9 @@ function createBudget(bodybudget){
 // CHỈNH SỬA MÔT NGÂN SÁCH
 function updateBudget(bodybudget){
     let objUpdate = {
+        "idwallet": bodybudget.idwallet,
+        "iduser": bodybudget.iduser,
+        "imagecategory": bodybudget.imagecategory,
         "idcategory": bodybudget.idcategory,
         "namecategory": bodybudget.namecategory,
         "targetmoney": bodybudget.targetmoney,
@@ -30,7 +33,7 @@ function updateBudget(bodybudget){
         "dateend": bodybudget.dateend
     }
     budgetNew = new budgetSchema();
-    return budgetSchema.findByIdAndUpdate({_id:bodybudget.idbudget}, objUpdate)
+    return budgetSchema.findByIdAndUpdate({_id:bodybudget._id}, objUpdate)
         .then((budget) => {
             return Promise.resolve(budget);
         })
@@ -41,9 +44,10 @@ function updateBudget(bodybudget){
 
 
 // XOÁ MỘT NGÂN SÁCH
-function deleteBudget(idbudget){
-    return budgetSchema.findByIdAndRemove({_id : idbudget})
+function deleteBudget(_id){
+    return budgetSchema.findByIdAndRemove({_id : _id})
     .then((budget) => {
+        
         return Promise.resolve(budget);
     })
     .catch((err) =>{

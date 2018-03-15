@@ -1,0 +1,152 @@
+<app-location></app-location>
+<!-- THÊM CHI TIÊU, THU NHẬP , NỢ VAY    -->
+<section class="feeds no-padding-top">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- PHẦN THÊM CHI TIÊU -->
+            <div class="articles card  add-spend">
+
+                <div class="card-header d-flex align-items-center">
+                    <h2 class="h3"> {{ titleTransaction }} </h2>
+                </div>
+                <div class="card-body">
+                    <div class="row-item">
+                        <div class="img">
+                            <img src="assets/images/{{transaction.imagecategory}}.png" alt="">
+                        </div>
+                        <span class="choose-category category" data-toggle="modal" data-target="#choose-category-add-wallet">{{ transaction.categorytransaction }}
+                            <i aria-hidden="true" class="fa fa-caret-down"></i>
+                        </span>
+                    </div>
+                    <div class="row-item">
+                        <div class="img">
+                            <i class="fa fa-usd" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="group">
+                            <input name="money" class="{{ this.transaction.groupcategory }}" [ngModel]="transaction.moneytransaction | toNumber | number:'1.0-0'"
+                                (ngModelChange)="transaction.moneytransaction=$event" type="text" required placeholder="Số tiền">
+                            <span class="bar"></span>
+                        </div>
+                    </div>
+                    <div class="row-item">
+                        <div class="img">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="group">
+                            <input type="text" name="note" [(ngModel)]="transaction.notetransaction" required placeholder="Ngi chú">
+                            <span class="bar"></span>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                        </agm-map>
+                    </div>
+                </div>
+                <div class="footer-row-item row">
+                    <div class="col-6 item-left" (click)="picker.open()">
+                        <p class="week">{{ dateCurrent.day }}</p>
+                        <p class="day-of-month">{{ dateCurrent.date }}</p>
+                        <p class="month-and-year">Tháng {{ dateCurrent.month }} {{ dateCurrent.year }}</p>
+                    </div>
+                    <mat-form-field>
+                        <input (dateChange)="changeDate($event)" matInput [matDatepicker]="picker" placeholder="Choose a date">
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <div class="col-6 item-right">
+                        <span class="title-wallet">Chọn Ví</span>
+                        <span class="choose-category" data-toggle="modal" data-target="#choose-wallet-add-transaction">{{ nameWallet }}
+                            <i aria-hidden="true" class="fa fa-caret-down"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="adddetail">
+                    <div class="row-item" (click)="adddetail = !adddetail" [attr.aria-expanded]="!adddetail">
+                        <i class="fa fa-caret-down"></i>
+                        <span>Thêm Chi Tiết</span>
+                    </div>
+                    <div class="body-detail" [ngbCollapse]="adddetail">
+                        <div class="row-item">
+                            <div class="img">
+                                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                            </div>
+
+                            <div class="group">
+                                <input type="text" id="taguser" required placeholder="Với">
+                                <span class="bar"></span>
+                            </div>
+                        </div>
+
+                        <div class="row-item" (click)="open(content)">
+                            <div class="img">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                            <div class="group addmap">
+                                <span>Đặt vị trí</span>
+                            </div>
+
+                        </div>
+                        <div class="row-item">
+                            <div class="img">
+                                <i class="fa fa-clock-o"></i>
+                            </div>
+                            <div class="group addmap">
+                                <span>Đặt nhắc nhở</span>
+                            </div>
+                        </div>
+                        <div class="row-item">
+                            <div class="img">
+                                <i class="fa fa-image"></i>
+                            </div>
+                            <div class="group addimage">
+                                <span>Thêm Hình Ảnh</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-5"></div>
+                    <div class="col-7">
+                        <button type="button" class="btn btn-success" (click)="submitTransaction()">{{ nameButtonTransaction }}</button>
+                    </div>
+                </div>
+            </div>
+            <!-- PHẦN MODAL CHỌN GIAO DICH -->
+            <app-choose-category-add-wallet (chooseDataCategory)="chooseCategory($event)"></app-choose-category-add-wallet>
+
+            <!-- PHẦN CHỌN VÍ -->
+            <app-choose-wallet-add-transaction [inputSelectWallet]="transaction.idwallet" (outputSelectIDWallet)="outputIdWallet($event)"></app-choose-wallet-add-transaction>
+
+        </div>
+    </div>
+</section>
+
+<!-- PHẦN MODEL HIỂN THỊ ĐỊA ĐIỂM -->
+<ng-template  #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div id="modalloaction" class="modal-body">
+        <div *ngFor="let place of allPlace" class="row-item row" (click)="submitLocation(place)">
+            <div class="col-2">
+                <img src="{{place.icon}}" alt="">
+            </div>
+            <div class="col-10">
+                <p class="name">
+                    {{place.name}}
+                </p>
+                <p class="place">
+                    {{place.vicinity}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>

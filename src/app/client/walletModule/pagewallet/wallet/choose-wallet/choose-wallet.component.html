@@ -1,0 +1,30 @@
+<div class="modal fade" id="chonvi" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Chọn Ví</h4>
+                <span class="close-button" data-dismiss="modal">×</span>
+               
+            </div>
+            <div class="modal-body">
+                <div class="item-content-modal disable" data-dismiss="modal">
+                    <img src="assets/images/icon.png" alt="">
+                    <span class="name-vallet">Tổng cộng</span>
+                    <span class="money-vallet">{{totalMoney | number:'1.0-0'}}</span>
+                </div>
+                <p>Tiền mặt</p>
+                <div class="item-content-modal"  *ngFor="let wallet of dataWallets" [routerLink]="['/wallet', wallet._id ]"  data-dismiss="modal">
+                    <a>
+                        <img src="assets/images/wallet.png" alt="">
+                        <span class="name-vallet">{{ wallet.namewallet }}</span>
+                        <span class="money-vallet">{{ wallet.money | number:'1.0-0' }} đ</span>
+                        <input type="hidden" value="{{ wallet._id }}">
+                        <i class="{{ iconTick(wallet._id) }}" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

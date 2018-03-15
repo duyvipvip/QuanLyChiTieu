@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     },
     hinhanh: {
         type: String,
-        default: "imageuser.png"
+        default: "imageuser"
     },
     kichhoat: {
         type: String,

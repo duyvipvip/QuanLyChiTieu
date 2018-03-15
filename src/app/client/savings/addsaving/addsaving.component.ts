@@ -30,7 +30,6 @@ export class AddsavingComponent{
     addDataSaving(){
       this.SavingService.addSaving(this.objSaving);
         
-      console.log(this.objSaving);
     }
 
     //================================= FUNCTION ================================

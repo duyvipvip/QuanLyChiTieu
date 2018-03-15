@@ -957,10 +957,10 @@ section.dashboard-counts .number strong {
   font-weight: 700;
 }
 
-section.dashboard-counts .row {
+/* section.dashboard-counts .row {
   padding: 30px 15px;
   margin: 0;
-}
+} */
 
 section.dashboard-counts div[class*='col-'] .item {
   border-right: 1px solid #eee;

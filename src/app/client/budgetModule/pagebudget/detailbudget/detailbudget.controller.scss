@@ -1,0 +1,661 @@
+/* VÙNG HEADER CHỌN VÍ */
+.header-content{text-align:center;background-color:#fff;position:relative;width:100%;margin-bottom:60px;-webkit-box-shadow:2px 2px 2px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.05);box-shadow:2px 2px 2px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.05);}
+.header-content .choose-wallet p.name-wallet{color:#000;text-transform:capitalize;font-size:14px;margin:0px;}
+.header-content .choose-wallet p.money-wallet{font-size:36px;color:red;display:inline;}
+.header-content .choose-wallet img{width:72px;height:72px;}
+.choose-wallet{
+    a.my-trigger{
+        padding: 15px;
+    }
+}
+i{
+    display: block;
+}
+.row{
+  margin: 0px ;
+  padding: 0px !important;
+}
+.budget{
+    max-height: 333px;
+    background-color: #fff;
+    .col-6, .col-12, .col-11, .col-6, .col-10{
+      padding: 0px !important;
+    }
+    .item-budget:first-child{
+      margin-bottom: 30px;
+    }
+    .image img{
+      width: 36px;
+      height: 36px;
+    }
+    padding: 20px 0px 20px 0px;
+    .row{
+        
+        p{
+          margin: 0px;
+        }
+        padding-top: 0px;
+        padding-left: 0px;
+        .date{
+            p{
+                margin: 0px;
+                color: #7f7e84;
+            }
+            p.date-remain{
+                color: red !important;
+            }
+        }
+        .spent-money{
+          margin-top: 15px;
+          .money-item{
+            text-align: right;
+            p{
+                margin: 0px;
+                color: #7f7e84;
+                &:last-child{
+                  color: red !important;
+                  
+                }
+            }
+          }
+          .spent{
+            padding-bottom: 0px;
+            padding-left: 15px;
+            p{
+                margin: 0px;
+                &:first-child {
+                  color: #8d8d8d;
+                }
+                &:last-child{
+                  color: #232323;
+                }
+            }
+          }
+        }
+        
+        .name-budget{
+          p{
+            &:first-child{
+              font-weight: bold;
+              font-size: 22px;
+            }
+            &:last-child{
+              color: red; 
+            }
+          }
+          
+        }
+        .calendar{
+          padding-left: 15px;
+          p{
+            &:first-child{
+              color: #232323;
+            }
+            &:last-child{
+              color: #919191;
+            }
+          }
+        }
+       
+        .content-item-budget{
+          padding-right: 30px !important;
+        }
+        ~.item-budget{
+            padding:10px 30px 10px 0px !important;
+            .name-budget{
+                padding-left: 0px;
+            }
+            .name-wallet{
+              color: #232323;
+              padding-top: 5px;
+            }
+            .line{
+              height: 1px;
+              background: #cacaca;
+              margin-left: 5px;
+            }
+        }
+    }
+   
+}
+
+/* PHẦN BÁO CÁO CHI TIẾT */
+.report-detail{
+  padding: 0px;
+  .name-overview{
+    padding: 0px 0px 0px 15px !important;
+    margin: 0px;
+    font-weight: bold;
+  }
+  .report-overview{
+    p{
+      margin: 0px;
+      &:first-child{
+        color: rgba(0, 0, 0, 0.26);
+      }
+      &:last-child{
+        color: red;
+        text-align: right;
+      }
+    }
+  }
+  .item{
+    background-color: #fff;
+    padding: 0px;
+    margin: 20px;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  }
+  .card-body {
+    background-color: #e5e5e5;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  }
+  .row-item{
+    padding: 2px 1px;
+   
+  }
+  .row-item:hover{
+    background-color: rgba(51, 51, 51, 0.1);
+    cursor: pointer;
+  }
+  .card-header{
+    box-shadow: rgb(45, 184, 76) 0px 1px 6px, rgb(45, 184, 76) 0px 1px 4px;
+    background-color: rgb(45, 184, 76);
+  }
+  .view-day{
+    font-size: 32px;
+    display: inline-block;
+    color: rgba(0,0,0,.87);
+    font-weight: 300;
+  }
+  .days{
+    font-size: 10px;
+    display: block;
+    line-height: 15px;
+    color: #333;
+  }
+  .months{
+    color: rgba(0,0,0,.26);
+    font-size: 10px;
+  }
+  .amount{
+    text-align: right;
+  }
+  .amount span{
+    line-height: 45px;
+  }
+  .img{
+    display: inline-block;
+  }
+  img{
+    width: 48px;
+    height: 48px;
+  }
+  .info-detail{
+    margin-left: 15px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .info-detail p{
+    margin:0px;
+  }
+  .info-detail p:first-child{
+    font-size: 14px;
+  }
+  .info-detail p:last-child{
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 12px;
+    
+  }
+  .right p{
+    text-align: right;
+  }
+  .card-body{
+    overflow: auto;
+  }
+  .content-card-body{
+    background-color: #e5e5e5;
+  }
+  .row{
+    margin: 0px;
+    padding: 10px 5px !important;
+  }
+  .row:hover{
+    cursor: pointer;
+  }
+  
+  .loan, .expense{
+    color:red;
+  }
+  .income, .debt{
+    color:rgb(3, 155, 229);
+  }
+}
+h4{
+  padding: 10px 0px;
+}
+#content{
+  margin-bottom: 40px;
+}
+/* NÚT BUTTON THÊM, SỬA VÍ */
+.button-add{box-shadow:rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;border-radius:50%;display:inline-block;position:absolute;bottom:-30px;right:100px;}
+.button-add button, .button-edit button{border:10px;background-color:rgb(90, 241, 88);height:56px;width:56px;border-radius:50%;color:rgba(0, 0, 0, 0.6);}
+.button-edit{
+  box-shadow:rgba(0, 0, 0, 0.16) 0px 3px 10px,
+  rgba(0, 0, 0, 0.23) 0px 3px 10px;
+  border-radius:50%;
+  z-index: 1000px;
+  display:inline-block;
+  position:absolute;
+  top:-28px;
+  right:-28px;
+}
+
+// PHẦN PROGRESS
+
+.cssProgress {
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  margin: 5px 0px 0px 0px;
+  .overow{
+    border: 1px solid #d9d9d9;
+    width: 70px;
+    text-align: center;
+    position: absolute;
+    margin-top: 10px;
+    border-radius: 5px;
+    .arrow{
+      position: absolute;
+      top: -12px;
+      left: 45%;
+    }
+  }
+  }
+  .cssProgress .progress1,
+  .cssProgress .progress2,
+  .cssProgress .progress3 {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    font-family: "Roboto", sans-serif;
+  }
+  .cssProgress .cssProgress-bar {
+    display: block;
+    float: left;
+    width: 0%;
+    height: 100%;
+    background: #3798d9;
+    box-shadow: inset 0px -1px 2px rgba(0, 0, 0, 0.1);
+    -webkit-transition: width 0.8s ease-in-out;
+            transition: width 0.8s ease-in-out;
+  }
+  .cssProgress .cssProgress-label {
+    position: absolute;
+    overflow: hidden;
+    left: 0px;
+    right: 0px;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 0.7em;
+    text-align: center;
+    text-shadow: 0px 1px rgba(0, 0, 0, 0.3);
+  }
+  .cssProgress .cssProgress-info {
+    background-color: #9575cd !important;
+  }
+  .cssProgress .cssProgress-danger {
+    background-color: #ef5350 !important;
+  }
+  .cssProgress .cssProgress-success {
+    background-color: #66bb6a !important;
+  }
+  .cssProgress .cssProgress-warning {
+    background-color: #ffb74d !important;
+  }
+  .cssProgress .cssProgress-right {
+    float: right !important;
+  }
+  .cssProgress .cssProgress-label-left {
+    margin-left: 10px;
+    text-align: left !important;
+  }
+  .cssProgress .cssProgress-label-right {
+    margin-right: 10px;
+    text-align: right !important;
+  }
+  .cssProgress .cssProgress-label2 {
+    display: block;
+    margin: 2px 0;
+    padding: 0 8px;
+    font-size: 0.8em;
+  }
+  .cssProgress .cssProgress-label2.cssProgress-label2-right {
+    text-align: right;
+  }
+  .cssProgress .cssProgress-label2.cssProgress-label2-center {
+    text-align: center;
+  }
+  .cssProgress .cssProgress-stripes,
+  .cssProgress .cssProgress-active,
+  .cssProgress .cssProgress-active-right {
+    background-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, 0.125) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.125) 50%, rgba(255, 255, 255, 0.125) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.125) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.125) 50%, rgba(255, 255, 255, 0.125) 75%, transparent 75%, transparent);
+    background-size: 35px 35px;
+  }
+  .cssProgress .cssProgress-active {
+    -webkit-animation: cssProgressActive 2s linear infinite;
+    -ms-animation: cssProgressActive 2s linear infinite;
+    animation: cssProgressActive 2s linear infinite;
+  }
+  .cssProgress .cssProgress-active-right {
+    -webkit-animation: cssProgressActiveRight 2s linear infinite;
+    -ms-animation: cssProgressActiveRight 2s linear infinite;
+    animation: cssProgressActiveRight 2s linear infinite;
+  }
+  @-webkit-keyframes cssProgressActive {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 35px 35px;
+    }
+  }
+  @-ms-keyframes cssProgressActive {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 35px 35px;
+    }
+  }
+  @keyframes cssProgressActive {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 35px 35px;
+    }
+  }
+  @-webkit-keyframes cssProgressActiveRight {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -35px -35px;
+    }
+  }
+  @-ms-keyframes cssProgressActiveRight {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -35px -35px;
+    }
+  }
+  @keyframes cssProgressActiveRight {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -35px -35px;
+    }
+  }
+  /* -----------------------------------------------------
+    Progress Bar 1
+  -------------------------------------------------------- */
+  .progress1 {
+    background-color: #EEE;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  .progress1 .cssProgress-bar {
+    height: 18px;
+  }
+  .progress1 .cssProgress-label {
+    line-height: 18px;
+  }
+  
+  /* -----------------------------------------------------
+     Progress Bar 2
+  -------------------------------------------------------- */
+  .progress2 {
+    background-color: #EEE;
+    border-radius: 9px;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  .progress2 .cssProgress-bar {
+    height: 18px;
+    border-radius: 9px;
+  }
+  .progress2 .cssProgress-label {
+    line-height: 18px;
+  }
+  
+  /* -----------------------------------------------------
+     Progress Bar 3
+  -------------------------------------------------------- */
+  .progress3 {
+    width: auto !important;
+    padding: 4px;
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+  }
+  .progress3 .cssProgress-bar {
+    height: 16px;
+    border-radius: 3px;
+  }
+  .progress3 .cssProgress-label {
+    line-height: 16px;
+  }
+  
+  /* -----------------------------------------------------
+    Progress Bar 4
+  -------------------------------------------------------- */
+  .progress4 {
+    position: relative;
+    width: 100%;
+    background-color: #EEE;
+  }
+  .progress4.cssProgress-bg {
+    background-color: #bbdefb !important;
+  }
+  .progress4.cssProgress-bg-info {
+    background-color: #d1c4e9 !important;
+  }
+  .progress4.cssProgress-bg-danger {
+    background-color: #ffcdd2 !important;
+  }
+  .progress4.cssProgress-bg-success {
+    background-color: #c8e6c9 !important;
+  }
+  .progress4.cssProgress-bg-warning {
+    background-color: #ffecb3 !important;
+  }
+  .progress4 .cssProgress-bar {
+    display: block;
+    float: none;
+    width: 0%;
+    height: 4px;
+    background: #3798d9;
+  }
+  .progress4 .cssProgress-bar.cssProgress-lg {
+    height: 6px;
+  }
+  .progress4 .cssProgress-bar.cssProgress-2x {
+    height: 8px;
+  }
+  .progress4 .cssProgress-bar.cssProgress-3x {
+    height: 10px;
+  }
+  .progress4 .cssProgress-bar.cssProgress-4x {
+    height: 12px;
+  }
+  .progress4 .cssProgress-bar.cssProgress-5x {
+    height: 14px;
+  }
+  .progress4 .cssProgress-bar.cssProgress-glow {
+    max-width: 100%;
+    box-shadow: 5px 0px 15px 0px #3798D9;
+  }
+  .progress4 .cssProgress-bar.cssProgress-glow.cssProgress-info {
+    max-width: 100%;
+    box-shadow: 5px 0px 15px 0px #9575cd;
+  }
+  .progress4 .cssProgress-bar.cssProgress-glow.cssProgress-danger {
+    max-width: 100%;
+    box-shadow: 5px 0px 15px 0px #ef5350;
+  }
+  .progress4 .cssProgress-bar.cssProgress-glow.cssProgress-success {
+    max-width: 100%;
+    box-shadow: 5px 0px 15px 0px #66bb6a;
+  }
+  .progress4 .cssProgress-bar.cssProgress-glow.cssProgress-warning {
+    max-width: 100%;
+    box-shadow: 5px 0px 15px 0px #ffb74d;
+  }
+  .progress4 .cssProgress-bar.cssProgress-glow-active {
+    -webkit-animation: cssProgressGlowActive1 3s linear infinite;
+    -ms-animation: cssProgressGlowActive1 3s linear infinite;
+    animation: cssProgressGlowActive1 3s linear infinite;
+  }
+  .progress4 .cssProgress-bar.cssProgress-glow-active.cssProgress-info {
+    -webkit-animation: cssProgressGlowActive2 3s linear infinite;
+    -ms-animation: cssProgressGlowActive2 3s linear infinite;
+    animation: cssProgressGlowActive2 3s linear infinite;
+  }
+  .progress4 .cssProgress-bar.cssProgress-glow-active.cssProgress-danger {
+    -webkit-animation: cssProgressGlowActive3 3s linear infinite;
+    -ms-animation: cssProgressGlowActive3 3s linear infinite;
+    animation: cssProgressGlowActive3 3s linear infinite;
+  }
+  .progress4 .cssProgress-bar.cssProgress-glow-active.cssProgress-success {
+    -webkit-animation: cssProgressGlowActive4 3s linear infinite;
+    -ms-animation: cssProgressGlowActive4 3s linear infinite;
+    animation: cssProgressGlowActive4 3s linear infinite;
+  }
+  .progress4 .cssProgress-bar.cssProgress-glow-active.cssProgress-warning {
+    -webkit-animation: cssProgressGlowActive5 3s linear infinite;
+    -ms-animation: cssProgressGlowActive5 3s linear infinite;
+    animation: cssProgressGlowActive5 3s linear infinite;
+  }
+  @-webkit-keyframes cssProgressGlowActive1 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #3798D9;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #3798D9;
+    }
+  }
+  @-ms-keyframes cssProgressGlowActive1 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #3798D9;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #3798D9;
+    }
+  }
+  @keyframes cssProgressGlowActive1 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #3798D9;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #3798D9;
+    }
+  }
+  @-webkit-keyframes cssProgressGlowActive2 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #9575cd;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #9575cd;
+    }
+  }
+  @-ms-keyframes cssProgressGlowActive2 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #9575cd;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #9575cd;
+    }
+  }
+  @keyframes cssProgressGlowActive2 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #9575cd;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #9575cd;
+    }
+  }
+  @-webkit-keyframes cssProgressGlowActive3 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #ef5350;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #ef5350;
+    }
+  }
+  @-ms-keyframes cssProgressGlowActive3 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #ef5350;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #ef5350;
+    }
+  }
+  @keyframes cssProgressGlowActive3 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #ef5350;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #ef5350;
+    }
+  }
+  @-webkit-keyframes cssProgressGlowActive4 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #66bb6a;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #66bb6a;
+    }
+  }
+  @-ms-keyframes cssProgressGlowActive4 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #66bb6a;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #66bb6a;
+    }
+  }
+  @keyframes cssProgressGlowActive4 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #66bb6a;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #66bb6a;
+    }
+  }
+  @-webkit-keyframes cssProgressGlowActive5 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #ffb74d;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #ffb74d;
+    }
+  }
+  @-ms-keyframes cssProgressGlowActive5 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #ffb74d;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #ffb74d;
+    }
+  }
+  @keyframes cssProgressGlowActive5 {
+    0%, 100% {
+      box-shadow: 5px 0px 15px 0px #ffb74d;
+    }
+    45% {
+      box-shadow: 1px 0px 4px 0px #ffb74d;
+    }
+  }
+  

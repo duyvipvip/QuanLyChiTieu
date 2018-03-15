@@ -47,13 +47,14 @@ function createUser(req, res, next){
 function uploadAvatar(req, res, next) {
     //console.log('vao2');
     //console.log(req.files.file);
-    // if (!req.files)
-    //     return next({
-    //         message: 'No files were uploaded.'
-    //     });
+    if (!req.files)
+        return next({
+            message: 'No files were uploaded.'
+        });
 
-    // var uploadedFile = req.files.file;
-    // req.user._id = "5a97b38b9e01cbe0f071a6e3";
+    var uploadedFile = req.files.file;
+    res.send(uploadedFile);
+    //req.user._id = "5a97b38b9e01cbe0f071a6e3";
     // userController.uploadAvatar(req.user._id, uploadedFile)
     //     .then(function (avatar) {
     //         res.send({

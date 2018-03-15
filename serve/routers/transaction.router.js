@@ -100,7 +100,6 @@ function getTransactions(req, res, next){
 
 // UPDATE GIAO DỊCH VÍ
 function updateTransactionWallet(req, res, next){
-// console.log('vao');
     
     let transaction = req.body;
     transaction.iduser = req.user[0]._id;

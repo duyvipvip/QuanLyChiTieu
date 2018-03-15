@@ -1,0 +1,133 @@
+<header class="page-header">
+    <div class="container-fluid">
+        <h2 class="no-margin-bottom">Quản Lý Ngân Sách</h2>
+    </div>
+</header>
+<div class="budget-content">
+    <div class="tab">
+        <p class="title">Budget</p>
+        <ul class="nav nav-tabs">
+            <li>
+                <div class="button-add" data-toggle="modal" data-target="#addbudget">
+                    <button tabindex="0" type="button">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </li>
+            <li>
+                <a href="#running" data-toggle="tab" class="active">ĐANG SỬ DỤNG
+                    <div class="line"></div>
+                </a>
+            </li>
+            <li>
+                <a href="#finished" data-toggle="tab">KẾT THÚC
+                    <div class="line"></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <!-- PHẦN KẾ HOẠCH ĐANG CHẠY -->
+        <div class="tab-pane active" id="running">
+            <div class="budget col-lg-6">
+                <div *ngFor="let budget of budgets" (click)="chooseBudget(budget)">
+                    <div *ngIf="budget.dateRemain > 0" class="row item-budget">
+
+                        <div class="image col-2">
+                            <img src="assets/images/{{ budget.imagecategory }}.png" alt="">
+                        </div>
+
+                        <div [routerLink]="budget._id" *ngIf="budget.dateRemain > 0 || budget.moneytransaction*-1 < budget.targetmoney" class="row content-item-budget col-9">
+
+                            <div class="row name-budget col-12">
+                                <div class="col-6">
+                                    <p>{{ budget.namecategory }}</p>
+                                    <p>{{ budget.datestart | date: 'dd/MM'}} - {{ budget.dateend | date: 'dd/MM'}}</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="targetmoney">{{ budget.targetmoney | number:'1.0-0' }}</p>
+                                </div>
+                            </div>
+                            <div class="row spent-money col-12">
+                                <div class="spent col-6">
+                                    <p *ngIf="budget.moneyremain > 0 "> Đã chi: {{ budget.moneytransaction * -1 | number:'1.0-0' }} đ</p>
+                                </div>
+                                <div class="money-item col-6">
+                                    <p *ngIf="budget.moneyremain >= 0 "> Còn lại: {{ budget.moneyremain | number:'1.0-0' }} đ</p>
+                                    <p *ngIf="budget.moneyremain < 0 "> Bội chi:
+                                        <span class="boichi">{{ budget.moneyremain * -1 | number:'1.0-0'}} đ</span>
+                                    </p>
+
+                                    <p>Còn {{ budget.dateRemain }} ngày</p>
+                                </div>
+                            </div>
+                            <div class="cssProgress">
+                                <div class="progress4">
+                                    <div class="cssProgress-bar cssProgress-danger cssProgress-glow" [style.width.%]="budget.percent" data-percent="35"></div>
+                                </div>
+                                <div class="overow" [style.left.px]="budget.dateCurrent" [style.top.px]="0">
+                                    <i class="fa fa-caret-up arrow"></i>
+                                    <span>Hôm nay</span>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class="image col-1">
+                            <div class="icontrash" (click)="trashBudget(budget._id)">
+                                <i class="fa fa-trash"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- PHẦN KẾ HOẠCH ĐANG CHẠY -->
+
+        <!-- PHẦN KẾ HOẠCH KẾT THÚC -->
+        <div class="tab-pane" id="finished">
+            <div class="budget col-lg-6">
+                <div *ngFor="let budget of budgets" [routerLink]="budget._id" (click)="chooseBudget(budget)">
+                    <div *ngIf="budget.dateRemain <= 0" class="row item-budget">
+                        <div class="image col-2">
+                            <img src="assets/images/{{ budget.imagecategory }}.png" alt="">
+                        </div>
+                        <div class="row content-item-budget col-9">
+                            <div class="row name-budget col-12">
+                                <div class="col-6">
+                                    <p>{{ budget.namecategory }}</p>
+                                    <p>{{ budget.datestart | date: 'dd/MM'}} - {{ budget.dateend | date: 'dd/MM'}}</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="targetmoney">{{ budget.targetmoney | number:'1.0-0' }}</p>
+                                </div>
+                            </div>
+                            <div class="row spent-money col-12">
+                                <div class="spent col-6">
+                                </div>
+                                <div class="money-item col-6">
+                                    <p *ngIf="budget.moneyremain >= 0">Còn lại {{ budget.moneyremain | number:'1.0-0' }} đ</p>
+                                    <p *ngIf="budget.moneyremain < 0">Số tiền dư {{ budget.moneyremain * -1| number:'1.0-0' }} đ</p>
+
+                                </div>
+                            </div>
+                            <div class="cssProgress">
+                                <div class="progress4">
+                                    <div class="cssProgress-bar cssProgress-glow-active cssProgress-lg" data-percent="35"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="image col-1">
+                            <div class="icontrash" (click)="trashBudget(budget._id)">
+                                <i class="fa fa-trash"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- PHẦN KẾ HOẠCH KẾT THÚC -->
+
+
+    </div>
+</div>
+<app-addBudget></app-addBudget>

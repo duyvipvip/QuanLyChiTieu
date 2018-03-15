@@ -77,7 +77,6 @@ function duy(){
     
 }
 function checkAuth(nguoidung) {
-    // console.log(nguoidung);
     return userModel.find(nguoidung)
         .then(function (foundNguoidung) {
             if (foundNguoidung) {

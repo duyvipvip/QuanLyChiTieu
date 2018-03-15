@@ -10,14 +10,25 @@ export class WalletService{
     private _iduser = '';
     token = JSON.parse(localStorage.getItem('currentUser')).token;
     
+    // LẤY TẤT CẢ CÁC VÍ
     private _allWallet:BehaviorSubject<IWallet[]> = new BehaviorSubject(new Array());
+    
+    // LẤY 1 VÍ
+    private _onlyWallet:BehaviorSubject<IWallet> = new BehaviorSubject<IWallet>(null);
+    
     constructor(private Http:Http){
         this._iduser = JSON.parse(localStorage.getItem('currentUser'))._id;
         
     }
     
+    // LẤY TẤT CẢ CÁC VÍ TỪ SUBJECT
     get getAllWallet(){
         return this._allWallet.asObservable();
+    }
+
+    // LẤY 1 VÍ TỪ SUBJECT
+    get_onlyWallet(){
+        return this._onlyWallet.asObservable();
     }
 
     // LẤY TẤT CẢ CÁC VÍ
@@ -58,6 +69,7 @@ export class WalletService{
         return this.Http.get(`http://localhost:3000/api/wallet/only?idwallet=`+idwallet + "&iduer="+iduser)
         .toPromise()
         .then(data => {
+            this._onlyWallet.next(data.json());
             return data.json();
         })
     }

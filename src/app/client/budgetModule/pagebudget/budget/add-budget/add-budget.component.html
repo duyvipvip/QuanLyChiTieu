@@ -1,0 +1,73 @@
+<div class="modal fade" id="addbudget" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm Kế Hoạch</h4>
+                <span class="close-button" data-dismiss="modal">×</span>
+            </div>
+            <div class="modal-body">
+                <div class="row-item">
+                    <div class="img">
+                        <img src="assets/images/{{ budget.imagecategory }}.png" alt="">
+                    </div>
+
+                    <div class="group" data-toggle="modal" data-target="#choose-category-add-budget">
+                        <span class="choose-category category" data-toggle="modal" data-target="#choose-category-add-budget">{{ budget.namecategory }}
+                            <i aria-hidden="true" class="fa fa-caret-down"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="row-item">
+                    <div class="img">
+                        <i class="fa fa-usd" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="group">
+                        <input [ngModel]="budget.targetmoney | toNumber | number:'1.0-0'" (ngModelChange)="budget.targetmoney=$event"  type="text" required placeholder="Số tiền ngân sách">
+                        <span class="bar"></span>
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="img">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+
+                    <div class="group">
+                        <label>Ngày bắt đầu</label>
+                        <input [(ngModel)]="budget.datestart" type="Date">
+                        <span class="bar"></span>
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="img">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+
+                    <div class="group">
+                        <label>Ngày kết thúc</label>
+                        <input [(ngModel)]="budget.dateend" type="Date" required>
+                        <span class="bar"></span>
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="img img-wallet">
+                        <img src="assets/images/wallet.png" alt="">
+                    </div>
+
+                    <div class="group">
+                        <select [(ngModel)]="budget.idwallet" class="form-control wallet" id="exampleSelect1">
+                            <option value="0" [attr.selected]='false'>Chọn tất cả các ví</option>
+                            <option *ngFor="let wallet of dataWallets" value="{{ wallet._id }}">{{wallet.namewallet}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-add" (click)="submitAddBudget()" data-dismiss="modal">Thêm kế hoạch</button>
+            </div>
+        </div>
+    </div>
+</div>
+<app-choose-category-add-budget (chooseDataCategory)="chooseCategory($event)"></app-choose-category-add-budget>

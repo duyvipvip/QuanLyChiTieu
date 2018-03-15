@@ -3,8 +3,8 @@ const auth = require("../middle-ware/auth");
 const bugetController = require("../controller/budget.controller");
 
 router.post('/create', auth.auth() , createBudget);
-router.post('/update', updateBudget);
-router.post('/delete', deleteBudget);
+router.post('/update', auth.auth(), updateBudget);
+router.post('/delete', auth.auth() , deleteBudget);
 router.get('/all', getBudgets);
 router.get('/only', getBudget);
 
@@ -70,7 +70,23 @@ function createBudget(req, res, next){
 // CHỈNH SỬA MỘT NGÂN SÁCH
 function updateBudget(req, res, next){
     let bodyBudget = req.body;
-    if (!bodyBudget.idcategory) {
+    bodyBudget.iduser = req.user[0]._id;
+    if(!bodyBudget.idwallet){
+        next({
+            statusCode: 400,
+            message: "id wallet is required"
+        })
+    }else if(!bodyBudget.imagecategory){
+        next({
+            statusCode: 400,
+            message: "image category is required"
+        })
+    }else if(!bodyBudget.iduser){
+        next({
+            statusCode: 400,
+            message: "id user is required"
+        })
+    }else if (!bodyBudget.idcategory) {
         next({
             statusCode: 400,
             message: "id category is required"
@@ -95,13 +111,13 @@ function updateBudget(req, res, next){
             statusCode: 400,
             message: "date end is required"
         })
-    }else if(!bodyBudget.idbudget){
+    }else if(!bodyBudget._id){
         next({
             statusCode: 400,
             message: "id budget is required"
         })
     }else{
-        bugetController.updateBudget()
+        bugetController.updateBudget(bodyBudget)
         .then((buget) => {
             res.send(buget);
         })
@@ -112,14 +128,27 @@ function updateBudget(req, res, next){
 
 // XOÁ MỘT NGÂN SÁCH
 function deleteBudget(req, res, next){
-    let idbudget = req.body.idbudget;
-    bugetController.deleteBudget(idbudget)
-        .then((buget) => {
-            res.send(buget);
+    let _id = req.body._id;
+    let iduser = req.user[0]._id;
+    if(!_id){
+        next({
+            statusCode: 400,
+            message: "id budget is required"
         })
-        .catch((err) => {
-            next(err);
+    }else if(!iduser){
+        next({
+            statusCode: 400,
+            message: "id user is required"
         })
+    }else{
+        bugetController.deleteBudget(_id)
+            .then((buget) => {
+                res.send(buget);
+            })
+            .catch((err) => {
+                next(err);
+            })
+    }
 }
 
 // LẤY TẤT CẢ CÁC NGÂN SÁCH

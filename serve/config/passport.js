@@ -39,7 +39,6 @@ module.exports = function(passport) {
 	    				// 		throw err;
 	    				// 	return done(null, newUser);
 	    				// })
-	    				console.log(profile);
 	    			}
 	    		});
 	    	});

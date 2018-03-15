@@ -1,0 +1,15 @@
+<section class="dashboard-counts no-padding-bottom">
+    <div class="container-fluid">
+        <div id="content">
+            <div class="header-content">
+                <h4 >Quản Lý Ví</h4>
+            </div>
+            <app-wallet></app-wallet>
+            <div *ngIf="checkURL" class="row">
+                <app-transaction class="col-6"></app-transaction>
+                <app-report class="col-6"></app-report>
+            </div>
+        </div>
+    </div>
+</section>
+

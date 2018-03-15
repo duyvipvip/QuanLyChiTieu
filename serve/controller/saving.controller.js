@@ -15,7 +15,6 @@ module.exports = {
 
 // get savings / user
 function getSaving(id) {
-    console.log(id);
     return User.findById(id)
         .populate({
             path: 'savings'
@@ -67,7 +66,6 @@ function updateSaving(saving) {
     return Saving.findOneAndUpdate({ _id: saving._id }, saving)
         // return Saving.update({_id:saving._id},saving)
         .then(function (saving) {
-            // console.log(saving);
             return Promise.resolve(saving);
         })
         .catch(function (err) {
@@ -92,7 +90,6 @@ function createTranSaction(data) {
     return Wallet.findById(transaction.walletid).then(function(wallet){
         if(transaction.isGetIn==true){
             if(transaction.money>wallet.money){
-                console.log("không đủ tiền");
             }
             else{
                 wallet.money = wallet.money - transaction.money;
@@ -104,11 +101,9 @@ function createTranSaction(data) {
         }
         return wallet.save()
         .then(function () {
-            console.log('thanh cong');
             return Promise.resolve(wallet);
         })
         .catch(function (err) {
-            console.log('loi');
             return Promise.reject(err);
         })
     })  
