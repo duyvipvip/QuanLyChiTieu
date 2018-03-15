@@ -8,6 +8,7 @@ import { SavingsComponent } from './client/savings/savings.component';
 import { ListsavingComponent } from './client/savings/listsaving/listsaving.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ProfileComponent } from './client/profile/profile.component';
 
 const routes: Routes = [
 
@@ -24,6 +25,9 @@ const routes: Routes = [
   
     // ĐƯỜNG DẪN URL ĐẾN TRANG ĐĂNG KÍ
     {path: 'dangki', component: ClientRegisterComponent},
+
+    // ĐƯỜNG DẪN URL ĐẾN TRANG THÔNG TIN
+    {path: 'thongtin', component: ProfileComponent},
   
     
     //Path Khoan tiet kiem

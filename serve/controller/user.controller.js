@@ -3,11 +3,13 @@ const crypto = require('crypto');
 const secret = 'meomeomeo';
 const mail = require('../utils/mail');
 const jwt = require('../utils/jwt');
+var path = require('path');
 
 module.exports = {
     createUser: createUser,
     getAllUser: getAllUser,
-    kichhoattaikhoan: kichhoattaikhoan
+    kichhoattaikhoan: kichhoattaikhoan,
+    uploadAvatar: uploadAvatar
 }
 
 function createUser(newUser) {
@@ -63,18 +65,18 @@ function getAllUser(){
 // Upload hình ảnh 
 function uploadAvatar(userId, file) {
     //find user to upload avatar
-    return User.findOne({ _id: userId })
+    return userModel.findOne({ _id: userId })
         .then(function (user) {
             if (user) {
                 return new Promise(function (resolve, reject) {
                     //move to avatar folder
-                    file.mv(path.join(__dirname, '../public/avatar/avatar_' + user._id + '.png'), function (err) {
+                    file.mv(path.join(__dirname, '../public/avatars/avatar_' + user._id + '.png'), function (err) {
                         if (err)
                             reject(err);
                         //update current user with new avatar path
-                        return User.findOneAndUpdate({ _id: userId }, { $set: { hinhanh: 'avatar_' + user._id + '.png' } })
+                        return userModel.findOneAndUpdate({ _id: userId }, { $set: { hinhanh: 'avatar_' + user._id + '.png' } })
                             .then(function (data) {
-                                resolve(`${constants.server.domain}:${constants.server.port}/avatar/avatar_${user._id}.png`);
+                                resolve(`${constants.server.domain}:${constants.server.port}/avatars/avatar_${user._id}.png`);
                             })
                             .then(function (err) {
                                 reject(err);

@@ -46,7 +46,7 @@ function login(email, password) {
                                     token: token,
                                     username: user.username,
                                     _id: user._id,
-                                    hinhanh: user.hinhanh,
+                                    hinhanh: 'http://localhost:3000/avatars/'+user.hinhanh,
                                     email: user.email
                                 });
                             }

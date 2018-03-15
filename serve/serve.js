@@ -23,14 +23,23 @@ const db = require('./database/database');
 const savingRouter = require("./routers/saving.router");
 const errorHandler = require('./middle-ware/error-handler');
 
+
+//enabel CORS
+app.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, x-access-token');
+    next();
+});
+
 // PORT ĐỂ TRUY CẬP APPLICATION
 const port = process.env.port || 3000;
 
 // SỬ DỤNG BUILT-IN MIDDLEWARE 
+app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
-app.use(fileUpload());
 
 // SỬ DỤNG ĐỂ CHỨNG THỰC PASSPORT
 require('./config/passport')(passport);
@@ -53,14 +62,6 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/saving", savingRouter);
 app.use(errorHandler.errorHandler());
-
-
-app.all('*', function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-});
 
 app.listen(port, () =>{
     console.log(`serve hoạt động trên port ${port}`);

@@ -1,3 +1,4 @@
+import { ProfileComponent } from './client/profile/profile.component';
 import { AgmCoreModule } from '@agm/core';
 import { ClientLoginComponent } from './client/login/clientlogin.component';
 import { BudgetModule } from './client/budgetModule/budget.module';
@@ -43,7 +44,6 @@ const appRoutes: Routes = [
     MyCurrencyPipe,
     ClientRegisterComponent,
     ClientLoginComponent,
-    
     LayOutComponent,
     // PHẦN SAVING
     TransactionSvComponent,
@@ -52,6 +52,7 @@ const appRoutes: Routes = [
     SavingsComponent,
     ListsavingComponent,
     DetailsavingComponent,
+    ProfileComponent
     
     
   ],

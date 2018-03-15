@@ -2,6 +2,7 @@ import { WalletService } from './../../../../service/wallet.service';
 import { IWallet } from './../../../../model/wallet.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MenuComponent } from '../../../template/menu/menu.component';
 
 @Component({
     selector: "app-wallet",
@@ -23,6 +24,7 @@ export class WalletComponent implements OnInit{
     constructor(private WalletService: WalletService,
         private route:ActivatedRoute
     ){ 
+        MenuComponent.updateUserStatus.next();
         this.iduser = JSON.parse(localStorage.getItem('currentUser'))._id;
         // LẤY ID WALLET TỪ URL
         route.paramMap
