@@ -4,6 +4,7 @@ const secret = 'meomeomeo';
 const mail = require('../utils/mail');
 const jwt = require('../utils/jwt');
 var path = require('path');
+const config = require('../config/config');
 
 module.exports = {
     createUser: createUser,
@@ -64,6 +65,7 @@ function getAllUser(){
 
 // Upload hình ảnh 
 function uploadAvatar(userId, file) {
+    console.log(file);
     //find user to upload avatar
     return userModel.findOne({ _id: userId })
         .then(function (user) {
@@ -71,12 +73,14 @@ function uploadAvatar(userId, file) {
                 return new Promise(function (resolve, reject) {
                     //move to avatar folder
                     file.mv(path.join(__dirname, '../public/avatars/avatar_' + user._id + '.png'), function (err) {
-                        if (err)
+                        if (err){
+                            console.log(err);
                             reject(err);
+                        }
                         //update current user with new avatar path
                         return userModel.findOneAndUpdate({ _id: userId }, { $set: { hinhanh: 'avatar_' + user._id + '.png' } })
                             .then(function (data) {
-                                resolve(`${constants.server.domain}:${constants.server.port}/avatars/avatar_${user._id}.png`);
+                                resolve(`${config.server.domain}:${config.server.port}/avatars/avatar_${user._id}.png`);
                             })
                             .then(function (err) {
                                 reject(err);
