@@ -74,6 +74,10 @@ export class UpdateTransactionReportComponent{
             idwallet: transaction.idwallet,
             taguser: transaction.taguser,
         };
+        if(transaction.location != undefined){
+            this._transaction.location = transaction.location;
+            
+        }
         // KHI COMPONENT CHA TRUYỀN DỮ LIỆU THÌ MỚI THƯC HIỆN
         if(!this.CheckValueSevice.checkItemObjectNull(this._transaction)){
             this.getDataWalletId(transaction.idwallet);  // LẤY TÊN VÍ HIỆN THỊ LÊN

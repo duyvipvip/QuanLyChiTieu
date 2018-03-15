@@ -24,11 +24,6 @@ function createUser(req, res, next){
             statusCode: 400,
             message: "password  is required"
         })
-    }else if(!user.kichhoat){
-        next({
-            statusCode: 400,
-            message: "kích hoạt  is required"
-        })
     }else{
         userController.createUser(user)
         .then((user) => {

@@ -8,6 +8,7 @@ export interface ITransaction{
     imagecategory:String;
     categorytransaction: String;
     idwallet: String,
-    taguser: Array<String>;
+    taguser?: Array<String>;
     idwalletold?: String;
+    location?: Object;
 }

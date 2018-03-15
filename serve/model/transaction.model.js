@@ -38,7 +38,8 @@ const transactionSchema = mongoose.Schema({
     idcategory: {
         type: String,
         require: true
-    }
+    },
+    location: {}
 }, {collection: "transaction"})
 
 module.exports = mongoose.model("transaction", transactionSchema);

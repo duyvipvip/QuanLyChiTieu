@@ -1,3 +1,31 @@
+// phần tab
+.tab{
+    padding: 10px;
+    background: rgb(45, 184, 76);
+    ul{
+        border-bottom: 0px;
+        li{
+            width: 50%;
+            text-align: center;
+            a{
+                color: rgba(255, 255, 255, 0.7);
+                width: 100%;                
+            }
+            a.active{
+                .line{
+                    display: block;
+                }
+                
+            }
+        }
+    }
+}
+a.active{
+    color: rgb(255, 255, 255) !important;
+}
+agm-map{
+    height: 300px;
+}
 .modal-header{
     background-color: #2db84c;
     i{

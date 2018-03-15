@@ -84,7 +84,7 @@
                                 <i class="fa fa-map-marker"></i>
                             </div>
                             <div class="group addmap">
-                                <span>Đặt vị trí</span>
+                                <span>{{objLocation.name}}</span>
                             </div>
 
                         </div>
@@ -132,7 +132,7 @@
         </button>
     </div>
     <div id="modalloaction" class="modal-body">
-        <div *ngFor="let place of allPlace" class="row-item row" (click)="submitLocation(place)">
+        <div *ngFor="let place of allPlace" class="row-item row" (click)="submitLocation(place)" (click)="c('Close click')">
             <div class="col-2">
                 <img src="{{place.icon}}" alt="">
             </div>

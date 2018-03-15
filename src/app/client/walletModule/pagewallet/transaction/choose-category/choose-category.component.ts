@@ -31,13 +31,15 @@ export class ChooseCategoryAddWalletComponent{
         let id = eleChoose.querySelectorAll('input[name=id]')[0].value;
         let name = eleChoose.querySelectorAll('p')[0].textContent;
         let image = eleChoose.querySelectorAll('img')[0].src.split('/');
+        let detect = eleChoose.querySelectorAll('input[name=detect]')[0].value;
         image = image[image.length - 1].split('.')[0];
         
         // OBJECT NGƯỜI DÙNG CHỌN GIAO DICH
         let objTransaction = {
             name: name,
             _id: id,
-            image: image
+            image: image,
+            detect: detect
         }
         // GỬI OBJECT NGƯỜI DÙNG CHỌN CHO COMPONENT CHA
         this.chooseDataCategory.emit(objTransaction);

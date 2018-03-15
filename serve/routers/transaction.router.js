@@ -153,11 +153,6 @@ function updateTransactionWallet(req, res, next){
             statusCode: 400,
             message: "category transaction is required"
         })
-    }else if(!transaction.taguser){
-        next({
-            statusCode: 400,
-            message: "tag user is required"
-        })
     }else{
         transactionController.updateTransactionWallet(transaction)
         .then((transaction) =>{

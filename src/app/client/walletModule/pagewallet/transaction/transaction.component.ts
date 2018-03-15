@@ -40,9 +40,9 @@ export class TransactionComponent{
 
     // OBJCET ĐỊA ĐIỂM
     objLocation = {
-        lat: 0,
-        lng: 0,
-        name: "",
+        lat: 106.7119887,
+        lng: 106.7119887,
+        name: "Đặt vị trí",
     }
 
     titleTransaction: String = "Thêm Giao Dịch";
@@ -60,7 +60,6 @@ export class TransactionComponent{
         imagecategory: 'default',
         categorytransaction: 'Chọn Danh Mục',
         idwallet: '',
-        taguser: [''],
     }
     
     
@@ -140,7 +139,6 @@ export class TransactionComponent{
                     this.toastr.success('Thêm giao dịch thành công ! ', 'Thành công ! ');
                     this.reloadData();
                     this.resetData();
-                    
                 })
                 .catch((err) => {
                     this.toastr.error(err, 'Thất bại ! ');
@@ -226,7 +224,6 @@ export class TransactionComponent{
             imagecategory: 'default',
             categorytransaction: 'Chọn Danh Mục',
             idwallet: '',
-            taguser: [''],
         }
 
         // RESET TẤT CẢ CÁC TAGS
@@ -243,13 +240,13 @@ export class TransactionComponent{
     //////////////// BẮT ĐẦU PHẦN XỬ Ý MODEL HIỂN THỊ ĐỊA ĐIỂM
 
     private setCurrentPosition() {
-        if ("geolocation" in navigator) {
-          navigator.geolocation.getCurrentPosition((position) => {
-            this.lat = position.coords.latitude;
-            this.lng = position.coords.longitude;
-            this.zoom = 12;
-          });
-        }
+        // if ("geolocation" in navigator) {
+        //   navigator.geolocation.getCurrentPosition((position) => {
+        //     this.lat = position.coords.latitude;
+        //     this.lng = position.coords.longitude;
+        //     this.zoom = 12;
+        //   });
+        // }
       }
 
     // MỞ MODAL CHỌN ĐỊA ĐIỂM GOOGLE MAP
@@ -268,7 +265,7 @@ export class TransactionComponent{
             lng: place.geometry.location.lng,
             name: place.name
         }
-        console.log(this.objLocation);
+        this.transaction.location = this.objLocation;
     }
 
 
