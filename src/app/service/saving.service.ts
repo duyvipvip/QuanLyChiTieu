@@ -1,3 +1,4 @@
+import { LocalService } from './local.service';
 import { Router, Resolve } from '@angular/router';
 import { ITransaction } from './../model/transaction.model';
 import { ISaving } from './../model/saving.model';
@@ -46,7 +47,10 @@ export class SavingService {
     // token
     token = JSON.parse(localStorage.getItem('currentUser')).token;
     iduser = JSON.parse(localStorage.getItem('currentUser'))._id;
-    constructor(private http: Http, private router: Router) { }
+    constructor(private http: Http, private router: Router,
+        private LocalService:LocalService
+        
+    ) { }
 
     // get savings() {
     //     return this.getSavingsSb.asObservable();
@@ -63,12 +67,12 @@ export class SavingService {
     // LẤY 1 KHOẢN TIẾT KIỆM
     getOnlySaving(idsaving) {
         return this.http
-            .get('http://localhost:3000/api/saving/only?idsaving=' + idsaving)
+            .get(this.LocalService.URL + '/api/saving/only?idsaving=' + idsaving)
             .toPromise()
             .then((response) => {
                 let saving = response.json();
                 
-                return this.http.get('http://localhost:3000/api/transaction/alltransaction')
+                return this.http.get(this.LocalService.URL + '/api/transaction/alltransaction')
                     .toPromise()
                     .then((transactions) => {
                         let a = new Date();
@@ -111,7 +115,7 @@ export class SavingService {
             headers: headers,
             method: RequestMethod.Post
         });
-        return this.http.post('http://localhost:3000/api/saving/update', JSON.stringify(bodySaving), { headers: headers })
+        return this.http.post(this.LocalService.URL + '/api/saving/update', JSON.stringify(bodySaving), { headers: headers })
             .toPromise()
             .then((response) => {
                 
@@ -126,7 +130,7 @@ export class SavingService {
             headers: headers,
             method: RequestMethod.Post
         });
-        return this.http.post('http://localhost:3000/api/saving/createSendIn', JSON.stringify(objSendIn), { headers: headers })
+        return this.http.post(this.LocalService.URL + '/api/saving/createSendIn', JSON.stringify(objSendIn), { headers: headers })
             .toPromise()
             .then((response) => {
                 return response.json();
@@ -140,7 +144,7 @@ export class SavingService {
             headers: headers,
             method: RequestMethod.Post
         });
-        return this.http.post('http://localhost:3000/api/saving/createSendOut', JSON.stringify(objSendOut), { headers: headers })
+        return this.http.post(this.LocalService.URL + '/api/saving/createSendOut', JSON.stringify(objSendOut), { headers: headers })
             .toPromise()
             .then((response) => {
                 return response.json();
@@ -150,11 +154,11 @@ export class SavingService {
     // LẤY TẤT CẢ CÁC KHOẢN TIẾT KIÊM
     getSavings() {
         return this.http
-            .get('http://localhost:3000/api/saving/all?iduser=' + this.iduser)
+            .get(this.LocalService.URL + '/api/saving/all?iduser=' + this.iduser)
             .toPromise()
             //.catch(this.handleError)
             .then((savings: Response) => {
-                return this.http.get('http://localhost:3000/api/transaction/alltransaction')
+                return this.http.get(this.LocalService.URL + '/api/transaction/alltransaction')
                     .toPromise()
                     .then((transactions) => {
                         let data = [];
@@ -198,7 +202,7 @@ export class SavingService {
             headers: headers,
             method: RequestMethod.Post
         });
-        return this.http.post('http://localhost:3000/api/saving/create', JSON.stringify(saving), { headers: headers })
+        return this.http.post(this.LocalService.URL + '/api/saving/create', JSON.stringify(saving), { headers: headers })
             .toPromise()
             .then((response) => {
                 return response.json();
@@ -206,7 +210,7 @@ export class SavingService {
     }
     // addSaving(saving: ISaving) {
     //     return this.http
-    //         .post('http://localhost:3000/api/saving/create/', saving)
+    //         .post(this.LocalService.URL + '/api/saving/create/', saving)
     //         .subscribe(
     //             res => {
     //                 return this.getSavings();
@@ -215,7 +219,7 @@ export class SavingService {
 
     updateSaving(id, saving: ISaving) {
         return this.http
-            .put('http://localhost:3000/api/saving/update/' + id, saving)
+            .put(this.LocalService.URL + '/api/saving/update/' + id, saving)
             //.catch(this.handleError)
             .subscribe(
                 res => {
@@ -225,14 +229,14 @@ export class SavingService {
 
     deleteSaving(id) {
         return this.http
-            .delete('http://localhost:3000/api/saving/delete/' + id)
+            .delete(this.LocalService.URL + '/api/saving/delete/' + id)
         //.catch(this.handleError);
     }
     // /transaction/get/:id
 
     // getTransaction(id) {
     //     return this.http
-    //         .get('http://localhost:3000/api/transaction/get/' + id)
+    //         .get(this.LocalService.URL + '/api/transaction/get/' + id)
     //         //.catch(this.handleError)
     //         .subscribe((response: Response) => {
     //             this.getTransactionSb.next(response.json());
@@ -242,7 +246,7 @@ export class SavingService {
 
     // getATransaction(id) {
     //     return this.http
-    //         .get('http://localhost:3000/api/transaction/a/' + id)
+    //         .get(this.LocalService.URL + '/api/transaction/a/' + id)
     //         //.catch(this.handleError)
     //         .subscribe((response: Response) => {
     //             return this.getAtransactionSb.next(response.json());
@@ -252,7 +256,7 @@ export class SavingService {
 
     addTransaction(transaction: ITransaction) {
         return this.http
-            .post('http://localhost:3000/api/transaction/create', transaction)
+            .post(this.LocalService.URL + '/api/transaction/create', transaction)
             .subscribe(
                 res => {
                     ///this.getTransaction(transaction.savingid);
@@ -263,7 +267,7 @@ export class SavingService {
 
     updateTransaction(id, transaction: ITransaction) {
         return this.http
-            .put('http://localhost:3000/api/transaction/update/' + id, transaction)
+            .put(this.LocalService.URL + '/api/transaction/update/' + id, transaction)
             //.catch(this.handleError)
             .subscribe(
                 res => {
@@ -274,7 +278,7 @@ export class SavingService {
 
     // deleteTransaction(transactionid, savingid) {
     //     return this.http
-    //         .delete('http://localhost:3000/api/transaction/delete/' + transactionid)
+    //         .delete(this.LocalService.URL + '/api/transaction/delete/' + transactionid)
     //         //.catch(this.handleError)
     //         .subscribe(
     //             res => {
@@ -285,7 +289,7 @@ export class SavingService {
 
     getWallet() {
         return this.http
-            .get('http://localhost:3000/api/wallets/get')
+            .get(this.LocalService.URL + '/api/wallets/get')
             //.catch(this.handleError)
             .map((response: Response) => {
                 return <ISaving>response.json();

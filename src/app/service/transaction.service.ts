@@ -1,3 +1,4 @@
+import { LocalService } from './local.service';
 import { ITransaction } from './../model/transaction.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Http , RequestOptions, RequestMethod, Headers} from '@angular/http';
@@ -7,7 +8,9 @@ import { Injectable } from '@angular/core';
 export class TransactionService{
     private _iduser = '';
     token = JSON.parse(localStorage.getItem('currentUser')).token;
-    constructor(private Http:Http){
+    constructor(private Http:Http,
+        private LocalService:LocalService,
+    ){
         this._iduser = JSON.parse(localStorage.getItem('currentUser'))._id;
     }
     private _allTransaction:BehaviorSubject<ITransaction[]> = new BehaviorSubject(new Array());
@@ -23,7 +26,7 @@ export class TransactionService{
             headers: headers,
             method: RequestMethod.Post
         });
-        return this.Http.post('http://localhost:3000/api/transaction/create', JSON.stringify(transition), {headers:headers})
+        return this.Http.post(this.LocalService.URL + '/api/transaction/create', JSON.stringify(transition), {headers:headers})
         .toPromise()
         .then((response) => {
            return response.json();
@@ -36,7 +39,7 @@ export class TransactionService{
             headers: headers,
             method: RequestMethod.Post
         });
-        return this.Http.post('http://localhost:3000/api/transaction/update', JSON.stringify(transition), {headers:headers})
+        return this.Http.post(this.LocalService.URL + '/api/transaction/update', JSON.stringify(transition), {headers:headers})
         .toPromise()
         .then((response) => {
            return response.json();
@@ -53,7 +56,7 @@ export class TransactionService{
             headers: headers,
             method: RequestMethod.Post
           });
-       return this.Http.post('http://localhost:3000/api/transaction/delete', {"idtransaction": idtransaction}, {headers:headers})
+       return this.Http.post(this.LocalService.URL + '/api/transaction/delete', {"idtransaction": idtransaction}, {headers:headers})
        .toPromise()
        .then((response) => {
            return response;
@@ -63,7 +66,7 @@ export class TransactionService{
 
     // LẤY TẤT CẢ CÁC GIAO DỊCH CỦA 1 VÍ
     getTransactions(idwallet){
-        return this.Http.get('http://localhost:3000/api/transaction/all?idwallet='+ idwallet)
+        return this.Http.get(this.LocalService.URL + '/api/transaction/all?idwallet='+ idwallet)
             .toPromise()
             .then((data) => {
                 let resultThenFormat = this.formatArrayWalletTransaction(data.json());
@@ -86,7 +89,7 @@ export class TransactionService{
             method: RequestMethod.Post
           });
           
-        return this.Http.post('http://localhost:3000/api/transaction/image?idtransaction='+ idtransaction, formData, {headers:headers})
+        return this.Http.post(this.LocalService.URL + '/api/transaction/image?idtransaction='+ idtransaction, formData, {headers:headers})
             .toPromise()
             .then((data) => {
                 return data.json();

@@ -1,3 +1,4 @@
+import { LocalService } from './local.service';
 import { ITransaction } from './../model/transaction.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { transition } from '@angular/core/src/animation/dsl';
@@ -6,7 +7,10 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class WalletTransactionService{
     private _allTransaction:BehaviorSubject<ITransaction[]> = new BehaviorSubject(new Array());
-    constructor(private Http: Http){}
+    constructor(private Http: Http,
+        private LocalService:LocalService
+    
+    ){}
 
     get getAllTransaction(){
         return this._allTransaction.asObservable();
@@ -15,7 +19,7 @@ export class WalletTransactionService{
     // LẤY TẤT CẢ CÁC GIAO DỊCH CỦA 1 VÍ
     getTransactionToIDWallet(idWallet){
         let iduser="0";
-        return this.Http.get('http://localhost:3000/api/wallet/only?idwallet='+ idWallet+'&iduser='+iduser)
+        return this.Http.get(this.LocalService.URL + '/api/wallet/only?idwallet='+ idWallet+'&iduser='+iduser)
             .toPromise()
             .then((data) => {
                 let resultThenFormat = this.groupTransaction(data.json());
@@ -34,7 +38,7 @@ export class WalletTransactionService{
             headers: headers,
             method: RequestMethod.Post
           });
-       return this.Http.post('http://localhost:3000/api/wallettransaction/update', JSON.stringify(transition), {headers:headers})
+       return this.Http.post(this.LocalService.URL + '/api/wallettransaction/update', JSON.stringify(transition), {headers:headers})
        .toPromise()
        .then((response) => {
            return response;
@@ -53,7 +57,7 @@ export class WalletTransactionService{
             headers: headers,
             method: RequestMethod.Post
           });
-       return this.Http.post('http://localhost:3000/api/wallettransaction/remove', JSON.stringify(objRemoveTransaction), {headers:headers})
+       return this.Http.post(this.LocalService.URL + '/api/wallettransaction/remove', JSON.stringify(objRemoveTransaction), {headers:headers})
        .toPromise()
        .then((response) => {
            return response;

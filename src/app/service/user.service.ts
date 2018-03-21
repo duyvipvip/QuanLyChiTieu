@@ -1,10 +1,14 @@
+import { LocalService } from './local.service';
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, RequestMethod, Headers } from '@angular/http';
 
 
 @Injectable()
 export class UserService{
-    constructor(private Http: Http){
+    constructor(private Http: Http,
+        private LocalService:LocalService
+        
+    ){
 
     }
 
@@ -15,7 +19,7 @@ export class UserService{
             headers: headers,
             method: RequestMethod.Post
         });
-        return this.Http.post('http://localhost:3000/api/user/create', JSON.stringify(user), {headers:headers})
+        return this.Http.post(this.LocalService.URL + '/api/user/create', JSON.stringify(user), {headers:headers})
             .toPromise()
             .then((response) => {
                 return response.json();
