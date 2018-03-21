@@ -48,16 +48,16 @@ app.all('*', function(req, res, next) {
     next();
 });
 
-app.use("/api/wallet", walletRouter);
-app.use("/api", incomeRouter);
-app.use("/api", expenseRouter);
-app.use("/api", debt_loanRouter);
-app.use("/api/transaction", transactionRouter);
-app.use("/api/budget", budgetRouter);
-app.use("/api/auth", authRouter);
-app.use("/api/user", userRouter);
-app.use("/api/saving", savingRouter);
-app.use(errorHandler.errorHandler());
+// app.use("/api/wallet", walletRouter);
+// app.use("/api", incomeRouter);
+// app.use("/api", expenseRouter);
+// app.use("/api", debt_loanRouter);
+// app.use("/api/transaction", transactionRouter);
+// app.use("/api/budget", budgetRouter);
+// app.use("/api/auth", authRouter);
+// app.use("/api/user", userRouter);
+// app.use("/api/saving", savingRouter);
+// app.use(errorHandler.errorHandler());
 
 
 
