@@ -1,3 +1,4 @@
+import { LocalService } from './../../service/local.service';
 import { GooleMapsService } from './../../service/googlemaps.service';
 import { HttpModule } from '@angular/http';
 import { BudgetSevice } from './../../service/budget.servive';
@@ -21,6 +22,7 @@ import { TransactionService } from '../../service/transaction.service';
     exports: [],
     declarations: [],
     providers: [
+        LocalService,
         BudgetModule,
         SavingService,
         UserService,

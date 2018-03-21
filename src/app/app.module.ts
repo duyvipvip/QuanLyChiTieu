@@ -41,6 +41,7 @@ const appRoutes: Routes = [
     ClientRegisterComponent,
     ClientLoginComponent,
     LayOutComponent,
+    
   ],
   imports: [
     AppRoutingModule,
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,    
     MatProgressBarModule,
     HttpModule,
+
   ],
   
   providers: [],

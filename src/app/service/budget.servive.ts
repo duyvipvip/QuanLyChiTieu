@@ -1,4 +1,4 @@
-import { Local } from './../client/utils/local';
+import { LocalService } from './local.service';
 import { AuthenticationService } from './Authentication.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
@@ -7,6 +7,7 @@ import { IBudget } from '../model/budget.model';
 
 @Injectable()
 export class BudgetSevice{
+
     token = JSON.parse(localStorage.getItem('currentUser')).token;
     _iduser = JSON.parse(localStorage.getItem('currentUser'))._id;
 
@@ -17,7 +18,7 @@ export class BudgetSevice{
     private _onlyBudget:BehaviorSubject<IBudget> = new BehaviorSubject<IBudget>(null);
     
     constructor(private Http:Http, 
-    private Local: Local,
+    private LocalService: LocalService,
     private AuthenticationService: AuthenticationService){
         
     }
@@ -34,10 +35,10 @@ export class BudgetSevice{
 
     // LẤY TẤT CẢ CÁC NGÂN SÁCH
     getDataBudgets(): Promise<any>{
-        return this.Http.get(this.Local.URL+'api/budget/all?iduser='+ this._iduser)
+        return this.Http.get(this.LocalService.URL + '/api/budget/all?iduser='+ this._iduser)
         .toPromise()
         .then(budgets => {
-            return this.Http.get(this.Local.URL+'api/transaction/alltransaction')
+            return this.Http.get(this.LocalService.URL + '/api/transaction/alltransaction')
                 .toPromise()
                 .then((transactions) => {
                     let data = [];
@@ -95,11 +96,11 @@ export class BudgetSevice{
 
     // LẤY MỘT NGÂN SÁCH
     getDataBudget(idbudget): Promise<any>{
-        return this.Http.get(this.Local.URL+'api/budget/only?idbudget='+idbudget)
+        return this.Http.get(this.LocalService.URL + '/api/budget/only?idbudget='+idbudget)
         .toPromise()
         .then(budget => {
             let budgetonly = budget.json();
-            return this.Http.get(this.Local.URL+'api/transaction/alltransaction')
+            return this.Http.get(this.LocalService.URL + '/api/transaction/alltransaction')
                 .toPromise()
                 .then((transactions) => {
                     let totalmoney = 0
@@ -158,7 +159,7 @@ export class BudgetSevice{
             headers: headers,
             method: RequestMethod.Post
           });
-        return this.Http.post(this.Local.URL+'api/budget/create', JSON.stringify(budget), {headers:headers})
+        return this.Http.post(this.LocalService.URL + '/api/budget/create', JSON.stringify(budget), {headers:headers})
         .toPromise()
         .then((response) => {
            return response;
@@ -173,7 +174,7 @@ export class BudgetSevice{
             headers: headers,
             method: RequestMethod.Post
           });
-        return this.Http.post(this.Local.URL+'api/budget/update', JSON.stringify(budget), {headers:headers})
+        return this.Http.post(this.LocalService.URL + '/api/budget/update', JSON.stringify(budget), {headers:headers})
         .toPromise()
         .then((response) => {
            return response.json();
@@ -191,7 +192,7 @@ export class BudgetSevice{
         const data = {
             _id: idbudget
         }
-        return this.Http.post(this.Local.URL+'api/budget/delete', JSON.stringify(data), {headers:headers})
+        return this.Http.post(this.LocalService.URL + '/api/budget/delete', JSON.stringify(data), {headers:headers})
         .toPromise()
         .then((response) => {
            return response;

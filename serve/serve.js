@@ -64,6 +64,6 @@ app.use(errorHandler.errorHandler());
 
 
 
-app.listen(port, () =>{
+app.listen(7000, () =>{
     console.log(`serve hoạt động trên port ${port}`);
 });
