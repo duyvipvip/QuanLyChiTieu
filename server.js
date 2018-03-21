@@ -1,12 +1,12 @@
-const path  = require('path');
+// const path  = require('path');
 const express = require('express');
 const app     = express();
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-var fileUpload = require('express-fileupload');
-const passport = require('passport');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
+// const bodyParser = require('body-parser');
+// const mongoose = require('mongoose');
+// var fileUpload = require('express-fileupload');
+// const passport = require('passport');
+// const cookieParser = require('cookie-parser');
+// const session = require('express-session');
 
 
 // const walletRouter = require(path.join(__dirname, "/serve/routers/wallet.router"));
