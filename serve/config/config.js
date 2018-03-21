@@ -22,7 +22,7 @@ module.exports = {
         }
     },
     server: {
-        domain: 'http://localhost',
-        port: 9000
+        domain: 'https://chitieu2018.herokuapp.com',
+        port: process.env.PORT
     }
 }

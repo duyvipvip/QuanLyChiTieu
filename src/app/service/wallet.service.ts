@@ -1,3 +1,4 @@
+import { Local } from './../client/utils/local';
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, RequestMethod, Headers } from '@angular/http';
 import { IWallet } from '../model/wallet.model';
@@ -16,7 +17,8 @@ export class WalletService{
     // LẤY 1 VÍ
     private _onlyWallet:BehaviorSubject<IWallet> = new BehaviorSubject<IWallet>(null);
     
-    constructor(private Http:Http){
+    constructor(private Http:Http,
+    private Local:Local){
     }
     
     // LẤY TẤT CẢ CÁC VÍ TỪ SUBJECT
@@ -31,11 +33,11 @@ export class WalletService{
 
     // LẤY TẤT CẢ CÁC VÍ
     getDataWallets(): Promise<any>{
-        return this.Http.get('http://localhost:3000/api/wallet/all?iduser='+this._iduser)
+        return this.Http.get(this.Local.URL+'api/wallet/all?iduser='+this._iduser)
         .toPromise()
         .then(wallets => {
             let data = [];
-            return this.Http.get('http://localhost:3000/api/transaction/alltransaction')
+            return this.Http.get(this.Local.URL+'api/transaction/alltransaction')
                 .toPromise()
                 .then((transactions) => {
                     wallets.json().forEach(wallet => {
@@ -79,7 +81,7 @@ export class WalletService{
             headers: headers,
             method: RequestMethod.Post
         });
-       return this.Http.post('http://localhost:3000/api/wallet/update', JSON.stringify(wallet), {headers:headers})
+       return this.Http.post(this.Local.URL+'api/wallet/update', JSON.stringify(wallet), {headers:headers})
        .toPromise()
        .then((response) => {
            return response;
@@ -94,7 +96,7 @@ export class WalletService{
             headers: headers,
             method: RequestMethod.Put
           });
-       return this.Http.put('http://localhost:3000/api/wallet/create', JSON.stringify(wallet), {headers:headers})
+       return this.Http.put(this.Local.URL+'api/wallet/create', JSON.stringify(wallet), {headers:headers})
        .toPromise()
        .then((response) => {
            return response;
@@ -109,7 +111,7 @@ export class WalletService{
             headers: headers,
             method: RequestMethod.Delete
         });
-       return this.Http.post('http://localhost:3000/api/wallet/delete', { "idwallet": idwallet }, {headers:headers})
+       return this.Http.post(this.Local.URL+'api/wallet/delete', { "idwallet": idwallet }, {headers:headers})
        .toPromise()
        .then((response) => {
            return response;

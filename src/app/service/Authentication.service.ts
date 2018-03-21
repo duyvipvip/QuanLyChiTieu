@@ -1,3 +1,4 @@
+import { Local } from './../client/utils/local';
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestMethod, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
@@ -5,7 +6,9 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private Http: Http) {
+    
+    constructor(private Http: Http,
+    private Local: Local) {
         // var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         // this.token = currentUser.token;
     }
@@ -16,7 +19,7 @@ export class AuthenticationService {
             headers: headers,
             method: RequestMethod.Post
           });
-        return this.Http.post('api/auth/login', JSON.stringify(user), {headers:headers})
+        return this.Http.post(this.Local.URL+'api/auth/login', JSON.stringify(user), {headers:headers})
         .toPromise()
         .then((response) => {
             if(response.json().statusCode == 400){

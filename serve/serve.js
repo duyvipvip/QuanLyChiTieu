@@ -22,9 +22,9 @@ const authRouter = require('./routers/auth.router');
 const db = require('./database/database');
 const savingRouter = require("./routers/saving.router");
 const errorHandler = require('./middle-ware/error-handler');
-
+// const config = require("./config/config");
 // PORT ĐỂ TRUY CẬP APPLICATION
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 
 // SỬ DỤNG BUILT-IN MIDDLEWARE
 app.use(express.static(path.join(__dirname, "../dist")));
