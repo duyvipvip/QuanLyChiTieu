@@ -29,7 +29,7 @@ const port = process.env.port || 3000;
 // SỬ DỤNG BUILT-IN MIDDLEWARE 
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
 // SỬ DỤNG ĐỂ CHỨNG THỰC PASSPORT

@@ -1,0 +1,80 @@
+<div class="row-item" (click)="openModalCategory(modalCategory)">
+  <div class="img">
+      <img src="assets/images/{{inputCategory.image}}.png" alt="">
+  </div>
+  <span class="choose-category category"> {{inputCategory.name}}
+      <i aria-hidden="true" class="fa fa-caret-down"></i>
+  </span>
+</div>
+
+<ng-template #modalCategory let-c="close" let-d="dismiss" id="modalCategory">
+  <div class="modal-header">
+    <div class="button-close">
+      <button type="button">
+        <i class="fa fa-close" (click)="c('Close click')"></i>
+      </button>
+    </div>
+    <div class="clr"></div>
+    <div class="tab">
+      <ul class="nav nav-tabs">
+        <li>
+          <a href="#income1" data-toggle="tab" class="active">THU NHẬP
+            <div class="line"></div>
+          </a>
+        </li>
+        <li>
+          <a href="#expense1" data-toggle="tab">CHI TIÊU
+            <div class="line"></div>
+          </a>
+        </li>
+        <li>
+          <a href="#debtloan1" data-toggle="tab">NỢ
+            <div class="line"></div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="tab-content">
+      <!-- PHẦN THU NHẬP -->
+      <div class="tab-pane active" id="income1">
+        <ul class="tab-thunhap">
+          <li *ngFor="let item_income of dataIncome">
+            <img src="assets/images/{{item_income.image}}.png" alt="">
+            <p data-dismiss="modal" class='name' (click)="chooseCategory($event)" (click)="c('Close click')">{{ item_income.name }}</p>
+            <input type="hidden" name="id" value="{{ item_income._id }}">
+            <input type="hidden" name="detect" value="{{ item_income.detect }}">
+          </li>
+        </ul>
+      </div>
+      <!-- PHẦN THU NHẬP -->
+
+      <!-- PHẦN CHI TIÊU -->
+      <div class="tab-pane" id="expense1">
+        <ul class="tab-thunhap">
+          <li *ngFor="let itemExpense of dataExpense">
+            <img src="assets/images/{{itemExpense.image}}.png" alt="">
+            <p data-dismiss="modal" class='name' (click)="chooseCategory($event)" (click)="c('Close click')">{{ itemExpense.name }}</p>
+            <input type="hidden" name="id" value="{{ itemExpense._id }}">
+            <input type="hidden" name="detect" value="{{ itemExpense.detect }}">
+          </li>
+        </ul>
+      </div>
+      <!-- PHẦN CHI TIÊU -->
+
+      <!-- PHẦN NỢ -->
+      <div class="tab-pane" id="debtloan1">
+        <ul class="tab-thunhap">
+          <li *ngFor="let item_debtloan of dataDebtLoan">
+            <img src="assets/images/{{item_debtloan.image}}.png" alt="">
+            <p data-dismiss="modal" class='name' (click)="chooseCategory($event)" (click)="c('Close click')">{{ item_debtloan.name }}</p>
+            <input type="hidden" name="id" value="{{ item_debtloan._id }}">
+            <input type="hidden" name="detect" value="{{ item_debtloan.detect }}">
+          </li>
+        </ul>
+      </div>
+      <!-- PHẦN NỢ -->
+    </div>
+  </div>
+</ng-template>

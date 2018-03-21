@@ -1,0 +1,102 @@
+<a class="dropdown-item" (click)="openModalTransfersMoney(modalTransfersMoney)">
+    <i class="fa fa-times"></i>Chuyển tiền đến ví khác
+</a>
+<!-- PHẦN MODAL CHUYỂN TIỀN ĐIẾN VÍ KHÁC -->
+<ng-template #modalTransfersMoney let-c="close" let-d="dismiss">
+    <div id="show">
+        <h4>Chuyển Tiền Đến Ví Khác</h4>
+        <div class="button-save" (click)="submitTransferMoney()" (click)="d('Cross click')">
+            <button tabindex="0" type="button">
+                <i class="fa fa-save"></i>
+            </button>
+        </div>
+        <div class="button-close" (click)="d('Cross click')">
+            <button tabindex="0" type="button">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <span class="from">TỪ</span>
+            <div class="info">
+                <div class="row-item">
+                    <div class="img">
+                    </div>
+                    <div class="group">
+                        <p class="lable-money">Số tiền</p>
+                        <input [(ngModel)]="moneyUserTransfer" type="text" required>
+                        <span class="bar"></span>
+                    </div>
+                </div>
+                <div class="row-item wallet">
+                    <div class="img img-wallet">
+                        <img alt="" src="assets/images/wallet.png">
+                    </div>
+
+                    <div class="group" >
+                        <span>{{nameWallet}}</span>
+                    </div>
+                </div>
+                <app-choose-category-transfer-money (outputCategory)="chooseCategory($event)"></app-choose-category-transfer-money>
+            </div>
+            <p class="to">ĐẾN</p>
+            <div class="choosewallet">
+                <div class="row-item">
+                    <div class="img img-wallet">
+                        <img alt="" src="assets/images/wallet.png">
+                    </div>
+                    <app-choose-wallet-transfer-money (selectIDToWallet)="selectIDToWallet($event)"></app-choose-wallet-transfer-money>
+                </div>
+            </div>
+            <div class="info">
+                <div class="row-item">
+                    <div class="img">
+                        <i aria-hidden="true" class="fa fa-pencil"></i>
+                    </div>
+                    <div class="group">
+                        <input type="text" [(ngModel)]="note" name="note" required placeholder="Nghi chú">
+                        <span class="bar"></span>
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="img">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <div class="group">
+                        <input [(ngModel)]="dateTransfer" type="Date">
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="info">
+                <div class="row-item">
+                    <div class="img">
+                    </div>
+                    <div class="group">
+                        <p class="lable-money">Phí chuyển khoản</p>
+                        <input [(ngModel)]="moneyCostUserTransfer" type="text" name="money" required>
+                        <span class="bar"></span>
+                    </div>
+                </div>
+                <div class="row-item wallet">
+                    <div class="img img-wallet">
+                        <img alt="" src="assets/images/wallet.png">
+                    </div>
+
+                    <div class="group">
+                        <span>{{nameWallet}}</span>
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="img img-wallet">
+                        <img alt="" src="assets/images/khoanthukhac.png">
+                    </div>
+
+                    <div class="group">
+                        <span>Khoản chi Khác</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</ng-template>

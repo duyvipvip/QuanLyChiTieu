@@ -7,8 +7,7 @@ export class GooleMapsService {
     constructor(private Http:Http) { }
 
     getPlaceNear(lat, lng){
-        console.log('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+lat+','+lng+'&rankby=distance&key=AIzaSyBcVKbNwlOc-3ecroa0iwS-TXhGGarfNu0');
-        return this.Http.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+lat+','+lng+'&rankby=distance&type=all&key=AIzaSyBcVKbNwlOc-3ecroa0iwS-TXhGGarfNu0')
+        return this.Http.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+lat+','+lng+'&rankby=distance&type=establishment&key=AIzaSyAS97GzU6KUqi2V2XEB6jsarQOk3NCV1JE')
         .toPromise()
         .then(location => {
             return location.json();

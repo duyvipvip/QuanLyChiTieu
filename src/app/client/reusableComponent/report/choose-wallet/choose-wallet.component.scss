@@ -1,0 +1,17 @@
+
+.choose-category{
+    border-bottom:1px solid rgba(0,0,0,.12);
+    cursor:pointer;
+    width: 70%;
+    height: 35px;
+    i{
+        float: right;
+        display:inline-block;
+        margin-left:30px;
+        width:15px;
+    }
+}
+.category{
+    width: 78% !important;
+}
+.choose-category:last-child{width: 100%;}

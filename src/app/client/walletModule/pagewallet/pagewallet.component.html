@@ -7,7 +7,7 @@
             <app-wallet></app-wallet>
             <div *ngIf="checkURL" class="row">
                 <app-transaction class="col-6"></app-transaction>
-                <app-report class="col-6"></app-report>
+                <app-report class="col-6" [inputTransactions]="transactions"></app-report>
             </div>
         </div>
     </div>

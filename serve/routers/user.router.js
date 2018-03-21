@@ -40,8 +40,7 @@ function createUser(req, res, next){
 
 // UPLOAD HÌNH ẢNH
 function uploadAvatar(req, res, next) {
-    //console.log('vao2');
-    //console.log(req.files.file);
+    
     if (!req.files)
         return next({
             message: 'No files were uploaded.'

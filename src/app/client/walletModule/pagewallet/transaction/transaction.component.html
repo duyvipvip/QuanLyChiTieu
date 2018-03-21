@@ -39,11 +39,7 @@
                             <span class="bar"></span>
                         </div>
                     </div>
-                    <div class="container">
-                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-                        </agm-map>
-                    </div>
+                   
                 </div>
                 <div class="footer-row-item row">
                     <div class="col-6 item-left" (click)="picker.open()">
@@ -96,13 +92,19 @@
                                 <span>Đặt nhắc nhở</span>
                             </div>
                         </div>
-                        <div class="row-item">
+
+                        <div class="row-item" *ngIf="url">
+                            <span class="close-button" (click)="deleteImage()">×</span>
+                            <img [src]="url" alt="" width="300px" height="200px">
+                        </div>
+                        <div class="row-item" *ngIf="!url">
                             <div class="img">
                                 <i class="fa fa-image"></i>
                             </div>
                             <div class="group addimage">
-                                <span>Thêm Hình Ảnh</span>
+                                <label for="file">Thêm Hình Ảnh</label>
                             </div>
+                            <input id="file" type="file" name="file" style="display:none" (change)="onSelectFile($event)"/>
                         </div>
                     </div>
                 </div>
@@ -132,6 +134,14 @@
         </button>
     </div>
     <div id="modalloaction" class="modal-body">
+        <div *ngIf="transaction.location"  class="row-item row" (click)="deleteLocation()" (click)="c('Close click')">
+            <div class="col-2">
+                X
+            </div>
+            <div class="col-10">
+                Chưa Đặt
+            </div>
+        </div>
         <div *ngFor="let place of allPlace" class="row-item row" (click)="submitLocation(place)" (click)="c('Close click')">
             <div class="col-2">
                 <img src="{{place.icon}}" alt="">

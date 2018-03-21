@@ -1,0 +1,144 @@
+<section style="height: 800px;">
+    <div class="container-fluid">
+        <div id="content">
+            <div class="header-content">
+                <h4>Chi Tiết Khoản Tiết Kiệm</h4>
+            </div>
+
+            <div class="row">
+                <div class="budget col-lg-5">
+                    <div class="info">
+                        <div class="row item-budget">
+                            <div class="button-edit" data-toggle="modal" data-target="#updatebudget">
+                                <button tabindex="0" type="button">
+                                    <app-edit-saving></app-edit-saving>
+                                </button>
+                            </div>
+                            <div class="image col-2">
+                                <img src="assets/images/{{dataSaving.image}}.png" alt="">
+                            </div>
+                            <div class="row content-item-budget col-10">
+                                <div class="name-budget col-12">
+                                    <p>{{dataSaving.namesaving}}</p>
+                                    <p>{{dataSaving.moneyend | number}} đ</p>
+                                </div>
+                                <div class="row spent-money col-12">
+                                    <div class="spent col-6">
+                                        <p>Đã lưu</p>
+                                        <p>{{dataSaving.moneyTransaction | number}} đ</p>
+                                    </div>
+                                    <div class="money-item col-6">
+                                        <p>Cần thêm</p>
+                                        <p>{{dataSaving.remainMoney | number}} đ</p>
+                                    </div>
+                                </div>
+
+                                <div class="cssProgress">
+                                    <div class="progress4">
+                                        <div class="cssProgress-bar cssProgress-danger cssProgress-glow" data-percent="35" [style.width.%]="dataSaving.percent"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row item-budget">
+                            <div class="offset-2"></div>
+                            <div class="col-10">
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                        <div class="row item-budget">
+                            <div class="image miniimage col-2">
+                                <img src="assets/images/calendar.png" alt="">
+                            </div>
+                            <div class="row content-item-budget col-10">
+                                <div class="calendar col-11">
+                                    <p>{{dataSaving.enddate | date: 'dd/MM/yyyy'}}</p>
+                                    <p>Còn lại {{dataSaving.dateRemain}} ngày</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row item-budget">
+                            <div class="image miniimage col-2">
+                                <img src="assets/images/wallet.png" alt="">
+                            </div>
+                            <div class="row content-item-budget col-10">
+                                <p class="name-wallet">Tất cả các ví</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info info-buttom">
+                        <div class="item-budget">
+                            <app-send-in></app-send-in>
+                        </div>
+                        <div class="item-budget" *ngIf="dataSaving.moneyTransaction > 0">
+                            <app-send-out></app-send-out>
+                        </div>
+                        
+                    </div>
+                    <div class="info info-remove">
+                        <span>Xoá</span>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+                <app-report class="col-6" [inputTransactions]="dataSaving.arrTransaction"></app-report>
+                <!-- <app-report class="col-6" [inputTransactions]="budget.transactions"></app-report> -->
+
+                <!-- <div class="col-lg-5 report-detail">
+                    <div class="checklist card">
+                        <div class="card-header d-flex align-items-center">
+                            <h2 class="h3">Danh sách giao dịch </h2>
+                        </div>
+                        <div class="card-body no-padding">
+                            <div class="content-card-body">
+                                <div class="item">
+                                    <div class="row ">
+                                        <p class="name-overview">Tổng quan</p>
+                                    </div>
+                                    <div class="row report-overview">
+                                        <p class="col-6">Chi tiêu</p>
+                                        <p class="col-6">{{ budget.transactions.totalAllMoneyOut | number:'1.0-0'}} đ</p>
+                                    </div>
+                                </div>
+                                <div *ngFor="let arrTransaction of budget.transactions" class="item">
+                                    <div class="row">
+                                        <div class="date-view col-6">
+                                            <span class="view-day">{{arrTransaction.dateGroupTransaction}}</span>
+                                            <span class="view-date">
+                                                <span class="days">Monday</span>
+                                                <span class="months">Tháng {{ arrTransaction.monthGroupTransaction +1 }} {{ arrTransaction.yearGroupTransaction }}</span>
+                                            </span>
+                                        </div>
+                                        <div class="amount col-6">
+                                            <span>- {{ arrTransaction.totalMoney | numberpipe | number:'1.0-0'}} ₫</span>
+                                        </div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div  *ngFor="let transaction of arrTransaction" class="row row-item" (click)="chooseTransaction(transaction)" data-toggle="modal" data-target="#edit-transaction-budget">
+                                        <div class="col-7 left">
+                                            <div class="img">
+                                                <img src="assets/images/{{transaction.imagecategory}}.png" alt="">
+                                            </div>
+                                            <div class="info-detail">
+                                                <p>{{ transaction.categorytransaction }}</p>
+                                                <p>{{ transaction.notetransaction }} </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-5 right">
+                                                <p [ngStyle]="{ color: 'red' }">{{ transaction.moneytransaction | numberpipe | number:'1.0-0' }} ₫</p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="line"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+        </div>
+    </div>
+</section>

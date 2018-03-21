@@ -32,6 +32,9 @@ ul.tag-editor{
         }
     }
 }
+.modal{
+    overflow: auto;
+}
 .modal-backdrop {
     z-index: 980 !important;
 }
@@ -48,6 +51,224 @@ ul.tag-editor{
     width: 50%;
     opacity: 1 !important;
     font-family: Arial, Helvetica, sans-serif;  
+}
+// PHẦN MODAL HIỆN THỊ THÊM KHOẢN TIẾT KIỆM
+.modalAddSaving{
+    .modal-body{
+        padding: 15px 0px;
+        background: #eef5f9 !important;
+    }
+    .modal-content{
+        width: 363px;
+    }
+}
+
+// PHẦN MODAL HIỆN THỊ VÍ
+.modalWallet{
+    .modal-content{
+        width: 360px;
+    }
+
+    .item-content-modal{
+        position:relative;
+        margin:5px 0px;
+        padding:3px 0px;
+    }
+    .item-content-modal:hover{
+        background-color:rgba(51, 51, 51, 0.1);
+    }
+    .item-content-modal span{
+        color:rgb(51, 51, 51);
+        font-size:16px;}
+    .item-content-modal img{
+        width:48px;height:48px;
+    }
+    i{
+        float: right;
+        margin-right: 20px;
+        margin-top: 12px;
+        color: rgb(45, 184, 76);
+    }
+    a{
+        display: block;
+    }
+    img, span.name-vallet, span.money-vallet{
+        cursor: pointer;
+    }
+    .item-content-modal span.name-vallet{
+        position:absolute;
+        top:7px;
+        left:52px;
+        text-transform: capitalize;
+       
+    }
+    .item-content-modal span.money-vallet{
+        position:absolute;
+        top:26px;
+        left:52px;
+        color:rgba(0, 0, 0, 0.54);
+        font-size:14px;
+    }
+    p{
+        color:rgba(51, 51, 51, 0.54);
+        font-size:14px;
+    }
+    .header-modal, #chonvi h4{
+        color:rgb(51, 51, 51);
+        font-size:22px;
+    }
+    .close-button{
+        float:right;
+        width:1.5rem;
+        line-height:1.5rem;
+        text-align:center;
+        cursor:pointer;
+        border-radius:0.25rem;
+        background-color:lightgray;
+    }
+    .close-button:hover{
+        background-color:darkgray;
+    }
+}
+
+// PHẦN MODAL UPDATE GIAO DỊCH
+.modalUpdateTransaction{
+    z-index: 1000;
+    .modal-content{
+        width: 362px !important;
+    }
+    .tab{
+        padding: 15px 0px 0px 0px;
+        background: rgb(45, 184, 76);
+        ul{
+            border-bottom: 0px;
+            li{
+                width: 50%;
+                text-align: center;
+                a{
+                    text-decoration: none;
+                    color: rgba(255, 255, 255, 0.7);
+                    width: 100%;                
+                }
+                a.active{
+                    .line{
+                        display: block;
+                    }
+                    
+                }
+            }
+        }
+    }
+    .line{
+        height: 4px !important;
+        background: #a3e9a4;
+        display: none;
+    }
+    a.active{
+        color: rgb(255, 255, 255) !important;
+    }
+    agm-map{
+        height: 300px;
+    }
+}
+// PHẦN HIỂN THỊ CHUYỂN TIỀN ĐẾN VÍ KHÁC
+.modalExtentdWallet{
+    .modal-content{
+        width: 360px;
+    }
+}
+// PHẦN MODAL HIỆN THI PHẦN GỬI TIỀN VÀO KHOẢN TIẾT KIỆM
+.modalSendIn{
+    .modal-content{
+        width: 360px;
+    }
+}
+// PHẦN MODAL CATEGORY
+.modalCategory{
+    .modal-content{
+        width: 510px !important;
+    }
+    .tab-content{
+        padding: 10px;
+    }
+    .modal-header{
+        background: rgb(45, 184, 76);
+        display: inline-block;
+        padding-bottom: 0px;
+        .modal-title{
+            margin-left: 10px; 
+            color: white;
+            font-weight: normal;      
+        }
+        i.fa-arrow-left{
+            float: left;
+            margin-top: 4px;
+            cursor: pointer;
+            color: #fff;
+        }
+        i.fa-times{
+            float: right;
+            cursor: pointer;
+        }
+    }
+    
+    
+    .tab{
+        margin: 20px auto 0px auto;
+        background: rgb(45, 184, 76);
+        ul{
+            border-bottom: 0px;
+            li{
+                width: 33.3333%;
+                text-align: center;
+                a{
+                    color: rgba(255, 255, 255, 0.7);
+                    width: 100%;                
+                }
+                a.active{
+                    .line{
+                        display: block;
+                    }
+                    
+                }
+            }
+        }
+    }
+    a.active{
+        color: rgb(255, 255, 255) !important;
+    }
+    a{
+        text-decoration: none;
+    }
+    .line{
+        height: 4px !important;
+        background: rgb(163, 233, 164);
+        display: none;
+    }
+    
+    
+    ul.tab-thunhap{
+        > li{
+            width: 113px;
+            float: left;
+            list-style: none;
+            text-align: center;
+            &:hover{    
+                background-color: rgba(51, 51, 51, 0.1);
+            }
+            
+            img{
+                width: 48px;
+                height: 48px;
+            }
+            p{
+                cursor: pointer;
+                text-transform: capitalize;
+                font-size: 12px;
+            }
+            
+        }
+    }
 }
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';

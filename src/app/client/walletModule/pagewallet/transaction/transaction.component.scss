@@ -8,7 +8,8 @@
         border-width: 1px 0px;
         text-align: center;
         cursor: pointer;
-        span{
+        label{
+            cursor: pointer;
             color: #79bd8a;
         }
         i{
@@ -16,6 +17,22 @@
         }
 
     }
+}
+
+.close-button{
+    float:right;
+    width:1.5rem;
+    line-height:1.5rem;
+    text-align:center;
+    cursor:pointer;
+    border-radius:0.25rem;
+    background-color:lightgray;
+    position: absolute;
+    bottom: 253px;
+    right: 15px;
+}
+.close-button:hover{
+    background-color:darkgray;
 }
 
 // phần body thêm chi tiết

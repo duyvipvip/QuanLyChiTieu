@@ -52,8 +52,7 @@ export class BudgetSevice{
                         // TÍNH ĐỘ PX HIỆN THI HÔM NAY
                         budget.dateTotal = Number.parseInt(budget.dateTotal);
                         budget.dateRemain = Number.parseInt(budget.dateRemain);
-                        budget.dateCurrent = (((budget.dateTotal-budget.dateRemain)*350)/budget.dateTotal)-35;
-                        
+                        budget.dateCurrent = (((budget.dateTotal-budget.dateRemain)*300)/budget.dateTotal)-35;
                         transactions.json().forEach(transaction => {
                             let timeTransaction = new Date(transaction.datecreatetransaction).getTime() + (1000*24*60*60);
                             let dateEndBudget = new Date(budget.dateend).getTime()+ (1000*24*60*60);
@@ -81,7 +80,6 @@ export class BudgetSevice{
                         data.push(budget);
                     });
                     this._allBudget.next(data);
-                    console.log(data);
                     return data;
                     
                 })
@@ -114,9 +112,8 @@ export class BudgetSevice{
                         // TÍNH ĐỘ PX HIỆN THI HÔM NAY
                         budgetonly.dateTotal = Number.parseInt(budgetonly.dateTotal);
                         budgetonly.dateRemain = Number.parseInt(budgetonly.dateRemain);
-                        budgetonly.dateCurrent = (((budgetonly.dateTotal-budgetonly.dateRemain)*350)/budgetonly.dateTotal)-35;
+                        budgetonly.dateCurrent = (((budgetonly.dateTotal-budgetonly.dateRemain)*300)/budgetonly.dateTotal)-35;
                         
-                       
 
                     transactions.json().forEach(transaction => {
                         let timeTransaction = new Date(transaction.datecreatetransaction).getTime() + (1000*24*60*60);

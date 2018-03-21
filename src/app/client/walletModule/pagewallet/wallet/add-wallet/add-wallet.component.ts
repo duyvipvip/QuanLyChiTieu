@@ -11,7 +11,7 @@ import { Component, ViewContainerRef } from "@angular/core";
 
 export class AddWalletComponent{
 
-    dataddWallet: IWallet = {
+    dataddWallet = {
         money: '0',
         namewallet: ''
     };
@@ -25,7 +25,7 @@ export class AddWalletComponent{
 
     ngOnInit(){}
 
-    submitAddWallet(namewallet, moneyWallet){
+    submitAddWallet(){
         this.WalletService.addDataWallet(this.dataddWallet)
         .then((result) => {
             // LOAD LẠI DATA VÍ KHI THÊM MỚI VÍ VÀO

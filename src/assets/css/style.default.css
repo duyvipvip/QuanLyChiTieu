@@ -77,7 +77,7 @@ table {
 }
 
 .card-close .dropdown-toggle {
-  color: #999;
+  color: #000;
   background: none;
   border: none;
 }
@@ -96,7 +96,7 @@ table {
 }
 
 .card-close .dropdown-menu a {
-  color: #999 !important;
+  color: #000 !important;
 }
 
 .card-close .dropdown-menu a:hover {

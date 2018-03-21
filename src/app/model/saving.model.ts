@@ -1,9 +1,15 @@
 export interface ISaving {
-    _id?: String,
-    userid: String,
-    namesaving: String,
-    walletid: String,
-    moneyend: Number,
-    enddate: Date,
-    image?: String
+    _id?: String;
+    namesaving: String;
+    idwallet: String;
+    moneyend: Number;
+    enddate?: String;
+    image: String;
+    percent?:Number;
+    dateRemain?:Date;
+    moneyTransaction?:Number;
+    arrTransaction?:Array<any>;
+    remainMoney?: Number;
+    // ngày còn lại
+    day?:String;
 }

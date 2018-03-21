@@ -4,10 +4,45 @@ const auth = require("../middle-ware/auth");
 
 router.post("/create", auth.auth() , createTransaction);
 router.get("/all", getTransactions);
+router.post("/image", auth.auth(), uploadImage);
 router.post("/delete", auth.auth(), deleteTransaction);
 router.post("/update", auth.auth(), updateTransactionWallet);
 router.get("/alltransaction", getAllTransaction);
 module.exports = router;
+
+// UPLOAD FILE
+function uploadImage(req, res, next){
+    let idtransaction = req.query.idtransaction;
+    let file = req.files.file;;
+    let iduser = req.user[0]._id;
+    
+    if(!iduser){
+        next({
+            statusCode: 400,
+            message: "id user is required"
+        })
+    }else if(!idtransaction){
+        next({
+            statusCode: 400,
+            message: "id transaction is required"
+        })
+    }else if(!file){
+        next({
+            statusCode: 400,
+            message: "file is required"
+        })
+    }else{
+        
+        transactionController.uploadImage(idtransaction, file)
+            .then((result) => {
+                res.send(result);
+            })
+            .catch((err) => {
+                next(err);
+            });
+    }
+
+}
 
 // TẠO MỘT GIAO DỊCH CHO MỘT VÍ
 function createTransaction(req, res, next){
@@ -47,11 +82,6 @@ function createTransaction(req, res, next){
         next({
             statusCode: 400,
             message: "id wallet is required"
-        })
-    }else if(!transaction.notetransaction){
-        next({
-            statusCode: 400,
-            message: "note transaction is required"
         })
     }else if(!transaction.groupcategory){
         next({
@@ -100,7 +130,6 @@ function getTransactions(req, res, next){
 
 // UPDATE GIAO DỊCH VÍ
 function updateTransactionWallet(req, res, next){
-    
     let transaction = req.body;
     transaction.iduser = req.user[0]._id;
     if(!transaction.idcategory){
@@ -128,11 +157,6 @@ function updateTransactionWallet(req, res, next){
             statusCode: 400,
             message: "group category is required"
         })
-    }else if(!transaction.notetransaction){
-        next({
-            statusCode: 400,
-            message: "note transaction is required"
-        })
     }else if(!transaction.datecreatetransaction){
         next({
             statusCode: 400,
@@ -155,8 +179,8 @@ function updateTransactionWallet(req, res, next){
         })
     }else{
         transactionController.updateTransactionWallet(transaction)
-        .then((transaction) =>{
-            res.send(transaction);
+        .then((result) =>{
+            res.send(result);
         })
         .catch((err) => {
             next(err);

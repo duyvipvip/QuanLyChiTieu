@@ -3,22 +3,27 @@ var Schema = mongoose.Schema;
 var savingSchema = new mongoose.Schema(
     {
         namesaving: {
+            required: true,
             type: String,
         },
-        userid: {
-            type: Schema.Types.ObjectId,
-            ref: 'user'
-        },
-        walletid: {
+        iduser: {
             type: String,
+            required: true
         },
+        
         moneyend: {
+            required: true,
             type: Number,
         },
         enddate: {
+            required: true,
             type: Date,
         },
         image: {
+            required: true,
+            type: String,
+        },
+        idsaving:{
             type: String,
         }
     }

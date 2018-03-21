@@ -39,6 +39,7 @@ export class DetailBudgetComponent{
                 this.getBudget(this.idBudgetUrl);
             }
         })
+        
        
     }
 

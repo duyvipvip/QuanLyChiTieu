@@ -76,6 +76,26 @@ export class TransactionService{
             })
     }
 
+    // GỬI HÌNH ANH
+    uploadImage(idtransaction, file: File){
+        let formData = new FormData();
+        formData.append('file', file, file.name);
+        const headers = new Headers({'x-access-token': this.token});
+        const options = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Post
+          });
+          
+        return this.Http.post('http://localhost:3000/api/transaction/image?idtransaction='+ idtransaction, formData, {headers:headers})
+            .toPromise()
+            .then((data) => {
+                return data.json();
+            })
+            .catch((err) => {
+                return err;
+            })
+    }
+
 
     /*================================function ======================*/
 

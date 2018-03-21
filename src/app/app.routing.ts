@@ -3,9 +3,6 @@ import { loginGuard } from './service/guard.service';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { ClientLoginComponent } from './client/login/clientlogin.component';
 import { ClientRegisterComponent } from './client/register/clientregister.component';
-import { DetailsavingComponent } from './client/savings/detailsaving/detailsaving.component';
-import { SavingsComponent } from './client/savings/savings.component';
-import { ListsavingComponent } from './client/savings/listsaving/listsaving.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -18,7 +15,8 @@ const routes: Routes = [
       path: '', component: LayOutComponent, children: [
         { path: '', redirectTo: 'wallet', pathMatch: 'full'},
         {path: 'wallet', loadChildren: './client/walletModule/wallet.module#WalletModule'},
-        {path: 'budget', loadChildren: './client/budgetModule/budget.module#BudgetModule'}
+        {path: 'budget', loadChildren: './client/budgetModule/budget.module#BudgetModule'},
+        {path: 'savings', loadChildren: './client/savingModule/saving.module#SavingModule'}
       ] 
     },
   

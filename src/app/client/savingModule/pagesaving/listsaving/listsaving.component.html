@@ -1,0 +1,66 @@
+<div class="listsavings col-8">
+  <div class="circle" data-toggle="modal" data-target="#modalAddSaving">
+    <app-addsaving></app-addsaving>
+  </div>
+  <mat-tab-group>
+    <mat-tab label="Đang Áp Dụng">
+      <div class="content">
+        <div *ngFor="let dataSaving of dataSavings">
+          <div class="saving" [routerLink]="dataSaving._id">
+            <div class="row">
+              <div class="img">
+                <img src="assets/images/{{dataSaving.image}}.png" alt="">
+              </div>
+              <div class="info">
+                <div class="row">
+                  <div class="col-6 namesaving">
+                    <h4>{{dataSaving.namesaving}}</h4>
+                  </div>
+                  <div class="col-6 moneysaving">{{dataSaving.moneyend | number}} đ</div>
+                </div>
+                <div class="col-12 remainday">
+                  <span>Còn {{ dataSaving.dateRemain }} ngày </span>
+                </div>
+                
+                <div class="col-12">
+                    <div class="cssProgress">
+                        <div class="progress4">
+                            <div class="cssProgress-bar cssProgress-danger cssProgress-glow"[style.width.%]="dataSaving.percent" data-percent="35" ></div>
+                        </div>
+                    </div>
+                  <!-- <mat-progress-bar mode="determinate" value="{{dataSaving.money*100 / dataSaving.moneyend}}"></mat-progress-bar> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Đã Kết Thúc">
+      <div class="content">
+        <div *ngFor="let dataSaving of dataSavings">
+          <div class="card saving" *ngIf="dataSaving.day <= 0 
+          || (dataSaving.day > 0 ||dataSaving.day==='dưới 1') && dataSaving.money >= dataSaving.moneyend" [routerLink]="dataSaving._id">
+            <div class="row">
+              <div class="img col-2 offset-2">
+                <img src="assets/images/{{dataSaving.image}}.png" width="70%" height="60%" alt="">
+              </div>
+              <div class="col-8">
+                <div class="col-12 name">{{dataSaving.namesaving}}</div>
+                <div class="col-12">{{dataSaving.status}}</div>
+                <div class="row" style="margin-right:0px;padding-left:15px;">
+                  <div class="col-4 target">Mục tiêu</div>
+                  <div class="col-5" style="text-align: right;">{{dataSaving.moneyend | number: '1.0-0'}} đ</div>
+                </div>
+                <div class="col-9">
+                  <mat-progress-bar mode="determinate" value="{{dataSaving.money*100 / dataSaving.moneyend}}"></mat-progress-bar>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <!-- <app-detailsaving></app-detailsaving> -->
+</div>

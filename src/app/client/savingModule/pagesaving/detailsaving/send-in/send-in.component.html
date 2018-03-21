@@ -1,0 +1,70 @@
+<span (click)="openModalSendin(modalSendin)">Gửi vào</span>
+<ng-template #modalSendin let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Gửi tiền vào</h4>
+  </div>
+  <div class="modal-body" id="edit">
+    <div class="button-save">
+      <button type="button">
+        <i class="fa fa-save" (click)="submitSendIn()" (click)="c('Close click')"></i>
+      </button>
+    </div>
+    <div class="infosaving">
+      <div class="row-item">
+        <div class="img">
+          <img alt="" src="assets/images/thuong.png">
+        </div>
+        <div class="group">
+          <h4>{{objSaving.namesaving}}</h4>
+          <div class="row">
+            <div class="col-6">
+              <span>Cần thêm</span>
+            </div>
+            <div class="col-6 needAdd">
+              <span> {{objSaving.remainMoney | number }} đ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info">
+      <div class="row-item">
+        <div class="img">
+          <img alt="" src="assets/images/wallet.png">
+        </div>
+        <div class="group" style="border-bottom:1px solid rgba(0, 0, 0, 0.12);">
+            <app-choose-wallet-transfer-money (selectIDToWallet)="selectIDToWallet($event)"></app-choose-wallet-transfer-money>
+        </div>
+      </div>
+
+      <div class="row-item">
+        <div class="img">
+        </div>
+        <div class="group">
+          <p class="lable-money">Số tiền</p>
+          <input type="text" [ngModel]="objSendIn.money | toNumber | number:'1.0-0'" (ngModelChange)="objSendIn.money=$event" required placeholder="Số tiền">
+          <span class="bar"></span>
+        </div>
+      </div>
+
+      <div class="row-item">
+        <div class="img">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </div>
+        <div class="group">
+          <input type="Date" [(ngModel)]="objSendIn.date">
+        </div>
+      </div>
+
+      <div class="row-item">
+        <div class="img">
+            <i aria-hidden="true" class="fa fa-pencil"></i>
+        </div>
+        <div class="group">
+          <input type="text" [(ngModel)]="objSendIn.note" placeholder="Nghi chú">
+          <span class="bar"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

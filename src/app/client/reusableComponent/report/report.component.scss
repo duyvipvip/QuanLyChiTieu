@@ -1,0 +1,533 @@
+/* PHẦN BÁO CÁO TÔNG QUAN */
+.report-overview .money{
+    text-align: right; 
+}
+.line{
+    width: 100%;
+    height: 1px;
+    background-color: rgb(224, 224, 224);
+}
+/* PHẦN BÁO CÁO CHI TIẾT */
+.report-detail{
+    padding: 0px;
+    .name-overview{
+      padding: 0px 0px 0px 15px !important;
+      margin: 0px;
+      font-weight: bold;
+    }
+    .report-overview{
+      p{
+        margin: 0px;
+        &:first-child{
+          color: rgba(0, 0, 0, 0.26);
+        }
+        &:last-child{
+          color: red;
+          text-align: right;
+        }
+      }
+    }
+    .item{
+      background-color: #fff;
+      padding: 0px;
+      margin: 20px;
+      border-radius: 4px;
+      box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    }
+    .card-body {
+      background-color: #e5e5e5;
+      box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    }
+    .row-item{
+      padding: 2px 1px;
+     
+    }
+    .row-item:hover{
+      background-color: rgba(51, 51, 51, 0.1);
+      cursor: pointer;
+    }
+    .card-header{
+      box-shadow: rgb(45, 184, 76) 0px 1px 6px, rgb(45, 184, 76) 0px 1px 4px;
+      background-color: rgb(45, 184, 76);
+    }
+    .view-day{
+      font-size: 32px;
+      display: inline-block;
+      color: rgba(0,0,0,.87);
+      font-weight: 300;
+    }
+    .days{
+      font-size: 10px;
+      display: block;
+      line-height: 15px;
+      color: #333;
+    }
+    .months{
+      color: rgba(0,0,0,.26);
+      font-size: 10px;
+    }
+    .amount{
+      text-align: right;
+    }
+    .amount span{
+      line-height: 45px;
+    }
+    .img{
+      display: inline-block;
+    }
+    img{
+      width: 48px;
+      height: 48px;
+    }
+    .info-detail{
+      margin-left: 15px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .info-detail p{
+      margin:0px;
+    }
+    .info-detail p:first-child{
+      font-size: 14px;
+    }
+    .info-detail p:last-child{
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 12px;
+      
+    }
+    .right p{
+      text-align: right;
+    }
+    .card-body{
+      overflow: auto;
+    }
+    .content-card-body{
+      background-color: #e5e5e5;
+    }
+    .row{
+      margin: 0px;
+      padding: 6px 5px !important;
+    }
+    .row:hover{
+      cursor: pointer;
+    }
+    
+    .loan, .expense{
+      color:red;
+    }
+    .income, .debt{
+      color:rgb(3, 155, 229);
+    }
+  }
+
+  
+
+
+  /// phần update giao dịch
+
+  // phần tab
+// .modalUpdateTransaction{
+//   .tab{
+//     padding: 15px 0px 0px 0px;
+//     background: rgb(45, 184, 76);
+//     ul{
+//         border-bottom: 0px;
+//         li{
+//             width: 50%;
+//             text-align: center;
+//             a{
+//                 text-decoration: none;
+//                 color: rgba(255, 255, 255, 0.7);
+//                 width: 100%;                
+//             }
+//             a.active{
+//                 .line{
+//                     display: block;
+//                 }
+                
+//             }
+//         }
+//     }
+//   }
+//   .line{
+//     height: 4px;
+//     background: #a3e9a4;
+//     display: none;
+//   }
+//   a.active{
+//     color: rgb(255, 255, 255) !important;
+//   }
+//   agm-map{
+//     height: 300px;
+//   }
+// }
+
+// .modal-header{
+//   background-color: #2db84c;
+//   i{
+//       color: #fff !important;
+//   }
+// }
+.modal-body{
+  padding: 0px;
+}
+#edit{
+  .close-button{
+    float:right;
+    width:1.5rem;
+    line-height:1.5rem;
+    text-align:center;
+    cursor:pointer;
+    border-radius:0.25rem;
+    background-color:lightgray;
+    position: absolute;
+    bottom: 185px;
+    right: 15px;
+  }
+  .close-button:hover{
+      background-color:darkgray;
+  }
+  padding:0px 0px 15px 0px !important;
+  .card-header{
+      padding: 10px 10px;
+  }
+  width: 360px;
+  .img{
+      width:16%;
+      display:inline-block;
+      text-align:center;
+      img{width:48px;height:48px;}
+  }
+  i{
+      width:48px;
+      color:#757575;
+      text-align:center;
+      margin-top: 5px;
+      &:hover{
+          cursor: pointer;
+      }
+  }
+
+  .row-item{
+      margin:25px 0px;
+      &:first-child{
+          margin-top: 6px;
+      }
+      &:last-child{
+          margin-bottom: 6px;
+      }
+  }
+  .item-content-modal{position:relative;margin:5px 0px;padding:3px 0px;}
+  .choose-category{
+      cursor:pointer;
+      width: 70%;
+      height: 35px;
+      i{float: right;}
+  }
+  .category{width: 78% !important;}
+  .choose-category:last-child{width: 100%;}
+  .footer-row-item{height:100px;width:100%;border-top:1px solid rgba(0,0,0,.12);margin:10px 0px 0px 0px;}
+  .item-left{
+      height:100%;
+      text-align:center;
+      border-right:1px solid rgba(0,0,0,.12);
+      p{
+          margin:0px;
+      }
+      p.week{
+          font-size:12px;
+          text-transform:uppercase;
+          color:grey;
+          line-height:48px;
+      }
+      p.day-of-month{
+          font-size:48px;
+          color:#333;
+          margin-top:-28px;
+      }
+      p.month-and-year{
+          font-size:12px;
+          color:grey;
+          line-height:48px;
+          margin-top:-28px;
+          text-transform: uppercase;
+      }
+  }
+  .row{
+      margin:0px;
+  }
+  button{
+      margin-left:15px;
+      margin-top:15px;
+  }
+  .item-right{
+      height:100%;
+  }
+  .title-wallet{
+      font-size:12px;
+  }
+  .choose-category{
+      border-bottom:1px solid rgba(0,0,0,.12);
+  }
+  .choose-category i{
+      display:inline-block;
+      margin-left:30px;
+      width:15px;}
+  .card-close{
+      margin-top: 15px;
+  }
+  .card-close:hover{
+      cursor: pointer;
+  }
+  .card-body{
+      padding: 15px 0px 20px 0px;
+  }
+  .item-left{
+    cursor: pointer;
+  }
+  input.expense::placeholder, input.loan::placeholder, .expense, .loan{
+    color:red;
+  }
+  input.income::placeholder, input.debt::placeholder, .income, .debt{
+    color:rgb(3, 155, 229);
+  }
+  /* HIỆU ỨNG INPUT */
+  .group{
+    width:78%;
+    display:inline-block;
+    input{
+        font-size:16px;
+        padding:10px 10px 5px 0px;
+        display:block;
+        width:100%;
+        border:none;
+        border-bottom:1px solid rgba(0, 0, 0, 0.12);
+        &:focus ~ .bar:before, &:focus ~ .bar:after{
+            width:50%;
+        }
+        
+        &:focus{
+            outline:none;border-bottom:0px
+        }
+        
+    }
+    &:focus ~ label, &:valid ~ label{
+        top:-20px;
+        font-size:14px;
+        color:rgb(45, 184, 76);
+    }
+    .bar{
+        position:relative;
+        display:block;
+        width:100%;
+    }
+    .bar:before, .bar:after{
+        content:'';height:2px;
+        width:0;
+        bottom:1px;
+        position:absolute;
+        background:rgb(45, 184, 76);
+        transition:0.2s ease all;
+        -moz-transition:0.2s ease all;
+        -webkit-transition:0.2s ease all;
+    }
+    .bar:before{
+        left:50%;
+    }
+    .bar:after{
+        right:50%;
+    }
+  }
+}
+
+
+
+.col-lg-4{
+  margin: 0px auto;
+}
+
+.modal{
+  z-index: 990 !important;
+}
+.modal-content{
+  z-index: 1100 !important;
+}
+
+// PHẦN CSS SHOW LÊN
+#show{
+  .modal-body{
+    padding: 15px 0px;
+    background: #eef5f9 !important;
+  }
+  .location{
+    margin-top: 0px !important;
+  }
+  .delete{
+    text-align: center;
+    cursor: pointer;
+    .name-delete{
+       color: red;
+    }
+  }
+  .user, .location, .delete{
+    background: #fff;
+    margin: 25px 0px;
+    padding: 10px 0px;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    .img{
+      width:16%;
+      display:inline-block;
+      text-align:center;
+      img{width:48px;height:48px;}
+    }
+    .group{
+      width: 80%;
+      display: inline-block;
+    }
+    i{
+      width:48px;
+      color:#757575;
+      text-align:center;
+      margin-top: 5px;
+      &:hover{
+          cursor: pointer;
+      }
+    }
+  }
+  .info{
+    
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    background: #fff;
+    .group{
+      width: 80%;
+      display: inline-block;
+    }
+    .note{
+      margin-left: 62px;
+      color: rgba(0, 0, 0, 0.26);
+      margin-top: -5px;
+      font-size: 13px;
+    }
+    .money{
+      margin-left: 62px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      color:red;
+      margin-top: -13px;
+      font-size: 24px;
+    }
+   
+    .img{
+      width:16%;
+      display:inline-block;
+      text-align:center;
+      img{width:48px;height:48px;}
+    }
+    .img-wallet{
+      img{
+        width: 20px;
+        height: 20px;
+      }
+    }
+    i{
+        width:48px;
+        color:#757575;
+        text-align:center;
+        margin-top: 5px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+  
+    .row-item{
+        margin:25px 0px;
+        &:first-child{
+            margin-top: 6px;
+        }
+        &:last-child{
+            margin-bottom: 6px;
+        }
+    }
+  }
+  
+}
+
+// chỉnh sửa
+#edit{
+  .modal-body{
+    padding: 15px 0px;
+  }
+  // Phần thêm chi tiết
+.adddetail{
+  .row-item{
+      margin: 2px 0px !important;
+      padding: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-width: 1px 0px;
+      text-align: center;
+      cursor: pointer;
+      label{
+        cursor: pointer;
+        color: #79bd8a;
+      }
+      i{
+          width: 20px;
+      }
+
+  }
+}
+
+  // phần body thêm chi tiết
+.body-detail{
+  .row-item{
+      border: 0px;
+      .addimage{
+          border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+          text-align: left;
+      }
+      .addmap{
+          span{
+              color: rgba(0, 0, 0, 0.6) !important;
+          }
+          border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+          text-align: left;
+      }
+  }
+}
+}
+// Phần buuton add
+.button-close button, .button-save button, .button-arrow button{
+  border:10px;
+  background-color:rgb(90, 241, 88);
+  height:56px;
+  width:56px;
+  border-radius:50%;
+  color:rgba(0, 0, 0, 0.6);
+}
+
+.button-close{
+  box-shadow:rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+  border-radius:50%;
+  display:inline-block;
+  position:absolute;
+  top: -28px;
+  right: -26px;
+  i{
+    color: #000 !important;
+  }
+}
+
+.button-save{
+  border-radius:50%;
+  display:inline-block;
+  position:absolute;
+  top: -90px;
+  right: -26px;
+  i{
+    color: #000 !important;
+    width: 11px !important;
+  }
+}
+
+

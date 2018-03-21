@@ -6,7 +6,7 @@
             </div>
 
             <div class="row">
-                <div class="budget col-lg-6">
+                <div class="budget col-lg-5">
                     <div class="row item-budget">
                         <div class="button-edit" data-toggle="modal" data-target="#updatebudget">
                             <button tabindex="0" type="button">
@@ -78,7 +78,9 @@
                     </div>
                 </div>
                 <div class="col-lg-1"></div>
-                <div class="col-lg-5 report-detail">
+                <app-report class="col-6" [inputTransactions]="budget.transactions"></app-report>
+                
+                <!-- <div class="col-lg-5 report-detail">
                     <div class="checklist card">
                         <div class="card-header d-flex align-items-center">
                             <h2 class="h3">Danh sách giao dịch </h2>
@@ -130,7 +132,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>

@@ -1,0 +1,53 @@
+<i class="fa fa-plus" aria-hidden="true" (click)="openAddSaving(modalAddSaving)"></i>
+
+<ng-template #modalAddSaving let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Thêm Khoản Tiết Kiệm</h4>
+  </div>
+  <div class="modal-body" id="edit">
+    <div class="button-save">
+      <button type="button">
+        <i class="fa fa-save" (click)="submitSaving()" (click)="c('Close click')"></i>
+      </button>
+    </div>
+<!-- // (click)="c('Close click')" -->
+    <div class="info">
+      <div class="row-item namesaving">
+        <div class="img">
+          <img alt="" src="assets/images/thuong.png">
+        </div>
+
+        <div class="group">
+          <input type="text" [(ngModel)]="objSaving.namesaving" placeholder="Tên">
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="img">
+        </div>
+        <div class="group">
+          <p class="lable-money">Số tiền</p>
+          <input type="text" [(ngModel)]="objSaving.moneyend" required placeholder="Số tiền">
+          <span class="bar"></span>
+        </div>
+      </div>
+
+      <div class="row-item">
+        <div class="img">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </div>
+        <div class="group">
+          <input type="Date" [(ngModel)]="objSaving.enddate">
+        </div>
+      </div>
+
+      <div class="row-item">
+        <div class="img">
+            <img class="imagewallet" alt="" src="assets/images/icon.png">
+        </div>
+        <div class="group">
+          <span>Tất cả các ví</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

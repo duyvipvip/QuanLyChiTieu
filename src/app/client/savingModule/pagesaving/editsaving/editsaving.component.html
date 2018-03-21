@@ -1,0 +1,60 @@
+<!-- Modal Add Saving -->
+<div class="modal fade" id="modalEditSaving">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color:#796AEE">
+        <h4 class="modal-title" style="color:white">Khoản tiết kiệm</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-3 col-left">
+            <img src="assets/images/receber.png" width="50%" height="100%" alt="">
+          </div>
+          <div class="col-8" style="margin:auto 0;">
+            <input type="text" [(ngModel)]="dataSaving.namesaving" class="input-add" placeholder="Tên ...">
+            <span class="focus-border"></span>
+          </div>
+        </div>
+        <div class="row" style="padding-bottom:5px;padding-top:6px;">
+          <div class="col-8 offset-3">
+            <span style="font-size:13px;">Mục tiêu</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8 offset-3">
+            <input type="number" class="input-add" [(ngModel)]="dataSaving.moneyend" placeholder="0 đ" min="0">
+            <span class="focus-border"></span>
+          </div>
+        </div>
+        <div class="row" style="padding-top:15px;padding-bottom:15px;">
+          <div class="col-3 col-left">
+            <i class="far fa-calendar-alt"></i>
+          </div>
+          <div class="col-8">
+            <mat-form-field class="example-full-width" style="width:230px" (click)="pickerd.open()">
+              <input matInput [matDatepicker]="pickerd" [(ngModel)]="dataSaving.enddate" readonly placeholder="Choose a date">
+              <mat-datepicker #pickerd></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <div class="col-lg-3">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        <div class="col-lg-6"></div>
+        <div class="col-lg-3" style="padding-left:25px;">
+          <button type="button" (click)="updateSaving()" class="btn btn-success" data-dismiss="modal" data-toggle="modal">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

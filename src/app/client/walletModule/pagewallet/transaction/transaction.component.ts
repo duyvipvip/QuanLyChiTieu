@@ -7,10 +7,9 @@ import { FomatDateService } from './../../../../service/fomatDate.service';
 import { ITransaction } from './../../../../model/transaction.model';
 import { IDate } from './../../../../model/date.model';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { Component, ViewChild, ViewContainerRef, NgZone, ElementRef } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TransactionService } from '../../../../service/transaction.service';
-import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
@@ -31,16 +30,16 @@ export class TransactionComponent{
     public adddetail = true;
 
     // KHỞI TẠO CÁC BIẾN VỊ TRÍ
-    lat: number = 0;
-    lng: number = 0;
-    zoom: number = 0;
+    lat: number = 10.812035;
+    lng: number = 106.7119887
+    zoom: number = 14;
 
     // DANH SÁCH TẤT CẢ CÁC ĐỊA ĐIỂM
     allPlace: any[] = [];
 
     // OBJCET ĐỊA ĐIỂM
     objLocation = {
-        lat: 106.7119887,
+        lat: 10.812035,
         lng: 106.7119887,
         name: "Đặt vị trí",
     }
@@ -50,42 +49,42 @@ export class TransactionComponent{
     dateCurrent: IDate;
     nameWallet: String = ''
 
+
     // TRANSACTION DEFAULT
     transaction : ITransaction = {
         groupcategory: '',
         idcategory: '',
-        notetransaction: '',
         datecreatetransaction: new Date().toDateString(),
         moneytransaction: '',
         imagecategory: 'default',
         categorytransaction: 'Chọn Danh Mục',
         idwallet: '',
     }
-    
-    
-    
+
+    // URL HÌNH ẢNH
+    public url: String = '';
+    private fileToUpload: File = null;
+
+    ngOnInit(){
+       
+        // LẤY TOẠ ĐỘ Ở VỊ TRÍ HIỆN TẠI
+        this.setCurrentPosition();
+        
+    }
+   
     constructor(private FomatDateService: FomatDateService,
         private WalletService: WalletService,
         private modalService: NgbModal,
         private checkvalue: CheckValueSevice,
         private TransactionService: TransactionService,
         private ActivatedRoute:  ActivatedRoute,
-        public toastr: ToastsManager,
-        private mapsAPILoader: MapsAPILoader,
-        private ngZone: NgZone,
         private GooleMapsService: GooleMapsService,
-        vcr: ViewContainerRef
+        public toastr: ToastsManager,
+        vcr: ViewContainerRef,
     ){
         this.toastr.setRootViewContainerRef(vcr);
         
-        // LẤY TOẠ ĐỘ Ở VỊ TRÍ HIỆN TẠI
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition((position) => {
-              this.lat = position.coords.latitude;
-              this.lng = position.coords.longitude;
-              this.zoom = 14;
-            });
-        }
+        
        
         // LẤY TÊN VÍ HIỆN THỊ LÊN GIAO DIỆN
         this.paramIdWalletURL();
@@ -118,9 +117,22 @@ export class TransactionComponent{
         }
     }
 
+    // LẤY FILE
+    onSelectFile(event) { 
+        if (event.target.files && event.target.files[0]) {
+            var reader = new FileReader();
+            this.fileToUpload = event.target.files[0];
+            reader.readAsDataURL(event.target.files[0]); 
+            reader.onload = (event: any) => { 
+                this.url = event.target.result;
+            }
+        }
+    }
+
     
     // SUMMIT GỬI GIAO DỊCH 
     submitTransaction(){
+        // thay đổi dấu
         if(this.transaction.groupcategory == "income" || this.transaction.groupcategory == "debt"){
             if(Number(this.transaction.moneytransaction) < 0){
                 this.transaction.moneytransaction = (Number(this.transaction.moneytransaction)* -1).toString();
@@ -131,14 +143,33 @@ export class TransactionComponent{
                 this.transaction.moneytransaction = (Number(this.transaction.moneytransaction)* -1).toString();
             }
         }
-        if(this.checkvalue.checkItemObjectNull(this.transaction) == true){
-            this.toastr.warning('Vui lòng nhập đầy đủ các filed vào ! ', 'Cảnh báo ! ');
+
+        // xoá hiết dấu phẩy
+        this.transaction.moneytransaction = this.transaction.moneytransaction.toString().replace(/,/g, '');
+
+        // kiểm tra dữ liệu
+        if(this.transaction.groupcategory == ''){
+            this.toastr.warning('Vui lòng chọn category ! ', 'Cảnh báo ! ');
+        }else if(this.transaction.moneytransaction == ''){
+            this.toastr.warning('Vui lòng nhập số tiền vào ! ', 'Cảnh báo ! ');
         }else{
+            // tạo một giao dịch
             this.TransactionService.createTransaction(this.transaction)
-                .then((data) => {
-                    this.toastr.success('Thêm giao dịch thành công ! ', 'Thành công ! ');
-                    this.reloadData();
-                    this.resetData();
+                .then((result) => {
+                    // upload hình ảnh
+                    if(this.fileToUpload != null){
+                        this.TransactionService.uploadImage(result._id, this.fileToUpload)
+                        .then((data) => {
+                            this.toastr.success('Thêm giao dịch thành công ! ', 'Thành công ! ');
+                            this.reloadData();
+                            this.resetData();
+                        })
+                    }else{
+                        this.toastr.success('Thêm giao dịch thành công ! ', 'Thành công ! ');
+                            this.reloadData();
+                            this.resetData();
+                    }
+                   
                 })
                 .catch((err) => {
                     this.toastr.error(err, 'Thất bại ! ');
@@ -164,6 +195,12 @@ export class TransactionComponent{
         }else if(this.transaction.groupcategory == 'debt-loan'){
             this.titleTransaction = this.nameButtonTransaction = 'Thêm Nợ/Vay';
         }
+    }
+
+    // XOÁ HÌNH ẢNH
+    deleteImage(){
+        this.url = null;
+        this.fileToUpload = null;
     }
 
     // KHI USER CHỌN NGÀY
@@ -234,20 +271,24 @@ export class TransactionComponent{
 
         // RESET WALLET
         this.paramIdWalletURL();
+
+        // RESET IMAGE
+        this.url = null;
+        this.fileToUpload = null;
     }
 
 
     //////////////// BẮT ĐẦU PHẦN XỬ Ý MODEL HIỂN THỊ ĐỊA ĐIỂM
 
     private setCurrentPosition() {
-        // if ("geolocation" in navigator) {
-        //   navigator.geolocation.getCurrentPosition((position) => {
-        //     this.lat = position.coords.latitude;
-        //     this.lng = position.coords.longitude;
-        //     this.zoom = 12;
-        //   });
-        // }
-      }
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            this.lat = position.coords.latitude;
+            this.lng = position.coords.longitude;
+            this.zoom = 14;
+          });
+        }
+    }
 
     // MỞ MODAL CHỌN ĐỊA ĐIỂM GOOGLE MAP
     open(content) {
@@ -266,6 +307,12 @@ export class TransactionComponent{
             name: place.name
         }
         this.transaction.location = this.objLocation;
+    }
+
+    // XOÁ ĐI VỊ CHÍ ĐÃ CHỌN
+    deleteLocation(){
+        delete this.transaction.location;
+        this.objLocation.name = "Đặt vị trí";
     }
 
 

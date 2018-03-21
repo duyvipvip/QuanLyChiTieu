@@ -1,5 +1,7 @@
 const transactionModel = require("../model/transaction.model");
 const walletModel = require("../model/wallet.model");
+const config = require("../config/config");
+const path = require("path");
 
 var mongoose = require('mongoose');
 module.exports = {
@@ -7,7 +9,25 @@ module.exports = {
     getTransactions: getTransactions,
     getAllTransaction: getAllTransaction,
     deleteTransaction: deleteTransaction,
+    uploadImage: uploadImage,
     updateTransactionWallet: updateTransactionWallet
+}
+
+// UPLOAD FILE
+function uploadImage(idTransaction, file) {
+    return new Promise(function (resolve, reject) {
+        file.mv(path.join(__dirname, '../public/images/' + idTransaction + '.png'), function (err) {
+            if (err)
+                reject(err);
+            return transactionModel.findOneAndUpdate({ _id: idTransaction }, { $set: { image: idTransaction + '.png' } })
+                .then(function (data) {
+                    resolve(`${config.server.domain}:${config.server.port}/images/${idTransaction}.png`);
+                })
+                .then(function (err) {
+                    reject(err);
+                })
+        });
+    });
 }
 
 // TẠO RA 1 GIAO DỊCH
@@ -46,39 +66,28 @@ function getAllTransaction(){
 
 // CHỈNH SỬA GIAO DỊCH 
 function updateTransactionWallet(bodyUpdateTransaction){
-    let idWalletOld = bodyUpdateTransaction.idwalletold;
-    let idWalletnew = bodyUpdateTransaction.idwallet;
-    let idTransaction = bodyUpdateTransaction._id;
-    
-    let objTransaction = {
-        "idwallet" : idWalletnew,
-        "idcategory": bodyUpdateTransaction.idcategory,
-        "iduser": bodyUpdateTransaction.iduser,
-        "groupcategory" : bodyUpdateTransaction.groupcategory,
-        "notetransaction" : bodyUpdateTransaction.notetransaction,
-        "datecreatetransaction" : bodyUpdateTransaction.datecreatetransaction,
-        "moneytransaction" : bodyUpdateTransaction.moneytransaction,
-        "imagecategory" : bodyUpdateTransaction.imagecategory,
-        "categorytransaction" : bodyUpdateTransaction.categorytransaction,
-        "taguser" : bodyUpdateTransaction.taguser
-    }
 
+    let idTransaction = bodyUpdateTransaction._id;
+    bodyUpdateTransaction.idwallet = bodyUpdateTransaction.idwalletold;
     // XOÁ GIAO DỊCH
-    transactionModel.findByIdAndRemove(idTransaction)
-        .then((transacrion) => {
+    return transactionModel.findByIdAndRemove(idTransaction)
+        .then(() => {
             // TẠO TRANSACTION MỚI
-            let newTransaction = new transactionModel(objTransaction);
+            let newTransaction = new transactionModel(bodyUpdateTransaction);
             return newTransaction.save().then((transaction) => {
                 return Promise.resolve(transaction);
             })
+        })
+        .catch((err) => {
+            return Promise.reject(err);
         })
 }
 
 // XOÁ 1 GIAO DỊCH
 function deleteTransaction(idtransaction){
-    transactionModel.findByIdAndRemove(idtransaction)
-    .then((transacrion) => {
-        return Promise.resolve(transacrion);
-    })
+    return transactionModel.findByIdAndRemove(idtransaction)
+        .then((transacrion) => {
+            return Promise.resolve(transacrion);
+        })
 }
 

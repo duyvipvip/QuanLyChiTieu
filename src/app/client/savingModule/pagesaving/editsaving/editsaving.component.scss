@@ -1,0 +1,47 @@
+.modal{
+    width: 30%;
+    margin:0 auto;
+    z-index: 990 !important;
+    // input:focus{outline: none;}
+    .modal-content{
+        // z-index: -1 !important;
+        position: absolute;
+    }
+    
+    .modal-body{
+        .col-left{
+            text-align: right;
+            padding-right: 0;
+        }
+    }
+    .input-add{
+        border:0;
+        padding: 5px 0;
+        padding: 0;        
+        border-bottom:1px solid #ccc;
+        width: 230px;
+    }
+    .focus-border{
+        margin: 0 0 0 15px;
+        // margin-left: 15px;
+    }
+    .fa-calendar-alt , .fa-bars{
+        margin: 20px 15px 0 0;
+    }
+    .swallets{
+        margin-top:-15px;
+    }
+    .input-add ~ .focus-border{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #6f42c1;
+        transition: 0.4s;
+    }
+    .input-add:focus ~ .focus-border{
+        width: 230px;
+        transition: 0.4s;
+    }
+}

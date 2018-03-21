@@ -4,6 +4,9 @@ const transactionSchema = mongoose.Schema({
         type: String,
         require: true
     },
+    image: {
+        type: String,
+    },
     iduser: {
         type: String,
         require: true
@@ -29,11 +32,13 @@ const transactionSchema = mongoose.Schema({
     },
     notetransaction:{
         type: String,
-        require: true
     },
     groupcategory:{
         type: String,
         require: true
+    },
+    idsaving: {
+        type: String
     },
     idcategory: {
         type: String,
