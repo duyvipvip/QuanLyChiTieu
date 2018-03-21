@@ -16,7 +16,7 @@ export class AuthenticationService {
             headers: headers,
             method: RequestMethod.Post
           });
-        return this.Http.post('http://localhost:3000/api/auth/login', JSON.stringify(user), {headers:headers})
+        return this.Http.post('api/auth/login', JSON.stringify(user), {headers:headers})
         .toPromise()
         .then((response) => {
             if(response.json().statusCode == 400){
