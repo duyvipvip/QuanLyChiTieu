@@ -1,6 +1,6 @@
 // const path  = require('path');
-const express = require('express');
-const app     = express();
+// const express = require('express');
+// const app     = express();
 // const bodyParser = require('body-parser');
 // const mongoose = require('mongoose');
 // var fileUpload = require('express-fileupload');
@@ -22,7 +22,7 @@ const app     = express();
 // const errorHandler = require(path.join(__dirname, '/serve/middle-ware/error-handler'));
 
 // PORT ĐỂ TRUY CẬP APPLICATION
-const port = process.env.port || 3000;
+//const port = process.env.port || 3000;
 
 //SỬ DỤNG BUILT-IN MIDDLEWARE
 // app.use(express.static(__dirname + '/dist'));
@@ -58,23 +58,23 @@ const port = process.env.port || 3000;
 // app.use("/api/user", userRouter);
 // app.use("/api/saving", savingRouter);
 // app.use(errorHandler.errorHandler());
-app.use(express.static(__dirname + '/dist'));
+//app.use(express.static(__dirname + '/dist'));
 
 
 
-app.listen(port, () =>{
-    console.log(`serve hoạt động trên port ${port}`);
-});
+// app.listen(port, () =>{
+//     console.log(`serve hoạt động trên port ${port}`);
+// });
 
 //Install express server
-// const express = require('express');
-// const app = express();
+const express = require('express');
+const app = express();
 
 // // Serve only the static files form the dist directory
-// app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/dist'));
 
-// // Start the app by listening on the default Heroku port
-// const PORT = process.env.PORT || 8080;
-// app.listen(PORT, ()=> {
-//     console.log(`Server started in port: ${PORT}`);
-// });
+// Start the app by listening on the default Heroku port
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, ()=> {
+    console.log(`Server started in port: ${PORT}`);
+});
