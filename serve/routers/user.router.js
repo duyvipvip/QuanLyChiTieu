@@ -1,9 +1,10 @@
 const router = require("express").Router();
 const userController = require('../controller/user.controller');
+const auth = require("../middle-ware/auth");
 
 router.post("/create", createUser );
 router.get("/getall", getAllUser );
-router.post("/avatar", uploadAvatar );
+router.post("/avatar",auth.auth() ,uploadAvatar );
 router.get("/kichhoattaikhoan", kichhoattaikhoan);
 module.exports = router;
 
@@ -40,24 +41,22 @@ function createUser(req, res, next){
 
 // UPLOAD HÌNH ẢNH
 function uploadAvatar(req, res, next) {
-    
     if (!req.files)
         return next({
             message: 'No files were uploaded.'
         });
 
     var uploadedFile = req.files.file;
-    res.send(uploadedFile);
-    //req.user._id = "5a97b38b9e01cbe0f071a6e3";
-    // userController.uploadAvatar(req.user._id, uploadedFile)
-    //     .then(function (avatar) {
-    //         res.send({
-    //             avatar: avatar
-    //         })
-    //     })
-    //     .catch(function (err) {
-    //         next(err);
-    //     })
+
+    userController.uploadAvatar(req.user[0]._id, uploadedFile)
+        .then(function (avatar) {
+            res.send({
+                avatar: avatar
+            })
+        })
+        .catch(function (err) {
+            next(err);
+        })
 }
 
 // LẤY TẤT CẢ CÁC USER

@@ -1,4 +1,6 @@
+
 import { SavingModule } from './client/savingModule/saving.module';
+import { ProfileComponent } from './client/profile/profile.component';
 import { AgmCoreModule } from '@agm/core';
 import { ClientLoginComponent } from './client/login/clientlogin.component';
 import { BudgetModule } from './client/budgetModule/budget.module';
@@ -41,7 +43,7 @@ const appRoutes: Routes = [
     ClientRegisterComponent,
     ClientLoginComponent,
     LayOutComponent,
-    
+    ProfileComponent,
   ],
   imports: [
     AppRoutingModule,

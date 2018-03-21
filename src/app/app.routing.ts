@@ -5,6 +5,7 @@ import { ClientLoginComponent } from './client/login/clientlogin.component';
 import { ClientRegisterComponent } from './client/register/clientregister.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ProfileComponent } from './client/profile/profile.component';
 
 const routes: Routes = [
 
@@ -22,6 +23,9 @@ const routes: Routes = [
   
     // ĐƯỜNG DẪN URL ĐẾN TRANG ĐĂNG KÍ
     {path: 'dangki', component: ClientRegisterComponent},
+
+    // ĐƯỜNG DẪN URL ĐẾN TRANG THÔNG TIN
+    {path: 'thongtin', component: ProfileComponent},
   
     // ĐƯỜNG DẪN ĐẾN TRANG 404
     {path: '**', component: PageNotFoundComponent},

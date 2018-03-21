@@ -22,7 +22,13 @@ const authRouter = require('./routers/auth.router');
 const db = require('./database/database');
 const savingRouter = require("./routers/saving.router");
 const errorHandler = require('./middle-ware/error-handler');
-// const config = require("./config/config");
+//enabel CORS
+app.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, x-access-token');
+    next();
+});
 // PORT ĐỂ TRUY CẬP APPLICATION
 const port = process.env.PORT || 3000;
 
@@ -32,6 +38,7 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
+
 
 // SỬ DỤNG ĐỂ CHỨNG THỰC PASSPORT
 require('./config/passport')(passport);
@@ -61,9 +68,6 @@ app.use("/api/user", userRouter);
 app.use("/api/saving", savingRouter);
 app.use(errorHandler.errorHandler());
 
-
-
-
-app.listen(7000, () =>{
+app.listen(port, () =>{
     console.log(`serve hoạt động trên port ${port}`);
 });

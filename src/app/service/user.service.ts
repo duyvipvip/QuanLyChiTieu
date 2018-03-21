@@ -40,4 +40,22 @@ export class UserService{
             return err;
         })
     }
+
+    // THAY ĐỔI AVATAR
+    updateAvatar(image: File,token) {
+        let formData = new FormData();
+        formData.append('file', image, image.name);
+        const headers = new Headers({'x-access-token': token});
+        const options = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Post
+          });
+       return this.Http.post('http://localhost:3000/api/user/avatar', formData, {headers:headers})
+       .toPromise()
+       .then((response) => {
+           return response.json();
+       })
+       .catch(err => err);
+    }
+
 }
