@@ -1,6 +1,6 @@
-// const path  = require('path');
-// const express = require('express');
-// const app     = express();
+//const path  = require('path');
+const express = require('express');
+const app     = express();
 // const bodyParser = require('body-parser');
 // const mongoose = require('mongoose');
 // var fileUpload = require('express-fileupload');
@@ -67,8 +67,8 @@
 // });
 
 //Install express server
-const express = require('express');
-const app = express();
+// const express = require('express');
+// const app = express();
 
 // // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist'));
