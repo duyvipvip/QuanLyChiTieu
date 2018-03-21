@@ -37,6 +37,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
         CommonModule,
         FormsModule,
         ToastModule,
+        Local,
         ToastModule.forRoot(),
         NgbModule.forRoot(),
         AgmCoreModule.forRoot({
