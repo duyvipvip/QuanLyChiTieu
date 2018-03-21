@@ -50,29 +50,28 @@ export class AddBudgetComponent{
 
     // THỰC HIỆN THÊM NGÂN SÁCH
     submitAddBudget(){
-        console.log(this.budget);
-        // if(!this.CheckValueSevice.checkItemObjectNull(this.budget)){
-        //     let a = new Date(this.budget.datestart.toString());
-        //     let b = new Date(this.budget.dateend.toString());
-        //     let difference = this.dateDiffInDays(a, b)+1;
-        //     if(difference < 0){
-        //         this.toastr.warning('Ngày kết thúc không được nhỏ hơn ngày bắt đầu ! ', 'Cảnh báo ! ');
-        //     }else{
-        //         this.BudgetSevice.createBudget(this.budget)
-        //             .then((data) => {
-        //                 this.resetDataBudget();
-        //                 this.reloadData();
-        //                 this.toastr.success('Thêm ngân sách thành công thành công ! ', 'Thành công ! ');
-        //             })
-        //             .catch((err) => {
-        //                 this.resetDataBudget();
-        //                 this.toastr.error('Có lỗi xẩy ra. Vui lòng kiểm tra lại ! ', 'Error ! ');
-        //             })
-        //     }
-        // }
-        // else{
-        //     this.toastr.warning('Vui lòng nhập đầy đủ các filed vào ! ', 'Cảnh báo ! ');
-        // }
+        if(!this.CheckValueSevice.checkItemObjectNull(this.budget)){
+            let a = new Date(this.budget.datestart.toString());
+            let b = new Date(this.budget.dateend.toString());
+            let difference = this.dateDiffInDays(a, b)+1;
+            if(difference < 0){
+                this.toastr.warning('Ngày kết thúc không được nhỏ hơn ngày bắt đầu ! ', 'Cảnh báo ! ');
+            }else{
+                this.BudgetSevice.createBudget(this.budget)
+                    .then((data) => {
+                        this.resetDataBudget();
+                        this.reloadData();
+                        this.toastr.success('Thêm ngân sách thành công thành công ! ', 'Thành công ! ');
+                    })
+                    .catch((err) => {
+                        this.resetDataBudget();
+                        this.toastr.error('Có lỗi xẩy ra. Vui lòng kiểm tra lại ! ', 'Error ! ');
+                    })
+            }
+        }
+        else{
+            this.toastr.warning('Vui lòng nhập đầy đủ các filed vào ! ', 'Cảnh báo ! ');
+        }
         
     }
 

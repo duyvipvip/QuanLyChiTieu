@@ -12,7 +12,7 @@ const routes: Routes = [
     {path: 'dangnhap', component: ClientLoginComponent},
   
     { 
-      path: '', component: LayOutComponent, children: [
+      path: '', component: LayOutComponent,canActivate:[loginGuard] , children: [
         { path: '', redirectTo: 'wallet', pathMatch: 'full'},
         {path: 'wallet', loadChildren: './client/walletModule/wallet.module#WalletModule'},
         {path: 'budget', loadChildren: './client/budgetModule/budget.module#BudgetModule'},
@@ -23,17 +23,6 @@ const routes: Routes = [
     // ĐƯỜNG DẪN URL ĐẾN TRANG ĐĂNG KÍ
     {path: 'dangki', component: ClientRegisterComponent},
   
-    
-    //Path Khoan tiet kiem
-    // {
-    //   path: 'savings', component: SavingsComponent, children:
-    //     [
-    //       // Default
-    //       { path: '', component: ListsavingComponent },
-    //       // Detail Khoan tiet kiem
-    //       { path: ':idsaving', component: DetailsavingComponent },
-    //     ]
-    // },
     // ĐƯỜNG DẪN ĐẾN TRANG 404
     {path: '**', component: PageNotFoundComponent},
     

@@ -12,6 +12,7 @@ module.exports = router;
 
 function getAllWallet(req, res, next){
     let iduser = req.query.iduser;
+    
     if (!iduser) {
         next({
             statusCode: 400,

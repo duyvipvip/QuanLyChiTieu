@@ -184,6 +184,10 @@ export class ReportComponent{
                 this.toastr.error('Chỉnh sửa giao dịch thất bại ! '+err, 'thất bại ! ');
             })
     }
+    // khi user chỉnh sửa ngày
+    changeDate(event){
+        this._editTransaction.datecreatetransaction = event.value
+    }
 
     // MỞ MODAL CHỌN UPDATE GIAO DICH
     openModalUpdateTransaction(content, transaction) {
@@ -271,7 +275,6 @@ export class ReportComponent{
         
         // CẬP NHẬT LẠI DỮ LIỆU TIẾT KIỆM
         let urlIdSaving = (this.route.snapshot.params.idsaving == undefined) ? '' : this.route.snapshot.params.idsaving;
-        console.log(urlIdSaving);
         if(urlIdSaving != ''){
             this.SavingService.getOnlySaving(urlIdSaving);
             // CẬP NHẬT LẠI MẢNG SAVING

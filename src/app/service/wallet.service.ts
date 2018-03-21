@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class WalletService{
-    private _iduser = '';
+    private _iduser = JSON.parse(localStorage.getItem('currentUser'))._id;
     token = JSON.parse(localStorage.getItem('currentUser')).token;
     
     // LẤY TẤT CẢ CÁC VÍ
@@ -17,8 +17,6 @@ export class WalletService{
     private _onlyWallet:BehaviorSubject<IWallet> = new BehaviorSubject<IWallet>(null);
     
     constructor(private Http:Http){
-        this._iduser = JSON.parse(localStorage.getItem('currentUser'))._id;
-        
     }
     
     // LẤY TẤT CẢ CÁC VÍ TỪ SUBJECT
