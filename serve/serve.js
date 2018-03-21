@@ -26,7 +26,8 @@ const errorHandler = require('./middle-ware/error-handler');
 // PORT ĐỂ TRUY CẬP APPLICATION
 const port = process.env.port || 3000;
 
-// SỬ DỤNG BUILT-IN MIDDLEWARE 
+// SỬ DỤNG BUILT-IN MIDDLEWARE
+app.use(express.static(path.join(__dirname, "../dist")));
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
