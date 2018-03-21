@@ -1,3 +1,4 @@
+import { Local } from './../utils/local';
 import { ChooseWalletTransferMoneyComponent } from './../reusableComponent/choose-wallet-transfer-money/choose-wallet-transfer-money.component';
 import { ChooseCategoryTransferMoneyComponent } from './../reusableComponent/extentd-wallet/transfer-money/choose-category-transfer-money/choose-category-transfer-money.component';
 import { ChooseCategoryComponent } from './../reusableComponent/report/choose-category/choose-category.component';
@@ -73,6 +74,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
         MenuComponent,
         NumberPipe,
         FooterComponent,
+        Local
     ],
     declarations: [
         ChooseWalletTransferMoneyComponent,
@@ -83,6 +85,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
         TransferMoneyComponent,
         ExtentdWalletComponent,
         ReportComponent,
+        Local,
         HeaderComponent,
         NumberPipe,
         WeekDayPipe,
