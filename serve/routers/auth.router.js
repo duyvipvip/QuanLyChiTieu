@@ -6,47 +6,54 @@ const passport = require('passport');
 
 router.post('/login', login);
 router.get('/me', me);
-router.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}));
-router.get('/google/callback', 
-	  passport.authenticate('google', { failureRedirect: '/dangnhap' }), function(req, res){
-        res.redirect('dangnhap;token='+req.user.token);
-      });
-
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google/callback',
+    passport.authenticate('google', { failureRedirect: 'http://localhost:4200/dangnhap' }), function (req, res) {
+        res.redirect('http://localhost:4200/dangnhap;token=' + req.user.token);
+    });
+router.get('/facebook',
+    passport.authenticate('facebook'));
+router.get('/facebook/callback',
+    passport.authenticate('facebook', { failureRedirect: 'http://localhost:4200/dangnhap' }),
+    function (req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('http://localhost:4200/dangnhap;token=' + req.user.token);
+    });
 module.exports = router;
 
 function login(req, res, next) {
     var email = req.body.email;
     var password = req.body.password;
-    if(!email){
+    if (!email) {
         next({
             statusCode: 400,
             message: "email is required"
         })
-    }else if(!password){
+    } else if (!password) {
         next({
             statusCode: 400,
             message: "password is required"
         })
-    }else{
+    } else {
         authController.login(email, password)
-        .then(function (user) {
-            res.send(user)
-        })
-        .catch(function (err) {
-            res.send(err);
-        })
+            .then(function (user) {
+                res.send(user)
+            })
+            .catch(function (err) {
+                res.send(err);
+            })
     }
-   
+
 }
 
-function me(req, res, next){
+function me(req, res, next) {
     let token = req.query.token;
-    if(!token){
+    if (!token) {
         next({
             statusCode: 400,
             message: "token is required"
         })
-    }else{
+    } else {
         jwt.verify(token, function (err, decodedData) {
             if (err) {
                 res.status(401);
@@ -55,7 +62,7 @@ function me(req, res, next){
                 });
             } else {
                 var email = decodedData.email;
-                return userModel.findOne({email: email})
+                return userModel.findOne({ email: email })
                     .then(function (foundNguoidung) {
                         if (foundNguoidung) {
                             res.send(foundNguoidung);
@@ -71,5 +78,5 @@ function me(req, res, next){
             }
         })
     }
-   
+
 }
