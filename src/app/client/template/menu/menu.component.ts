@@ -10,15 +10,10 @@ import { Router } from '@angular/router';
 })
 
 export class MenuComponent{
-
-
     userW: any;
-
     public static updateUserStatus: Subject<any> = new Subject();
-
     constructor(private Router:Router){
         MenuComponent.updateUserStatus.subscribe(res => {
-            
         })
         this.userW =  {
             "username" : JSON.parse(localStorage.getItem('currentUser')).username,
@@ -26,7 +21,6 @@ export class MenuComponent{
             "email" : JSON.parse(localStorage.getItem('currentUser')).email,
         }
     }
-
     moveToProfile() {
         this.Router.navigateByUrl('/thongtin');
     }
