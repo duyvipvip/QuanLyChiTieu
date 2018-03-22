@@ -1,6 +1,7 @@
 import { ITagModel } from './../../../model/tagmodel.model';
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     selector: "app-menu",
@@ -10,16 +11,21 @@ import { Subject } from 'rxjs';
 
 export class MenuComponent{
 
-    private user: any;
+    userW: any;
+
     public static updateUserStatus: Subject<any> = new Subject();
 
-    constructor(){
+    constructor(private Router:Router){
         MenuComponent.updateUserStatus.subscribe(res => {
-            this.user =  {
+            this.userW =  {
                 "username" : JSON.parse(localStorage.getItem('currentUser')).username,
                 "hinhanh" : JSON.parse(localStorage.getItem('currentUser')).hinhanh,
+                "email" : JSON.parse(localStorage.getItem('currentUser')).email,
             }
-            console.log(this.user)
         })
+    }
+
+    moveToProfile() {
+        this.Router.navigateByUrl('/thongtin');
     }
 }
