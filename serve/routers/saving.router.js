@@ -9,7 +9,7 @@ router.post("/create", auth.auth() , createSaving);
 router.post("/update", auth.auth(), updateSaving);
 router.post("/createSendIn",auth.auth(), createSendIn);
 router.post("/createSendOut",auth.auth(), createSendOut);
-// router.delete("/saving/delete/:id", deleteSaving);
+router.delete("/delete/:id", deleteSaving);
 
 //transaction
 // router.post("/transaction/create", createTranSaction);

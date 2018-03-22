@@ -9,7 +9,7 @@ router.get('/me', me);
 router.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 router.get('/google/callback', 
 	  passport.authenticate('google', { failureRedirect: '/dangnhap' }), function(req, res){
-        res.redirect('dangnhap;token='+req.user.token);
+        res.redirect('http://localhost:4200/dangnhap;token='+req.user.token);
       });
 
 module.exports = router;

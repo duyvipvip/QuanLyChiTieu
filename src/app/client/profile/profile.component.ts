@@ -11,15 +11,15 @@ import { MenuComponent } from '../template/menu/menu.component';
     styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-    private user = JSON.parse(localStorage.getItem('currentUser'));
-    private info = {
+    public user = JSON.parse(localStorage.getItem('currentUser'));
+    public info = {
         tensinhvien: "Huy",
         masinhvien: "124",
         lop: "D14PM02",
         khoa: "CNTT",
         nganh: "Ky thuat phan mem"
     };
-    private url = this.user.hinhanh;
+    public url = this.user.hinhanh;
     private fileToUpload: File = null;
     constructor(private _user: UserService) {
         //HeaderComponent.updateUserStatus.next();

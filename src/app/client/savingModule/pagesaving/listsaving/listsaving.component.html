@@ -40,7 +40,7 @@
       <div class="content">
         <div *ngFor="let dataSaving of dataSavings">
           <div class="card saving" *ngIf="dataSaving.day <= 0 
-          || (dataSaving.day > 0 ||dataSaving.day==='dưới 1') && dataSaving.money >= dataSaving.moneyend" [routerLink]="dataSaving._id">
+          || (dataSaving.day > 0) && dataSaving.money >= dataSaving.moneyend" [routerLink]="dataSaving._id">
             <div class="row">
               <div class="img col-2 offset-2">
                 <img src="assets/images/{{dataSaving.image}}.png" width="70%" height="60%" alt="">
