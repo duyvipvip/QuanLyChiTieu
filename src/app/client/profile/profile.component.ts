@@ -11,17 +11,10 @@ import { MenuComponent } from '../template/menu/menu.component';
     styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-    private user = JSON.parse(localStorage.getItem('currentUser'));
-    private info = {
-        tensinhvien: "Huy",
-        masinhvien: "124",
-        lop: "D14PM02",
-        khoa: "CNTT",
-        nganh: "Ky thuat phan mem"
-    };
-    private url = this.user.hinhanh;
+    user = JSON.parse(localStorage.getItem('currentUser'));
+    url = this.user.hinhanh;
     private fileToUpload: File = null;
-    constructor(private _user: UserService) {
+    constructor(private _user: UserService, private Router:Router) {
         //HeaderComponent.updateUserStatus.next();
     }
 
@@ -29,12 +22,17 @@ export class ProfileComponent implements OnInit {
     }
 
     doiAvatar() {
-        this._user.updateAvatar(this.fileToUpload, this.user.token).then((data)=>{
-            MenuComponent.updateUserStatus.next();
-            alert("Thay ảnh thành công")
-        }).catch((err)=>{
-            alert(err);
-        });
+        if (this.fileToUpload) {
+            this._user.updateAvatar(this.fileToUpload, this.user.token).then((data) => {
+                MenuComponent.updateUserStatus.next();
+                alert("Thay ảnh thành công")
+            }).catch((err) => {
+                alert(err);
+            });
+        }
+        else {
+            alert("Chưa chọn ảnh để thay")
+        }
     }
 
     onSelectFile(event) { // called each time file input changes
@@ -46,6 +44,10 @@ export class ProfileComponent implements OnInit {
                 this.url = event.target.result;
             }
         }
+    }
+
+    goHome(){
+        this.Router.navigateByUrl('/wallet');
     }
 
 }

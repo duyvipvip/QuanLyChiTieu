@@ -18,12 +18,13 @@ export class MenuComponent{
 
     constructor(private Router:Router){
         MenuComponent.updateUserStatus.subscribe(res => {
-            this.userW =  {
-                "username" : JSON.parse(localStorage.getItem('currentUser')).username,
-                "hinhanh" : JSON.parse(localStorage.getItem('currentUser')).hinhanh,
-                "email" : JSON.parse(localStorage.getItem('currentUser')).email,
-            }
+            
         })
+        this.userW =  {
+            "username" : JSON.parse(localStorage.getItem('currentUser')).username,
+            "hinhanh" : JSON.parse(localStorage.getItem('currentUser')).hinhanh,
+            "email" : JSON.parse(localStorage.getItem('currentUser')).email,
+        }
     }
 
     moveToProfile() {

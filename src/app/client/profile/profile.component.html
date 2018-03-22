@@ -19,13 +19,14 @@
                 <!-- Form Panel    -->
                 <div class="col-lg-6 bg-white">
                     <div class="form d-flex align-items-center">
-                        <div class="content">
-                            <p>Họ và tên: {{info.tensinhvien}}</p>
-                            <p>Mã sinh viên: {{info.masinhvien}}</p>
-                            <p>Lớp: {{info.lop}}</p>
-                            <p>Khoa: {{info.khoa}}</p>
-                            <p>Ngành: {{info.nganh}}</p>
+                        <div class="content"  align="center">
+                            <h1>Thông tin tài khoản</h1>
                             <br>
+                            <div>
+                                <p>Tên người dùng: {{user.username}}</p>
+                                <p>Email: {{user.email}}</p>
+                            </div>
+                            <button (click)="goHome()" class="btn btn-info">Về trang chủ</button>
                         </div>
                     </div>
                 </div>
