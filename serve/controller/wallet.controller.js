@@ -37,7 +37,11 @@ function getWalletToIdWallet( iduser , idwallet){
 function deleteWallet(iduser, idwallet){
     return walletModel.findOneAndRemove({_id: idwallet, iduser: iduser})
         .then((wallet) => {
-            return Promise.resolve(wallet);
+            // xoá tất cả các giao dịch liên quan đến ví
+            return transactionModel.remove({idwallet:idwallet})
+                .then(() => {
+                    return Promise.resolve(wallet);
+                })
         })
         .catch((err) => {
             return Promise.reject(err);

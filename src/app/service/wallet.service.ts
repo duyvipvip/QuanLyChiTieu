@@ -77,6 +77,7 @@ export class WalletService{
    
     // CHỈNH SỬA 1 VÍ
     updateDataWallet(wallet: IWallet){
+        wallet.money = wallet.money.toString().replace(/,/g, '');
         const headers = new Headers({ 'Content-Type': 'application/json', "x-access-token": this.token });
         const options = new RequestOptions({
             headers: headers,
@@ -85,7 +86,7 @@ export class WalletService{
        return this.Http.post(this.LocalService.URL+'/api/wallet/update', JSON.stringify(wallet), {headers:headers})
        .toPromise()
        .then((response) => {
-           return response;
+           return response.json();
        })
        .catch(err => err);
     }

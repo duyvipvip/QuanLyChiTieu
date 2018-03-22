@@ -44,21 +44,19 @@ export class EditWalletComponent{
 
     // GỦI DỮ LIỆU CHỈNH SỬA
     submitEditWallet(){
-       
-        console.log(this.dataUpdateWallet);
-        // this.WalletService.updateDataWallet(this.dataUpdateWallet)
-        // .then((result) => {
-        //     // CHỈNH SỬA XONG CẬP NHẬT LẠI GIAO DIỆN MỚI
-        //     this.reloadData();
-        //     this.toastr.success('Chỉnh sửa ví thành công ! ', 'Success ! ');        
-        // });
+        this.WalletService.updateDataWallet(this.dataUpdateWallet)
+        .then((result) => {
+            // CHỈNH SỬA XONG CẬP NHẬT LẠI GIAO DIỆN MỚI
+            this.reloadData();
+            this.toastr.success('Chỉnh sửa ví thành công ! ', 'Success ! ');        
+        });
         
         
     }
 
    // GỦI ID XOÁ
-   submitRemoveWallet(id){
-        this.WalletService.deleteDataWallet(id.value)
+   submitRemoveWallet(){
+        this.WalletService.deleteDataWallet(this.dataUpdateWallet._id)
         .then((result) =>{
             this.WalletService.getDataWallets()
                 .then((data) =>{
@@ -74,6 +72,7 @@ export class EditWalletComponent{
    // LOAD LẠI DATA
     reloadData(){
         let urlIdWallet = (this.ActivatedRoute.snapshot.params.idwallet == undefined) ? '' : this.ActivatedRoute.snapshot.params.idwallet;
+        
         // LOAD LẠI CẬP NHẬT BÁO CÁO
         this.TransactionService.getTransactions(urlIdWallet);
         // LOAD CẬP NHẬT LẠI TẤT CẢ CÁC VÍ

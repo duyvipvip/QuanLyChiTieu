@@ -166,7 +166,6 @@ export class ReportComponent{
                 this._editTransaction.moneytransaction = (Number(this._editTransaction.moneytransaction)* -1).toString();
             }
         }
-       
         this.TransactionService.updateTransaction(this._editTransaction)
             .then((result) => {
                 if(this.fileToUpload != null){
@@ -221,6 +220,9 @@ export class ReportComponent{
         if(transaction.image != undefined) {
             this._editTransaction.image = transaction.image;
             this.urlImage = "http://localhost:3000/images/"+transaction.image;
+        }
+        if(transaction.idsaving != undefined){
+            this._editTransaction.idsaving = transaction.idsaving;
         }
 
         // gán dữ liệu cho objCategory

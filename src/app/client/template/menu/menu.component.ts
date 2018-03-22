@@ -10,16 +10,20 @@ import { Subject } from 'rxjs';
 
 export class MenuComponent{
 
-    private user: any;
+    public user ={
+        "username": '',
+        "hinhanh": ''
+    };
     public static updateUserStatus: Subject<any> = new Subject();
 
     constructor(){
-        MenuComponent.updateUserStatus.subscribe(res => {
-            this.user =  {
-                "username" : JSON.parse(localStorage.getItem('currentUser')).username,
-                "hinhanh" : JSON.parse(localStorage.getItem('currentUser')).hinhanh,
-            }
-            console.log(this.user)
-        })
+        this.user =  {
+            "username" : JSON.parse(localStorage.getItem('currentUser')).username,
+            "hinhanh" : JSON.parse(localStorage.getItem('currentUser')).hinhanh,
+        }
+        // MenuComponent.updateUserStatus.subscribe(res => {
+            
+        //     console.log(this.user)
+        // })
     }
 }
