@@ -28,7 +28,8 @@ const port = process.env.PORT || 3000;
 app.use(express.static(__dirname + '/dist'));
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/serve/public')));
+console.log(path.join(__dirname, '/serve/public'));
 app.use(fileUpload());
 
 //SỬ DỤNG ĐỂ CHỨNG THỰC PASSPORT

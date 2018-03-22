@@ -71,6 +71,8 @@ export class TransactionService{
             .then((data) => {
                 let resultThenFormat = this.formatArrayWalletTransaction(data.json());
                 this._allTransaction.next(resultThenFormat);
+                console.log(this._allTransaction.value, 'subject');
+                console.log(resultThenFormat);
                 return resultThenFormat;
 
             })

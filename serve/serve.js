@@ -9,8 +9,6 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
-
-
 const walletRouter = require("./routers/wallet.router");
 const incomeRouter = require("./routers/income.router");
 const expenseRouter = require("./routers/expense.router");
@@ -22,6 +20,7 @@ const authRouter = require('./routers/auth.router');
 const db = require('./database/database');
 const savingRouter = require("./routers/saving.router");
 const errorHandler = require('./middle-ware/error-handler');
+
 //enabel CORS
 app.all('*', function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -49,13 +48,6 @@ app.use(session({secret: 'meomeomeo',
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.all('*', function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-});
 
 app.use("/api/wallet", walletRouter);
 app.use("/api",  incomeRouter);

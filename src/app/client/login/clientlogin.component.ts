@@ -37,7 +37,7 @@ export class ClientLoginComponent{
                             "token": token,
                             "username": user.username,
                             "hinhanh": user.hinhanh,
-                            "email": '',
+                            "email": user.email,
                         }
                         localStorage.setItem('currentUser', JSON.stringify(obj));
                         this.Router.navigateByUrl('/');

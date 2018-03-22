@@ -1,12 +1,12 @@
 <nav class="side-navbar">
     <!-- Sidebar Header-->
-    <div class="sidebar-header d-flex align-items-center">
+    <div (click)="moveToProfile()" class="sidebar-header d-flex align-items-center">
         <div class="avatar">
-            <img src="{{ user.hinhanh }}" alt="..." class="img-fluid rounded-circle">
+            <img src="{{ userW.hinhanh }}" alt="..." class="img-fluid rounded-circle">
         </div>
         <div class="title">
-            <h1 class="h4">{{ user.username }}</h1>
-            <p>Web Designer</p>
+            <h1 class="h4">{{ userW.username }}</h1>
+            <p>{{userW.email}}</p>
         </div>
     </div>
     <!-- Sidebar Navidation Menus-->

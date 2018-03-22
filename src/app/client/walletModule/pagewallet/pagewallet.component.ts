@@ -37,10 +37,13 @@ export class PageWalletComponent{
             
             if(this.idWalletUrl != ''){
                 //LẤY DATA GÁN CHO OBJECT dataWalletChoose ĐỂ XUẤT THÔNG TIN NÊN
-                this.TransactionService.getTransactions(this.idWalletUrl);
-                this.TransactionService.getAllTransaction.subscribe((data) => {
-                    this.transactions = data;
-                })
+                this.TransactionService.getTransactions(this.idWalletUrl)
+                    .then(() => {
+                        this.TransactionService.getAllTransaction.subscribe((data) => {
+                            this.transactions = data;
+                        })
+                    })
+                
             }
             
         })

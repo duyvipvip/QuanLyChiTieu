@@ -28,6 +28,7 @@ function getOnlySaving(idsaving){
 // GỬI VÀO KHOẢN TIẾT KIỆM
 function createSendIn(bodySendIn){
     let objTransaction = {
+        "idcategory": "5a85892332bdec050bea4894",
         "groupcategory" : "expense",
         "notetransaction" : "Gửi vào khoản tiết kiệm "+ bodySendIn.namesaving,
         "datecreatetransaction" : bodySendIn.date,
@@ -50,6 +51,7 @@ function createSendIn(bodySendIn){
 function createSendOut(bodySendOut){
     let objTransaction = {
         "groupcategory" : "income",
+        "idcategory": "5a7d25bd2504042b8e6be38c",
         "notetransaction" : "Rút ra từ khoản tiết kiệm "+ bodySendOut.namesaving,
         "datecreatetransaction" : bodySendOut.date,
         "moneytransaction" : Number.parseInt(bodySendOut.money),
