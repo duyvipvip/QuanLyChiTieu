@@ -17,25 +17,77 @@
                 <div class="col-lg-6 bg-white">
                     <div class="form d-flex align-items-center">
                         <div class="content">
-                            <form id="register-form">
+                            <form [formGroup]='formSignup'>
                                 <div class="form-group">
-                                    <input [(ngModel)]="model.username" type="text" name="registerUsername" required class="input-material">
+                                    <input type="text" id="username" name="registerUsername" formControlName='username' class="input-material">
                                     <label for="register-username" class="label-material">User Name</label>
+                                    <div *ngIf="formSignup.controls['username'].touched && !formSignup.controls['username'].valid">
+                                        <span style="margin:2px;color:red" *ngIf="formSignup.controls['username'].hasError('required') ">
+                                            Phải nhập tên tài khoản
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <input [(ngModel)]="model.email" type="email" name="registerEmail" required class="input-material">
+                                    <input type="email" name="registerEmail" id="email" formControlName='email' class="input-material">
                                     <label for="register-email" class="label-material">Email Address </label>
+                                    <div *ngIf="formSignup.controls['email'].touched && !formSignup.controls['email'].valid">
+                                        <span style="margin:2px;color:red" *ngIf="formSignup.controls['email'].hasError('required')">
+                                            Phải nhập Email
+                                        </span>
+                                        <span style="margin:2px;color:red" *ngIf="formSignup.controls['email'].hasError('email') ">
+                                            Email không đúng định dạng
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <input [(ngModel)]="model.password" type="password" name="registerPassword" required class="input-material">
-                                    <label for="register-passowrd" class="label-material">password </label>
+                                    <input type="password" name="registerPassword" id="password" formControlName='password' required class="input-material">
+                                    <label for="register-passowrd" class="label-material">Password </label>
+                                    <div *ngIf="formSignup.controls['password'].touched && !formSignup.controls['password'].valid">
+                                        <span style="margin:2px;color:red" *ngIf="formSignup.controls['password'].hasError('required') ">
+                                            Phải nhập mật khẩu
+                                        </span>
+                                        <span style="margin:2px;color:red" *ngIf="formSignup.controls['password'].hasError('minlength') ">
+                                            Mật khẩu phải nhiều hơn 6 kí tự
+                                        </span>
+                                    </div>
                                 </div>
+                                <div class="form-group">
+                                    <input type="password" name="confirmPassword" id="confirmPassword" formControlName='confirmPassword' required class="input-material">
+                                    <label for="register-confirmPassword" class="label-material">Confirm Password </label>
+                                    <div *ngIf="formSignup.controls['confirmPassword'].touched && !formSignup.controls['confirmPassword'].valid">
+                                        <span style="margin:2px;color:red" *ngIf="formSignup.controls['confirmPassword'].hasError('required') ">
+                                            Phải nhập lại mật khẩu
+                                        </span>
+                                        <span style="margin:2px;color:red" *ngIf="formSignup.controls['confirmPassword'].hasError('minlength') ">
+                                            Mật khẩu phải nhiều hơn 6 kí tự
+                                        </span>
+                                        <span style="margin:2px;color:red" *ngIf="formSignup.controls['confirmPassword'].hasError('invalid') ">
+                                            Mật khẩu nhập lại không khớp
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                        <input type="text" id="question" name="registerQuestion" formControlName='question' class="input-material">
+                                        <label for="register-question" class="label-material">Question</label>
+                                        <div *ngIf="formSignup.controls['question'].touched && !formSignup.controls['question'].valid">
+                                            <span style="margin:2px;color:red" *ngIf="formSignup.controls['question'].hasError('required') ">
+                                                Phải câu hỏi bảo mật
+                                            </span>
+                                        </div>
+                                    </div>
                                 <div class="form-group terms-conditions">
-                                    <input id="license" type="checkbox" class="checkbox-template">
+                                    <input formControlName="checkboxValue" checked="false" type="checkbox" class="checkbox-template">
                                     <label for="license">Agree the terms and policy</label>
+                                    <div *ngIf="!formSignup.controls['checkboxValue'].valid">
+                                        <span style="margin:2px;color:red" *ngIf="formSignup.controls['checkboxValue'].hasError('required') ">
+                                            Bạn phải đồng ý điều khoản
+                                        </span>
+                                    </div>
                                 </div>
-                                <input (click)="register()" type="submit" value="Đăng Kí" class="btn btn-primary">
+                                <input [disabled]="!formSignup.valid || !check"
+                                    (click)="register()" type="submit" value="Đăng Kí" class="btn btn-primary">
                             </form>
+                            <br>
                             <small>Already have an account? </small>
                             <a href="/dangnhap" class="signup">Đăng nhập</a>
                         </div>

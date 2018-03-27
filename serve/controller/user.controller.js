@@ -5,12 +5,108 @@ const mail = require('../utils/mail');
 const jwt = require('../utils/jwt');
 var path = require('path');
 const config = require('../config/config');
+var generator = require('generate-password');
 
 module.exports = {
     createUser: createUser,
     getAllUser: getAllUser,
     kichhoattaikhoan: kichhoattaikhoan,
-    uploadAvatar: uploadAvatar
+    uploadAvatar: uploadAvatar,
+    changePassword: changePassword,
+    forgotPassword: forgotPassword
+}
+
+function forgotPassword(userEmail, question) {
+    return new Promise((resolve, reject) => {
+        userModel.findOne({ email: userEmail }).then(res => {
+            if (res.cauhoi === question) {
+                var password = generator.generate({
+                    length: 6,
+                    numbers: true
+                });
+                var hash = crypto.createHmac('sha256', secret)
+                    .update(password)
+                    .digest('hex');
+                res.password = hash;
+                res.save().then(data => {
+                    return mail.sendMail('', res.email, 'Quên mật khẩu', password)
+                        .then((data) => {
+                            resolve({
+                                statusCode: 200,
+                                message: 'Đã gửi mật khẩu qua mail'
+                            });
+                        }).catch(function (err) {
+                            reject({
+                                statusCode: 400,
+                                message: 'Lỗi gửi mail!!!'
+                            });
+                        })
+                }).catch(err => {
+                    reject({
+                        statusCode: 400,
+                        message: 'Lỗi đổi mật khẩu'
+                    });
+                })
+            }
+            else {
+                reject({
+                    statusCode: 400,
+                    message: 'Sai câu hỏi bảo mật'
+                })
+            }
+        }).catch(err => {
+            reject({
+                statusCode: 400,
+                message: 'Không tồn tại email đăng kí'
+            })
+        })
+    })
+}
+
+function changePassword(userId, data) {
+    return userModel.findOne({ _id: userId })
+        .then(user => {
+            if (user) {
+                return new Promise((resolve, reject) => {
+                    var hash = crypto.createHmac('sha256', secret)
+                        .update(data.oldPassword)
+                        .digest('hex');
+                    if (user.password !== hash) {
+                        reject({
+                            statusCode: 400,
+                            message: 'Sai mật khẩu'
+                        })
+                    }
+                    else {
+                        if (data.newPassword !== data.confirmPassword) {
+                            reject({
+                                statusCode: 400,
+                                message: 'Xác nhận mật khẩu mới không khớp'
+                            })
+                        }
+                        else {
+                            var temp = crypto.createHmac('sha256', secret)
+                                .update(data.newPassword)
+                                .digest('hex');
+                            userModel.findOneAndUpdate({ _id: userId }, { password: temp }).then(res => {
+                                resolve({
+                                    statusCode: 200,
+                                    message: 'Đổi mật khẩu thành công'
+                                })
+                            }).catch(err => {
+                                reject({
+                                    statusCode: 400,
+                                    message: 'Đổi mật khẩu thất bại'
+                                })
+                            })
+                        }
+                    }
+                })
+            }
+        })
+        .catch(err => {
+            return Promise.reject(err);
+        })
 }
 
 function createUser(newUser) {
@@ -34,9 +130,9 @@ function createUser(newUser) {
                         jwt.sign({
                             email: user.email
                         }, function (err, token) {
-                            let url = "http://localhost:3000/api/user/kichhoattaikhoan?token="+token;
-                            return mail.sendMail('', user.email, 'Xin mời bạn click vào dường link để hoàn tất quá trình đăng kí',url)
-                                .then((res)=> {
+                            let url = "http://localhost:3000/api/user/kichhoattaikhoan?token=" + token;
+                            return mail.sendMail('', user.email, 'Xin mời bạn click vào dường link để hoàn tất quá trình đăng kí', url)
+                                .then((res) => {
                                     return Promise.resolve(res);
                                 }).catch(function (err) {
                                     return Promise.reject(err);
@@ -53,7 +149,7 @@ function createUser(newUser) {
         })
 }
 
-function getAllUser(){
+function getAllUser() {
     return userModel.find()
         .then((user) => {
             return Promise.resolve(user);
@@ -73,7 +169,7 @@ function uploadAvatar(userId, file) {
                 return new Promise(function (resolve, reject) {
                     //move to avatar folder
                     file.mv(path.join(__dirname, '../public/avatars/avatar_' + user._id + '.png'), function (err) {
-                        if (err){
+                        if (err) {
                             console.log(err);
                             reject(err);
                         }
@@ -99,7 +195,7 @@ function uploadAvatar(userId, file) {
         })
 }
 
-function kichhoattaikhoan(token){
+function kichhoattaikhoan(token) {
     return new Promise(function (resolve, reject) {
         jwt.verify(token, function (err, decodedData) {
             if (err) {
@@ -109,7 +205,7 @@ function kichhoattaikhoan(token){
                 })
             } else {
                 var email = decodedData.email;
-                return userModel.findOne({email: email})
+                return userModel.findOne({ email: email })
                     .then(function (user) {
                         if (user) {
                             user.kichhoat = 'true';
@@ -123,7 +219,7 @@ function kichhoattaikhoan(token){
                             reject({
                                 statusCode: 400,
                                 message: "Không tìm thấy user"
-            
+
                             })
                         }
                     })
@@ -136,5 +232,5 @@ function kichhoattaikhoan(token){
             }
         })
     })
-   
+
 }

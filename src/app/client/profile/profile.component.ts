@@ -8,7 +8,7 @@ import { MenuComponent } from '../template/menu/menu.component';
     moduleId: module.id,
     selector: 'app-profile',
     templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.css'],
+    styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
     user = JSON.parse(localStorage.getItem('currentUser'));

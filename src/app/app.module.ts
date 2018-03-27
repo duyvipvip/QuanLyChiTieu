@@ -28,6 +28,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SharedModule } from './client/sharedModule/shared.module';
 import { CoreModule } from './client/coreModule/core.module';
 import { ChooseCategoryComponent } from './client/reusableComponent/report/choose-category/choose-category.component';
+import { ChangePasswordComponent } from './client/changePassword/changePassword.component';
+import { ForgotPasswordComponent } from './client/forgotPassword/forgotPassword.component';
 
 // CONFIG ROUTER
 const appRoutes: Routes = [
@@ -44,6 +46,8 @@ const appRoutes: Routes = [
     ClientLoginComponent,
     LayOutComponent,
     ProfileComponent,
+    ChangePasswordComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     AppRoutingModule,
