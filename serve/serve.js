@@ -50,7 +50,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/api/wallet", walletRouter);
-app.use("/api", incomeRouter);
+app.use("/api",  incomeRouter);
 app.use("/api", expenseRouter);
 app.use("/api", debt_loanRouter);
 app.use("/api/transaction", transactionRouter);
