@@ -160,7 +160,7 @@ function getBudgets(req, res, next){
             message: "id user is required"
         })
     }else{
-        bugetController.getBudgets()
+        bugetController.getBudgets(iduser)
             .then((buget) => {
                 res.send(buget);
             })

@@ -29,6 +29,40 @@ export class UserService{
             });
     }
 
+    //QUÊN MẬT KHẨU
+    forgotPassword(data): Promise<any>{
+        const headers = new Headers({'Content-Type': 'application/json'});
+        const options = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Post
+        });
+        return this.Http.post(this.LocalService.URL + '/api/user/quenmatkhau', JSON.stringify(data), {headers:headers})
+            .toPromise()
+            .then((response) => {
+                return response.json();
+            })
+            .catch((err) => {
+                return err;
+            });
+    }
+
+    //ĐỔI MẬT KHẨU
+    changePassword(data,token): Promise<any>{
+        const headers = new Headers({'Content-Type': 'application/json','x-access-token': token});
+        const options = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Post
+        });
+        return this.Http.post(this.LocalService.URL + '/api/user/doimatkhau', JSON.stringify(data), {headers:headers})
+            .toPromise()
+            .then((response) => {
+                return response.json();
+            })
+            .catch((err) => {
+                return err;
+            });
+    }
+
     // LẤY THÔNG TIN CỦA USER
     getUser(token): Promise<any>{
         return this.Http.get(`http://localhost:3000/api/auth/me?token=`+token)

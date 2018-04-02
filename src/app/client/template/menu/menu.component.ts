@@ -9,8 +9,7 @@ import { Router } from '@angular/router';
     templateUrl: "./menu.component.html"
 })
 
-export class MenuComponent {
-
+export class MenuComponent{
     userW: any;
     public static updateUserStatus: Subject<any> = new Subject();
     constructor(private Router: Router) {

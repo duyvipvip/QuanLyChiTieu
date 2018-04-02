@@ -9,10 +9,15 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
+        default: "money123"
     },
     hinhanh: {
         type: String,
         default: "avatar.jpeg"
+    },
+    cauhoi: {
+        type: String,
+        required: true
     },
     kichhoat: {
         type: String,

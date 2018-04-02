@@ -57,7 +57,7 @@ function deleteBudget(_id){
 
 // LẤY TẤT CẢ CÁC NGÂN SÁCH
 function getBudgets(iduser){
-    return budgetSchema.find()
+    return budgetSchema.find({iduser: iduser})
         .then((budget) => {
             return Promise.resolve(budget);
         })

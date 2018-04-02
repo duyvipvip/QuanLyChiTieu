@@ -26,6 +26,7 @@
                                 <p>Tên người dùng: {{user.username}}</p>
                                 <p>Email: {{user.email}}</p>
                             </div>
+                            <button data-toggle="modal" data-target="#changePassword" class="btn btn-info">Đổi mật khẩu</button>
                             <button (click)="goHome()" class="btn btn-info">Về trang chủ</button>
                         </div>
                     </div>
@@ -34,3 +35,4 @@
         </div>
     </div>
 </div>
+<app-changepassword></app-changepassword>
