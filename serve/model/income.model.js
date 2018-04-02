@@ -5,7 +5,10 @@ const incomeSchema = new mongoose.Schema({
         type: String
     },
     image: {
-        type: String
+        type: String,
+    },
+    iduser: {
+        type: String,
     },
     detect: {
         type: String

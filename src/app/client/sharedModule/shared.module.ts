@@ -23,8 +23,10 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
 import { ReportComponent } from '../reusableComponent/report/report.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 @NgModule({
     imports: [
+        NgxChartsModule,
         MatDatepickerModule,
         MatNativeDateModule,
         MatFormFieldModule,
@@ -45,6 +47,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
         ReactiveFormsModule
     ],
     exports: [
+        NgxChartsModule,
         MatProgressBarModule,
         ChooseWalletTransferMoneyComponent,
         ChooseCategoryTransferMoneyComponent,

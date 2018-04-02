@@ -28,8 +28,6 @@
     padding-bottom: 0px;
     .modal-title{
         margin-left: 10px; 
-        color: white;
-        font-weight: normal;      
     }
     i.fa-arrow-left{
         float: left;
@@ -76,15 +74,66 @@ a{
     background: rgb(163, 233, 164);
     display: none;
 }
-
-
+.icontrash {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    span{
+        display: none;
+        cursor: pointer;
+        background: #e0e0e0;
+        border-radius: 3px;
+        padding: 0px 2px;
+        &:hover{
+            background: #999;
+        }
+    }
+}
+.modalDelete{
+    p{
+        padding: 10px;
+        font-size: 14px;
+    }
+    .yes{
+        border: 1px solid red;
+        color: red;
+        padding: 5px 0px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 5px;
+        margin: 10px;
+        &:hover{
+            background: red;
+            color: #fff;
+        }
+    }
+    .no{
+        border: 1px solid #898989;
+        color: #898989;
+        padding: 5px 0px;
+        cursor: pointer;
+        text-align: center;
+        border-radius: 5px;
+        margin: 10px;
+        &:hover{
+            background: #898989;
+            color: #fff;
+        }
+    }
+}
 ul.tab-thunhap{
     > li{
+        position: relative;
         width: 113px;
         float: left;
         list-style: none;
         text-align: center;
-        &:hover{    
+        &:hover{
+            .icontrash{
+                span{
+                    display: block;
+                }
+            }
             background-color: rgba(51, 51, 51, 0.1);
         }
         
@@ -92,7 +141,7 @@ ul.tab-thunhap{
             width: 48px;
             height: 48px;
         }
-        p{
+        p, lable{
             cursor: pointer;
             text-transform: capitalize;
             font-size: 12px;

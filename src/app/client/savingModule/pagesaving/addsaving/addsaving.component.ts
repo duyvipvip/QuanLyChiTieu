@@ -1,5 +1,5 @@
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ISaving } from './../../../../model/saving.model';
 import { SavingService } from './../../../../service/saving.service';
 import { WalletService } from './../../../../service/wallet.service';
@@ -22,6 +22,8 @@ export class AddsavingComponent {
     enddate: new Date().toISOString().slice(0, 10),
   };
 
+  public modalAddSaving: NgbModalRef;
+
   constructor(private WalletService: WalletService,
     private SavingService: SavingService,
     private modalService: NgbModal,
@@ -40,20 +42,28 @@ export class AddsavingComponent {
   }
 
   openAddSaving(content) {
-    this.modalService.open(content, { windowClass: 'modalAddSaving' })
+    this.modalAddSaving = this.modalService.open(content, { windowClass: 'modalAddSaving' })
   }
 
   // THÊM KHOẢN TIẾT KIỆM
   submitSaving() {
-    if (this.objSaving.namesaving == '' || this.objSaving.namesaving == undefined || this.objSaving.namesaving == null) {
+    console.log(this.objSaving);
+    if (this.objSaving.namesaving == '') {
       this.toastr.warning("Xin mời bạn nhập vào tên khoản tiết kiêm", "Warning");
-    }else if (this.objSaving.moneyend == 0 || this.objSaving.moneyend == undefined || this.objSaving.moneyend == null) {
+    }else if (this.objSaving.moneyend.toString() == '') {
       this.toastr.warning("Xin mời bạn nhập vào số tiền", "Warning");
-    }else if (this.objSaving.image == '' || this.objSaving.image == undefined || this.objSaving.image == null) {
+    }else if (this.objSaving.moneyend <= 0) {
+      this.toastr.warning("Xin mời bạn nhập vào số tiền dương", "Warning");
+    }else if (isNaN(Number.parseInt(this.objSaving.moneyend.toString()))) {
+      this.toastr.warning("Số tiền phải là một số", "Warning");
+    }else if (this.objSaving.image == '') {
       this.toastr.warning("Xin mời bạn chọn hình ảnh", "Warning");
+    }else if (this.objSaving.idwallet == '') {
+      this.toastr.warning("Xin mời bạn chọn ví", "Warning");
     }else{
       this.SavingService.addSaving(this.objSaving)
         .then((result) => {
+          this.modalAddSaving.close();
           this.reloadData();
           this.toastr.success("Thêm khoản tiết kiệm thành công", "Success");
         })
@@ -69,6 +79,11 @@ export class AddsavingComponent {
     this.WalletService.getAllWallet.subscribe((wallet) => {
       this.dataWallets = wallet;
     })
+  }
+
+  // LẤY VÍ MÀ USER CHỌN
+  selectIDToWallet(event){
+    this.objSaving.idwallet = event;
   }
   
   reloadData(){

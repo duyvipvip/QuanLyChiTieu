@@ -6,13 +6,13 @@
   <div class="modal-body" id="edit">
     <div class="button-save">
       <button type="button">
-        <i class="fa fa-save" (click)="submitSendIn()" (click)="c('Close click')"></i>
+        <i class="fa fa-save" (click)="submitSendIn()"></i>
       </button>
     </div>
     <div class="infosaving">
       <div class="row-item">
         <div class="img">
-          <img alt="" src="assets/images/thuong.png">
+          <img alt="" src="http://localhost:3000/images/thuong.png">
         </div>
         <div class="group">
           <h4>{{objSaving.namesaving}}</h4>
@@ -30,7 +30,7 @@
     <div class="info">
       <div class="row-item">
         <div class="img">
-          <img alt="" src="assets/images/wallet.png">
+          <img alt="" src="http://localhost:3000/images/wallet.png">
         </div>
         <div class="group" style="border-bottom:1px solid rgba(0, 0, 0, 0.12);">
             <app-choose-wallet-transfer-money (selectIDToWallet)="selectIDToWallet($event)"></app-choose-wallet-transfer-money>
@@ -42,7 +42,7 @@
         </div>
         <div class="group">
           <p class="lable-money">Số tiền</p>
-          <input type="text" [ngModel]="objSendIn.money | toNumber | number:'1.0-0'" (ngModelChange)="objSendIn.money=$event" required placeholder="Số tiền">
+          <input type="text" [(ngModel)]="objSendIn.money" placeholder="Số tiền">
           <span class="bar"></span>
         </div>
       </div>

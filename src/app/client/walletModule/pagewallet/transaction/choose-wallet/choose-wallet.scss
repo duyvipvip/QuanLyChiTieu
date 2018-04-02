@@ -24,6 +24,12 @@ img, span.name-vallet, span.money-vallet{
     text-transform: capitalize;
    
 }
+.modal-header{
+    background: #2db84c;
+}
+.modal-content{
+    border-radius: 0px !important;
+}
 .item-content-modal span.money-vallet{position:absolute;top:26px;left:52px;color:rgba(0, 0, 0, 0.54);font-size:14px;}
 p{color:rgba(51, 51, 51, 0.54);font-size:14px;}
 .header-modal, #chonvi h4{color:rgb(51, 51, 51);font-size:22px;}

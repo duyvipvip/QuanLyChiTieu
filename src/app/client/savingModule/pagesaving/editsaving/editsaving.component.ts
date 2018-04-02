@@ -21,7 +21,7 @@ export class EditsavingComponent implements OnInit {
   }
 
   updateSaving() {
-    this.savingService.updateSaving(this.idSaving, this.dataSaving);
+    //this.savingService.updateSaving(this.idSaving, this.dataSaving);
   }
 
 

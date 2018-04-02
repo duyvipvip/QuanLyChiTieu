@@ -39,6 +39,10 @@ ul.tag-editor{
     z-index: 980 !important;
 }
 
+.clr{
+    clear: both;
+}
+
 // phần tab saving
 .mat-tab-labels{
     background-color: #5af158;
@@ -52,6 +56,44 @@ ul.tag-editor{
     opacity: 1 !important;
     font-family: Arial, Helvetica, sans-serif;  
 }
+// PHẦN MODAL THÔNG BÁO SỐ TIỀN KHÔNG ĐỦ
+.modalCheckMoney, .modalDelete{
+    .modal-content{
+        width: 360px;
+    }
+}
+
+// PHẦN MODAL CHỌN NGÀY HIỆN THỊ
+.modalChooseDate{
+    .modal-content{
+        width: 360px;
+    }
+    label{
+        margin: 0px;
+        color: #7f7e84 !important;
+    }
+    .modal-body{
+        .row-item{
+            margin-bottom: 30px;
+            .img{
+                width: 50px;
+                display: inline-block;
+                text-align: center;
+            }
+            .group{
+                width: 80%;
+                display: inline-block;
+            }
+        }
+    }
+    
+}
+
+// .modalOptionalDate{
+   
+// }
+
+
 // PHẦN MODAL HIỆN THỊ THÊM KHOẢN TIẾT KIỆM
 .modalAddSaving{
     .modal-body{
@@ -133,7 +175,7 @@ ul.tag-editor{
 
 // PHẦN MODAL UPDATE GIAO DỊCH
 .modalUpdateTransaction{
-    z-index: 1000;
+    z-index: 999;
     .modal-content{
         width: 362px !important;
     }
@@ -181,6 +223,87 @@ ul.tag-editor{
 .modalSendIn{
     .modal-content{
         width: 360px;
+    }
+}
+
+// XOÁ MỘT TRANSACTION
+.modalRemoveTransaction{
+    .modal-content{
+        width: 360px;
+        .info-date{
+            margin-left: 10px;
+            color: #97969c !important;
+        }
+        .info{
+            background: #fff;
+            padding: 10px;
+            margin-bottom: 20px;
+            .img{
+                display: inline-block;
+                img{
+                    width: 48px;
+                    height: 48px;
+                }
+            }
+            
+            .green{
+                color: #1198d2 !important;
+            }
+            .btn-delete-all{
+                border: 1px solid red;
+                color: red;
+                padding: 5px 0px;
+                text-align: center;
+                cursor: pointer;
+                border-radius: 5px;
+                margin: 10px 0px;
+                &:hover{
+                    color: #fff;
+                    background: red;
+                }
+            }
+            .btn-delete-only{
+                border: 1px solid #898989;
+                color: #898989;
+                padding: 5px 0px;
+                cursor: pointer;
+                text-align: center;
+                border-radius: 5px;
+                &:hover{
+                    color: #fff;
+                    background: #898989;
+                }
+            }
+            .color-red{
+                color: red !important;
+            }
+            .align-right{
+                text-align: right;
+            }
+            p{
+                margin: 0px;
+            }
+            p:last-child {
+                color: #8d8d8d;
+                font-size: 14px;
+            }
+            p:first-child {
+                color: #8d8d8d;
+                font-size: 14px;
+            }
+            .info-detail {
+                margin-left: 15px;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+        h6{
+            color: #6b6a70;
+            text-transform: uppercase;
+        }
+        .modal-body{
+            background: #f0eff5;
+        }
     }
 }
 // PHẦN MODAL CATEGORY

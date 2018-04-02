@@ -1,3 +1,4 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { WalletService } from './../../../../../service/wallet.service';
 import { BudgetSevice } from './../../../../../service/budget.servive';
 import { IBudget } from './../../../../../model/budget.model';
@@ -5,7 +6,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {Component , ViewContainerRef } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { IWallet } from '../../../../../model/wallet.model';
-
+declare var $: any;
 @Component({
     selector: "app-update-budget",
     templateUrl: "./updatebudget.componnet.html",
@@ -29,6 +30,7 @@ export class UpdateBudgetComponent{
     idbudget: String;
     constructor(private ActivatedRoute: ActivatedRoute,
         public toastr: ToastsManager,
+        private modalService: NgbModal,
         private WalletService: WalletService,
         private BudgetSevice: BudgetSevice,
         private Router:Router,
@@ -60,6 +62,7 @@ export class UpdateBudgetComponent{
     submitUpdateBudget(){
         this.BudgetSevice.updateBudget(this.budget)
             .then((data) => {
+                $('#updatebudget').modal('hide');
                 this.reloadData();
                 this.toastr.success("Cập Ngân Sách Thành Công", "Success");
             })
@@ -68,10 +71,16 @@ export class UpdateBudgetComponent{
             })
     }
 
+    // MỞ MODAL XEM CÓ XOÁ KHÔNG
+    openModalDelete(content){
+        this.modalService.open(content, { windowClass: 'modalDelete' });
+    }
+
     // THỰC HIỆN XOÁ
     submitTrashBudget(){
         this.BudgetSevice.deleteBudget(this.budget._id)
             .then((data) => {
+                $("#updatebudget").modal('hide');
                 this.Router.navigateByUrl('/budget');
                 this.toastr.success('Xoá Ngân Sách Thành Công ! ', 'Thành công ! ');
             })

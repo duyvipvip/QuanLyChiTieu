@@ -11,6 +11,7 @@ import {  RouterModule, Routes} from '@angular/router';
 import { ChooseWalletHomeComponent } from './pagewallet/wallet/choose-wallet/choose-wallet.component';
 import { ChooseWalletAddTransactionComponent } from './pagewallet/transaction/choose-wallet/choose-wallet';
 import { LocationComponent } from './pagewallet/transaction/location/location.component';
+import { UploadCategoryComponent } from './pagewallet/transaction/upload-category/upload-category.component';
 @NgModule({
     imports: [
         SharedModule,
@@ -40,6 +41,7 @@ import { LocationComponent } from './pagewallet/transaction/location/location.co
         ChooseCategoryAddWalletComponent,
         ChooseWalletAddTransactionComponent,
         LocationComponent,
+        UploadCategoryComponent,
     ],
     providers: [],
 })

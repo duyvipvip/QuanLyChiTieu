@@ -6,17 +6,31 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class TransactionService{
-    private _iduser = '';
+    private _iduser = JSON.parse(localStorage.getItem('currentUser'))._id;
     token = JSON.parse(localStorage.getItem('currentUser')).token;
     constructor(private Http:Http,
         private LocalService:LocalService,
     ){
-        this._iduser = JSON.parse(localStorage.getItem('currentUser'))._id;
     }
     private _allTransaction:BehaviorSubject<ITransaction[]> = new BehaviorSubject(new Array());
     
     get getAllTransaction(){
         return this._allTransaction.asObservable();
+    }
+
+    // XOÁ TẤT CẢ CÁC GIAO DỊCH CÙNG TIME
+    deleteTransactionToTime(time){
+        const headers = new Headers({ 'Content-Type': 'application/json', "x-access-token": this.token });
+        const options = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Post
+          });
+        return this.Http.delete(this.LocalService.URL + '/api/transaction/deleteTransactionToTime/'+time, {headers:headers})
+        .toPromise()
+        .then((response) => {
+            return response;
+        })
+        .catch(err => err);
     }
 
     // TẠO MỚI MỘT GIAO DỊCH 
@@ -48,6 +62,7 @@ export class TransactionService{
             return err;
         })
     }
+    
 
     // XOÁ MỘT GIAO DỊCH
     deleteTransaction(idtransaction){
@@ -64,14 +79,92 @@ export class TransactionService{
        .catch(err => err);
     }
 
-    // LẤY TẤT CẢ CÁC GIAO DỊCH CỦA 1 VÍ
-    getTransactions(idwallet){
+    // LẤY TẤT CẢ CÁC GIAO DỊCH CỦA 1 VÍ 
+    getTransactions(idwallet, time = null, changeFomat = true, report = {}){
+        let monthCurrrent = new Date().getMonth()+1;
+        let yearCurrrent = new Date().getFullYear();
+        let dayCurrrent = new Date().getDate();
+        
         return this.Http.get(this.LocalService.URL + '/api/transaction/all?idwallet='+ idwallet)
             .toPromise()
             .then((data) => {
-                let resultThenFormat = this.formatArrayWalletTransaction(data.json());
-                this._allTransaction.next(resultThenFormat);
-                return resultThenFormat;
+                if(changeFomat == true){
+                    let tempData =[];
+                    if(time != null){
+                        let monthTime = new Date(time).getMonth()+1;
+                        let yearTime = new Date(time).getFullYear();
+                        // PHẦN TÍNH CHO THÁNG HIỆN TẠI
+                        if(yearTime == yearCurrrent && monthCurrrent == monthTime){
+                            data.json().forEach(transaction => {
+                                let dateTransaction = new Date(transaction.datecreatetransaction).getDate();
+                                let monthTransaction = new Date(transaction.datecreatetransaction).getMonth()+1;
+                                let yearTransaction = new Date(transaction.datecreatetransaction).getFullYear();
+                                if(dateTransaction <= dayCurrrent && monthTransaction == monthTime && yearCurrrent == yearCurrrent){
+                                    tempData.push(transaction);
+                                }
+                            });
+                        }
+                        // PHẦN TÍNH CHO THÁNG TƯƠNG LẠI
+                        if(yearTime >= yearCurrrent && monthTime > monthCurrrent){
+                            data.json().forEach(transaction => {
+                                let dateTransaction = new Date(transaction.datecreatetransaction).getDate();
+                                let monthTransaction = new Date(transaction.datecreatetransaction).getMonth()+1;
+                                let yearTransaction = new Date(transaction.datecreatetransaction).getFullYear();
+                                if(dateTransaction > dayCurrrent && monthTransaction >= monthCurrrent && yearCurrrent >= yearCurrrent){
+                                    tempData.push(transaction);
+                                }
+                            });
+                        }
+                        // PHẦN TÍNH CHO THÁNG ĐÃ QUA
+                        if(yearTime <= yearCurrrent && monthTime < monthCurrrent){
+                            data.json().forEach(transaction => {
+                                let dateTransaction = new Date(transaction.datecreatetransaction).getDate();
+                                let monthTransaction = new Date(transaction.datecreatetransaction).getMonth()+1;
+                                let yearTransaction = new Date(transaction.datecreatetransaction).getFullYear();
+                                if(monthTransaction == monthTime && yearTransaction == yearTime){
+                                    tempData.push(transaction);
+                                }
+                            });
+                        }
+                        let resultThenFormat = this.formatArrayWalletTransaction(tempData);
+                        this._allTransaction.next(resultThenFormat);
+                        return resultThenFormat;
+                    }else{
+                       
+                        let resultThenFormat = this.formatArrayWalletTransaction(data.json());
+                        this._allTransaction.next(resultThenFormat);
+                        return resultThenFormat;
+                    }
+                }else if(changeFomat == false){
+                    let dayFrom = new Date(report['start']).getDate();
+                    let monthFrom = new Date(report['start']).getMonth()+1;
+                    let yearFrom = new Date(report['start']).getFullYear();
+
+                    let dayTo = new Date(report['end']).getDate();
+                    let monthTo = new Date(report['end']).getMonth()+1;
+                    let yearTo = new Date(report['end']).getFullYear();
+                    let dataTemp = [];
+
+
+                    data.json().forEach(transaction => {
+                        let dayTransaction = new Date(transaction.datecreatetransaction).getDate();
+                        let monthTransaction = new Date(transaction.datecreatetransaction).getMonth()+1;
+                        let yearTransaction = new Date(transaction.datecreatetransaction).getFullYear();
+
+                        if(dayTransaction <= dayTo && dayTransaction >= dayFrom){
+                            if(yearTransaction <= yearTo && yearTransaction >= yearFrom){
+                                
+                                if(monthTransaction <= monthTo && monthTransaction >= monthFrom){
+                                    dataTemp.push(transaction);
+                                } 
+                            }
+                            
+                        }
+                    });
+
+                    return dataTemp;
+                }
+                
 
             })
             .catch((err) => {
@@ -90,6 +183,18 @@ export class TransactionService{
           });
           
         return this.Http.post(this.LocalService.URL + '/api/transaction/image?idtransaction='+ idtransaction, formData, {headers:headers})
+            .toPromise()
+            .then((data) => {
+                return data.json();
+            })
+            .catch((err) => {
+                return err;
+            })
+    }
+
+    // LẤY TẤT CẢ CÁC GIAO DỊCH
+    getAllTransactions(){
+        return this.Http.get(this.LocalService.URL + '/api/transaction/alltransaction/'+ this._iduser)
             .toPromise()
             .then((data) => {
                 return data.json();
@@ -168,27 +273,18 @@ export class TransactionService{
         arrWalletTransactions.forEach((arrWalletTransaction) => {
             let totalMoney = 0;
             let dateGroupTransaction = 0;
-            let monthGroupTransaction = 0;
-            let yearGroupTransaction = 0;
-            let dayGroupTransaction = 0;
             let moneyIn = 0;
             let moneyOut = 0;
             
             arrWalletTransaction.forEach((item) => {
                 totalMoney += Number(item.moneytransaction);
-                dateGroupTransaction = new Date(item.datecreatetransaction).getDate();
-                dayGroupTransaction = new Date(item.datecreatetransaction).getDay();
-                monthGroupTransaction = new Date(item.datecreatetransaction).getMonth();
-                yearGroupTransaction = new Date(item.datecreatetransaction).getFullYear();
+                dateGroupTransaction = item.datecreatetransaction;
                 (item.moneytransaction > 0) ? moneyIn += Number(item.moneytransaction) : moneyOut += Number(item.moneytransaction);
                 (item.moneytransaction > 0) ? totalAllMoneyIn += Number(item.moneytransaction) : totalAllMoneyOut += Number(item.moneytransaction);
                 
             })
             arrWalletTransaction.totalMoney = totalMoney;
             arrWalletTransaction.dateGroupTransaction = dateGroupTransaction;
-            arrWalletTransaction.dayGroupTransaction = dayGroupTransaction;
-            arrWalletTransaction.monthGroupTransaction = monthGroupTransaction;
-            arrWalletTransaction.yearGroupTransaction = yearGroupTransaction;
             arrWalletTransaction.moneyIn = moneyIn;
             arrWalletTransaction.moneyOut = moneyOut;
         })

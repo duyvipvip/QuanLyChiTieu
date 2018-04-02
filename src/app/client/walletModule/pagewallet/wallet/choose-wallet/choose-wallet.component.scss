@@ -22,3 +22,10 @@ p{color:rgba(51, 51, 51, 0.54);font-size:14px;}
 .header-modal, #chonvi h4{color:rgb(51, 51, 51);font-size:22px;}
 .close-button{float:right;width:1.5rem;line-height:1.5rem;text-align:center;cursor:pointer;border-radius:0.25rem;background-color:lightgray;}
 .close-button:hover{background-color:darkgray;}
+
+.modal-header{
+    background: #2db84c;
+}
+.modal-content{
+    border-radius: 0px;
+}

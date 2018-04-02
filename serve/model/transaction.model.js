@@ -44,6 +44,9 @@ const transactionSchema = mongoose.Schema({
         type: String,
         require: true
     },
+    time: {
+        type: String,
+    },
     location: {}
 }, {collection: "transaction"})
 

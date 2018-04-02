@@ -3,18 +3,21 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <i data-dismiss="modal" class="fa fa-times fa-2x" aria-hidden="true"></i> 
-                <h4 class="modal-title">Edit Wallet</h4>
-                <i class="fa fa-trash-o fa-2x" data-dismiss="modal" aria-hidden="true" (click)="submitRemoveWallet()"></i>
+                <h4 class="modal-title">Chỉnh sửa ví</h4>
+                <div class="button-close" (click)="submitEditWallet()">
+                    <button tabindex="0" type="button">
+                        <i class="fa fa-save"></i>
+                    </button>
+                </div>
             </div>
             <div class="modal-body">
                 <div class="row-item">
                     <div class="img">
-                        <img src="assets/images/wallet.png" alt="">
+                        <img src="http://localhost:3000/images/wallet.png" alt="">
                     </div>
 
                     <div class="group">
-                        <input type="text" [(ngModel)]="dataUpdateWallet.namewallet"      required placeholder="Tên ví của bạn ?" [disabled]="dataUpdateWallet._id === 0 ? true:false ">
+                        <input type="text" [(ngModel)]="dataUpdateWallet.namewallet" required placeholder="Tên ví của bạn ?" [disabled]="dataUpdateWallet._id === 0 ? true:false ">
                         <span class="bar"></span>
                     </div>
                 </div>
@@ -25,16 +28,26 @@
 
                     <div class="group">
                         <input type="hidden" value="{{ dataUpdateWallet._id }}">
-                        <input type="text"  [ngModel]="dataUpdateWallet.money | toNumber | number:'1.0-0'" (ngModelChange)="dataUpdateWallet.money=$event"  required placeholder="Số Tiền" [disabled]="dataUpdateWallet._id === 0 ? true:false ">
+                        <input type="text" [(ngModel)]="dataUpdateWallet.money"  required placeholder="Số Tiền" [disabled]="dataUpdateWallet._id === 0 ? true:false ">
                         <span class="bar"></span>
                     </div>
                 </div>
-
-        
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-add" data-dismiss="modal" (click)="submitEditWallet()" [disabled]="dataUpdateWallet._id === 0 ? true:false ">Chỉnh sửa</button>
-            </div>
+            <p class="btn-delete-all" (click)=openModalDelete(modalDelete)>XOÁ VÍ NÀY</p>
+            <p class="btn-delete-only" data-dismiss="modal">ĐÓNG</p>
         </div>
     </div>
 </div>
+
+<ng-template #modalDelete let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Thông báo</h4>
+    </div>
+    <div class="modal-body" class="modalDelete">
+      <p>Việc xoá đi ví này sẽ kèm theo xoá tất cả các giao dịch liên quan. Bạn có
+          chắc muốn xoá không ?
+      </p>
+      <p class="yes" (click)="submitRemoveWallet()" (click)="c('Close click')">CÓ</p>
+      <p class="no" (click)="c('Close click')">KHÔNG</p>
+    </div>
+  </ng-template>

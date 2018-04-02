@@ -16,10 +16,12 @@ export class EditSavingComponent implements OnInit {
   idSaving: String;
   
   constructor(private modalService: NgbModal,
-    public toastr: ToastsManager,
+    
     private ActivatedRoute: ActivatedRoute,
     private SavingService: SavingService,
-    vcr: ViewContainerRef, ) {
+    public toastr: ToastsManager,
+    vcr: ViewContainerRef, 
+  ) {
     this.toastr.setRootViewContainerRef(vcr);
 
     // LẤY ID NGÂN SÁCH
@@ -43,20 +45,23 @@ export class EditSavingComponent implements OnInit {
   // LẤY 1 KHOẢN TIẾT KIỆM
   getOnlySaving(){
     this.SavingService.getOnlySaving(this.idSaving)
-      .then(() => {
-        this.SavingService.get_onlySaving()
-          .subscribe((data) => {
-
-            this.objSaving = data;
-            this.objSaving.enddate = new Date(this.objSaving.enddate.toString()).toISOString().slice(0, 10);
-          })
+      .then((data) => {
+        
+        this.objSaving = data;
+        this.objSaving.enddate = new Date(this.objSaving.enddate.toString()).toISOString().slice(0, 10);
       })
+  }
+
+  // USER CHỌN VÍ
+  selectIDToWallet(event){
+    //this.objSaving.idwallet = event;
   }
 
   // THỰC HIỆN CHỈNH SỬA
   submitSaving(){
     this.SavingService.editSaving(this.objSaving)
       .then((data) => {
+        this.reloadData();
         this.toastr.success("Cập nhật khoản tiết kiệm thành công", "Success");
       })
       .catch((err) => {

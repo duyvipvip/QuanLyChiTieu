@@ -4,12 +4,12 @@ const auth = require("../middle-ware/auth");
 
 router.get("/all", getAllSaving);
 router.get("/only", getOnlySaving);
-// router.get("/get/:id", getSavingById);
 router.post("/create", auth.auth() , createSaving);
 router.post("/update", auth.auth(), updateSaving);
 router.post("/createSendIn",auth.auth(), createSendIn);
 router.post("/createSendOut",auth.auth(), createSendOut);
-// router.delete("/saving/delete/:id", deleteSaving);
+router.post("/useSaving", auth.auth(), useSaving);
+router.delete("/delete/:id", auth.auth(), deleteSaving);
 
 //transaction
 // router.post("/transaction/create", createTranSaction);
@@ -17,6 +17,37 @@ router.post("/createSendOut",auth.auth(), createSendOut);
 //wallets
 // router.get("/wallets/get", getWallets)
 module.exports = router;
+
+// SỬ DỤNG 1 KHOẢN TIẾT KIỆM
+function useSaving(req, res, next){
+    var bodyUseSaving = req.body;
+    bodyUseSaving.iduser = req.user[0]._id;
+    if (!bodyUseSaving.iduser) {
+        next({
+            statusCode: 400,
+            message: "id user is required"
+        })
+    }if (!bodyUseSaving.namesaving) {
+        next({
+            statusCode: 400,
+            message: "name saving is required"
+        })
+    }if (!bodyUseSaving.idwallet) {
+        next({
+            statusCode: 400,
+            message: "id wallet is required"
+        })
+    }if (!bodyUseSaving._id) {
+        next({
+            statusCode: 400,
+            message: "id saving is required"
+        })
+    }else{
+        savingController.useSaving(bodyUseSaving).then((data) => {
+            res.send(data);
+        });
+    }
+}
 
 // LẤY 1 KHOẢN TIẾT KIỆM
 function getOnlySaving(req, res, next){
@@ -230,12 +261,12 @@ function deleteSaving(req, res, next) {
         })
     }else{
         savingController.deleteSaving(idsaving)
-        .then(function (saving) {
-            res.send(saving)
-        })
-        .catch(function (err) {
-            next(err);
-        })
+            .then(function (saving) {
+                res.send(saving)
+            })
+            .catch(function (err) {
+                next(err);
+            })
     }
    
 }

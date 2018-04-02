@@ -7,8 +7,34 @@ router.get("/all", getTransactions);
 router.post("/image", auth.auth(), uploadImage);
 router.post("/delete", auth.auth(), deleteTransaction);
 router.post("/update", auth.auth(), updateTransactionWallet);
-router.get("/alltransaction", getAllTransaction);
+router.delete("/deleteTransactionToTime/:time", auth.auth(), deleteTransactionToTime);
+router.get("/alltransaction/:iduser", getAllTransaction);
 module.exports = router;
+
+// XOÁ TẤT CẢ CÁC GIAO DỊCH CÓ CÙNG TIME
+function deleteTransactionToTime(req, res, next){
+    let iduser = req.user[0]._id;
+    let time = req.params.time;
+    if(!iduser){
+        next({
+            statusCode: 400,
+            message: "id user is required"
+        })
+    }else if(!time){
+        next({
+            statusCode: 400,
+            message: "time is required"
+        })
+    }else{
+        transactionController.deleteTransactionToTime(time)
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            next(err);
+        })
+    }
+}
 
 // UPLOAD FILE
 function uploadImage(req, res, next){
@@ -100,13 +126,22 @@ function createTransaction(req, res, next){
 }
 // LẤY TOÀN BỘ GIAO DỊCH
 function getAllTransaction(req, res, next){
-    transactionController.getAllTransaction()
+    let iduser = req.params.iduser;
+    if(!iduser){
+        next({
+            statusCode: 400,
+            message: "id user is required"
+        })
+    }else{
+        transactionController.getAllTransaction(iduser)
         .then((wallet) => {
             res.send(wallet)
         })
         .catch((err) => {
             next(err);
         });
+    }
+   
 }
 // LẤY TẤT CẢ CÁC GIAO DỊCH CỦA MỘT VÍ
 function getTransactions(req, res, next){

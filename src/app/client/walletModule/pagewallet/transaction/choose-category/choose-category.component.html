@@ -2,10 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 <h4 class="modal-title">Chọn Loại Giao Dich</h4>
-                <i class="fa fa-times" aria-hidden="true" data-dismiss="modal"></i>
-
                 <div class="clr"></div>
                 <div class="tab">
                     <ul class="nav nav-tabs">
@@ -34,10 +31,19 @@
                     <div class="tab-pane active" id="income">
                         <ul class="tab-thunhap">
                             <li *ngFor="let item_income of dataIncome">
-                                <img src="assets/images/{{item_income.image}}.png" alt="">
+                                <div *ngIf="item_income.iduser" (click)=openModalDelete(modalDelete) (click)="objectDemove('income', item_income._id)"  class="icontrash">
+                                    <span>
+                                        <i class="fa fa-trash"></i>
+                                    </span>
+                                </div>
+                                <img src="http://localhost:3000/images/{{item_income.image}}.png" alt="">
                                 <p data-dismiss="modal" class='name' (click)="chooseCategory($event)">{{ item_income.name }}</p>
                                 <input type="hidden" name="id" value="{{ item_income._id }}">
                                 <input type="hidden" name="detect" value="{{ item_income.detect }}">
+                            </li>
+                            <li data-toggle="modal" data-target="#modalAddCategory">
+                                <img src="http://localhost:3000/images/plus.png" alt="">
+                                <p>Nhóm mới</p>
                             </li>
                         </ul>
 
@@ -48,10 +54,19 @@
                     <div class="tab-pane" id="expense">
                         <ul class="tab-thunhap">
                             <li *ngFor="let itemExpense of dataExpense">
-                                <img src="assets/images/{{itemExpense.image}}.png" alt="">
+                                <div *ngIf="itemExpense.iduser" (click)=openModalDelete(modalDelete) (click)="objectDemove('expense', itemExpense._id)" class="icontrash">
+                                    <span>
+                                        <i class="fa fa-trash"></i>
+                                    </span>
+                                </div>
+                                <img src="http://localhost:3000/images/{{itemExpense.image}}.png" alt="">
                                 <p data-dismiss="modal" class='name' (click)="chooseCategory($event)">{{ itemExpense.name }}</p>
                                 <input type="hidden" name="id" value="{{ itemExpense._id }}">
                                 <input type="hidden" name="detect" value="{{ itemExpense.detect }}">
+                            </li>
+                            <li data-toggle="modal" data-target="#modalAddCategory">
+                                <img src="http://localhost:3000/images/plus.png" alt="">
+                                <p>Nhóm mới</p>
                             </li>
                         </ul>
                     </div>
@@ -61,7 +76,7 @@
                     <div class="tab-pane" id="debtloan">
                         <ul class="tab-thunhap">
                             <li *ngFor="let item_debtloan of dataDebtLoan">
-                                <img src="assets/images/{{item_debtloan.image}}.png" alt="">
+                                <img src="http://localhost:3000/images/{{item_debtloan.image}}.png" alt="">
                                 <p data-dismiss="modal" class='name' (click)="chooseCategory($event)">{{ item_debtloan.name }}</p>
                                 <input type="hidden" name="id" value="{{ item_debtloan._id }}">
                                 <input type="hidden" name="detect" value="{{ item_debtloan.detect }}">
@@ -73,5 +88,17 @@
             </div>
         </div>
     </div>
-
 </div>
+
+<app-upload-category></app-upload-category>
+<ng-template #modalDelete let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Thông báo</h4>
+    </div>
+    <div class="modal-body" class="modalDelete">
+        <p>Việc xoá đi Category này sẽ kèm theo xoá tất cả các giao dịch liên quan. Bạn có chắc muốn xoá không ?
+        </p>
+        <p class="yes" (click)="removeCategory()" (click)="c('Close click')">CÓ</p>
+        <p class="no" (click)="c('Close click')">KHÔNG</p>
+    </div>
+</ng-template>

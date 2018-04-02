@@ -29,7 +29,7 @@ app.use(express.static(__dirname + '/dist'));
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/serve/public')));
-console.log(path.join(__dirname, '/serve/public'));
+
 app.use(fileUpload());
 
 //SỬ DỤNG ĐỂ CHỨNG THỰC PASSPORT
@@ -50,8 +50,8 @@ app.all('*', function(req, res, next) {
 });
 
 app.use("/api/wallet", walletRouter);
-app.use("/api", incomeRouter);
-app.use("/api", expenseRouter);
+app.use("/api/income", incomeRouter);
+app.use("/api/expense", expenseRouter);
 app.use("/api", debt_loanRouter);
 app.use("/api/transaction", transactionRouter);
 app.use("/api/budget", budgetRouter);

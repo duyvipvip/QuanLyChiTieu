@@ -23,6 +23,13 @@ var savingSchema = new mongoose.Schema(
             required: true,
             type: String,
         },
+        idwallet: {
+            type: String,
+        },
+        status: {
+            type: String,
+            default: 'false'
+        },
         idsaving:{
             type: String,
         }

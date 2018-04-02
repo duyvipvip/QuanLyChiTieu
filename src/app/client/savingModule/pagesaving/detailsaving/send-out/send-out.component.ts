@@ -2,7 +2,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SavingService } from './../../../../../service/saving.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -26,6 +26,9 @@ export class SendOutComponent implements OnInit {
     namesaving: '',
     idsaving: ''
   };
+
+  modalSendin: NgbModalRef;
+
   constructor(private modalService: NgbModal,
     private ActivatedRoute: ActivatedRoute,
     private SavingService: SavingService,
@@ -45,7 +48,6 @@ export class SendOutComponent implements OnInit {
               this.SavingService.get_onlySaving()
                 .subscribe((result) => {
                   this.objSaving = result;
-                  console.log(result);
                   this.objSendOut.namesaving = result.namesaving;
                 })
             })
@@ -57,7 +59,7 @@ export class SendOutComponent implements OnInit {
   }
 
   openModalSendOut(content) {
-    this.modalService.open(content, { windowClass: 'modalSendIn' })
+    this.modalSendin = this.modalService.open(content, { windowClass: 'modalSendIn' })
   }
 
   // LẤY ID VÍ ĐƯỢC CHỌN
@@ -67,13 +69,22 @@ export class SendOutComponent implements OnInit {
 
   // GỬI TIỀN VÀO KHOẢN TIẾT KIỆM
   submitSendOut() {
-    this.objSendOut.money = this.objSendOut.money.toString().replace(/,/g, '');
-    
-    if (this.objSendOut.money > this.objSaving.moneyTransaction) {
+    if (this.objSendOut.idwallet == '') {
+      this.toastr.warning("Bạn trưa chọn ví", "Warning");
+    } else if (this.objSendOut.money == '') {
+      this.toastr.warning("Bạn trưa nhập số tiền", "Warning");
+    } else if (this.objSendOut.money <= 0) {
+      this.toastr.warning("Số tiền phải là số dương", "Warning");
+    } else if (isNaN(this.objSendOut.money)) {
+      this.toastr.warning("Số tiền phải là một số", "Warning");
+    } else if (this.objSendOut.date == '') {
+      this.toastr.warning("Bạn trưa chọn ngày", "Warning");
+    } else if (this.objSendOut.money > this.objSaving.moneyTransaction) {
       this.toastr.warning("Số tiền đã nhập phải nhỏ hơn số tiền hiện tại đã lưu", "Warning");
     } else {
       this.SavingService.addSavingSendOut(this.objSendOut)
         .then((result) => {
+          this.modalSendin.close();
           this.reloadData();
           this.toastr.success("Rút ra từ khoản tiết kiệm thành công", "Succsess");
         })

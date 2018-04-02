@@ -34,7 +34,7 @@
                     <div class="tab-pane active" id="income">
                         <ul class="tab-thunhap">
                             <li *ngFor="let item_income of dataIncome">
-                                <img src="assets/images/{{item_income.image}}.png" alt="">
+                                <img src="http://localhost:3000/images/{{item_income.image}}.png" alt="">
                                 <p data-dismiss="modal" class='name' (click)="chooseCategory($event)">{{ item_income.name }}</p>
                                 <input type="hidden" name="id" value="{{ item_income._id }}">
                                 <input type="hidden" name="detect" value="{{ item_income.detect }}">
@@ -48,7 +48,7 @@
                     <div class="tab-pane" id="expense">
                         <ul class="tab-thunhap">
                             <li *ngFor="let itemExpense of dataExpense">
-                                <img src="assets/images/{{itemExpense.image}}.png" alt="">
+                                <img src="http://localhost:3000/images/{{itemExpense.image}}.png" alt="">
                                 <p data-dismiss="modal" class='name' (click)="chooseCategory($event)">{{ itemExpense.name }}</p>
                                 <input type="hidden" name="id" value="{{ itemExpense._id }}">
                                 <input type="hidden" name="detect" value="{{ itemExpense.detect }}">
@@ -61,7 +61,7 @@
                     <div class="tab-pane" id="debtloan">
                         <ul class="tab-thunhap">
                             <li *ngFor="let item_debtloan of dataDebtLoan">
-                                <img src="assets/images/{{item_debtloan.image}}.png" alt="">
+                                <img src="http://localhost:3000/images/{{item_debtloan.image}}.png" alt="">
                                 <p data-dismiss="modal" class='name' (click)="chooseCategory($event)">{{ item_debtloan.name }}</p>
                                 <input type="hidden" name="id" value="{{ item_debtloan._id }}">
                                 <input type="hidden" name="detect" value="{{ item_debtloan.detect }}">

@@ -7,14 +7,14 @@
   <div class="modal-body" id="edit">
     <div class="button-save">
       <button type="button">
-        <i class="fa fa-save" (click)="submitSaving()" (click)="c('Close click')"></i>
+        <i class="fa fa-save" (click)="submitSaving()"></i>
       </button>
     </div>
 <!-- // (click)="c('Close click')" -->
     <div class="info">
       <div class="row-item namesaving">
         <div class="img">
-          <img alt="" src="assets/images/thuong.png">
+          <img alt="" src="http://localhost:3000/images/thuong.png">
         </div>
 
         <div class="group">
@@ -42,11 +42,9 @@
 
       <div class="row-item">
         <div class="img">
-            <img class="imagewallet" alt="" src="assets/images/icon.png">
+            <img class="imagewallet" alt="" src="http://localhost:3000/images/icon.png">
         </div>
-        <div class="group">
-          <span>Tất cả các ví</span>
-        </div>
+        <app-choose-wallet-transfer-money (selectIDToWallet)="selectIDToWallet($event)"></app-choose-wallet-transfer-money>
       </div>
     </div>
   </div>

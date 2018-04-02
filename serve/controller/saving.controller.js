@@ -3,21 +3,15 @@ const transactionModel = require("../model/transaction.model");
 
 module.exports = {
     getAllSaving: getAllSaving,
-    getSavingById: getSavingById,
     createSaving: createSaving,
     createSendIn: createSendIn,
     updateSaving: updateSaving,
     deleteSaving: deleteSaving,
     getOnlySaving: getOnlySaving,
-    createSendOut: createSendOut
-    // getTransaction: getTransaction,
-    // getATransaction:getATransaction,
-    // createTransaction: createTransaction,
-    // updateTransaction: updateTransaction,
-    // deleteTransaction: deleteTransaction,
-
-    // getWalletByUserId: getWalletByUserId
+    createSendOut: createSendOut,
+    useSaving: useSaving
 }
+
 // LẤY 1 KHOẢN TIẾT KIỆM
 function getOnlySaving(idsaving){
     return savingModel.findById(idsaving)
@@ -45,6 +39,57 @@ function createSendIn(bodySendIn){
         .then((transaction) => {
             return Promise.resolve(transaction);
         })
+}
+
+// SỬ DỤNG KHOÀN TIẾT KIỆM
+function useSaving(bodyUseSaving){
+    let objTransactionIn = {
+        "groupcategory" : "income",
+        "idcategory": "5a7d25bd2504042b8e6be38c",
+        "notetransaction" : "Rút ra từ khoản tiết kiệm "+ bodyUseSaving.namesaving,
+        "datecreatetransaction" : new Date().toISOString().slice(0, 10),
+        "moneytransaction" : bodyUseSaving.moneyTransaction,
+        "imagecategory" : "khoanthukhac",
+        "categorytransaction" : "Khoản thu khác",
+        "idwallet" : bodyUseSaving.idwallet,
+        "iduser" : bodyUseSaving.iduser,
+        "idsaving": bodyUseSaving._id,
+    }
+    let objTransactionOut = {
+        "idcategory": "5a85892332bdec050bea4894",
+        "groupcategory" : "expense",
+        "notetransaction" : "Sử dung khoản tiết kiệm "+ bodyUseSaving.namesaving,
+        "datecreatetransaction" : new Date().toISOString().slice(0, 10),
+        "moneytransaction" : Number.parseInt(bodyUseSaving.moneyTransaction)*-1,
+        "imagecategory" : "khoanchikhac",
+        "categorytransaction" : "Khoản chi khác",
+        "idwallet" : bodyUseSaving.idwallet,
+        "iduser" : bodyUseSaving.iduser,
+        "idsaving": bodyUseSaving._id,
+    }
+    let newTransactionIn = new transactionModel(objTransactionIn);
+    return newTransactionIn.save()
+        .then(() => {
+            let newTransactionOut = new transactionModel(objTransactionOut);
+            return newTransactionOut.save()
+                .then(() => {
+                    return savingModel.findOneAndUpdate({_id: bodyUseSaving._id},  { $set: { status: 'true' }})
+                        .then((data) => {
+                            return Promise.resolve(data);
+                        })
+                        .catch(function (err) {
+                            return Promise.reject(err);
+                        })
+                })
+                .catch(function (err) {
+                    return Promise.reject(err);
+                })
+        }).catch(function (err) {
+            return Promise.reject(err);
+        })
+    
+        
+
 }
 
 // GỬI VÀO KHOẢN TIẾT KIỆM
@@ -78,23 +123,7 @@ function getAllSaving(iduser) {
         })
 }
 
-// get saving / id saving
-function getSavingById(id) {
-    return Saving.findById(id)
-        .populate({
-            path: 'transactions',
-            select: 'moneytransaction'
-        })
-        .then(function (saving) {
-            return Promise.resolve(saving);
-        })
-        .catch(function (err) {
-            return Promise.reject(err);
-        })
-
-}
-
-// create the saving
+// TẠO MỘT KHOẢN TIẾT KIỆM
 function createSaving(bodySaving) {
     var saving = new savingModel(bodySaving);
     return saving.save()
@@ -105,6 +134,7 @@ function createSaving(bodySaving) {
             return Promise.reject(err);
         })
 }
+
 // CẬP NHẬT SAVING
 function updateSaving(saving) {
     return savingModel.findOneAndUpdate({ _id: saving._id }, saving)
@@ -116,119 +146,16 @@ function updateSaving(saving) {
         })
 }
 
-// delete a saving
-function deleteSaving(id) {
-    return Saving.findByIdAndRemove(id)
+// XOÁ ĐI MỘT KHOẢN TIẾT KIỆM
+function deleteSaving(idSaving) {
+    return savingModel.findByIdAndRemove(idSaving)
         .then(function (saving) {
-            return Promise.resolve(saving);
+            return transactionModel.remove({idsaving: idSaving})
+                .then(() => {
+                    Promise.resolve(saving);
+                })
         })
         .catch(function (err) {
             return Promise.reject(err);
         })
 }
-
-// // transaction
-// function getTransaction(id) {
-//     return Saving.findById(id)
-//         .populate({
-//             path: 'transactions',
-//         })
-//         .then(function (saving) {
-//             // if (saving.transactions)
-//                 return Promise.resolve(saving.transactions);
-//         })
-//         .catch(function (err) {
-//             return Promise.reject(err);
-//         })
-// }
-
-// // get a transaction
-// function getATransaction(id) {
-//     return Transaction.findById(id)
-//         .then(function (transaction) {
-//             return Promise.resolve(transaction);
-//         })
-//         .catch(function (err) {
-//             return Promise.reject(err);
-//         })
-// }
-
-// function createTransaction(data) {
-//     var transaction = new Transaction(data);
-//     return Saving.findById(transaction.savingid)
-//         .then(function (saving) {
-//             saving.transactions.push(transaction._id);
-//             return saving.save()
-//                 .then(function () {
-//                     return transaction.save()
-//                         .then(function () {
-//                             return Promise.resolve(transaction);
-//                         })
-//                         .catch(function (err) {
-//                             return Promise.reject(err);
-//                         })
-//                 })
-//         })
-// }
-
-// function updateTransaction(transaction) {
-//     return Transaction.findOneAndUpdate({ _id: transaction._id }, transaction)
-//         .then(function (tran) {
-//             return Promise.resolve(tran);
-//         })
-//         .catch(function (err) {
-//             return Promise.reject(err);
-//         })
-// }
-
-// function deleteTransaction(id) {
-//     return Saving.findOne({ 'transactions': id })
-//         .then(function (saving) {
-//             saving.transactions.forEach(transaction => {
-//                 if (transaction == id) {
-//                     // transaction.splice
-//                 }
-//             });
-//             return saving.save()
-//                 .then(function () {
-//                     return Transaction.findByIdAndRemove(id)
-//                         .then(function (transaction) {
-//                             return Promise.resolve(transaction);
-//                         })
-//                         .catch(function (err) {
-//                             return Promise.resolve(err);
-//                         })
-//                 })
-//                 .catch(function (err) {
-//                     return Promise.reject(err);
-//                 })
-//         })
-//         .catch(function (err) {
-//             return Promise.reject(err);
-//         })
-// }
-
-// function getWalletByUserId(id) {
-//     return User.findById(id)
-//         .populate({
-//             path: 'wallets',
-//             select: '_id namewallet money',
-
-//         })
-//         .then(function (user) {
-//             return Promise.resolve(user.wallets);
-//         })
-//         .catch(function (err) {
-//             return Promise.reject(err);
-//         })
-// }
-
-// function test(body) {
-//     return User.findById(iduser)
-//         .populate({
-//             path: 'savings'
-//         })
-//         .then(function (user) {
-//             return Promise.resolve(user.savings);
-//         })
-// }

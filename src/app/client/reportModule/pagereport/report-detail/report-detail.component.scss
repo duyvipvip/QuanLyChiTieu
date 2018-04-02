@@ -1,0 +1,42 @@
+.report-detail{
+    margin: 0px auto;
+    background: #fff;
+    text-align: center;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #8c8c8c;
+}
+p{
+    margin: 0px;
+}
+
+.color-red{
+    color: red;
+}
+.color-gray{
+    color: #8c8c8c;
+}
+.color-blue{
+    color: #1596d0;
+}
+
+.info-report{
+    .row-item{
+        span:last-child{
+            float: right;
+        }
+        cursor: pointer;
+        padding: 7px 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        span:first-child{
+            float: left;
+        }
+        i{
+            margin-left: 10px;
+            margin-top: 4px;
+            color: #8c8c8c;
+            float: right;
+        }
+    }
+}

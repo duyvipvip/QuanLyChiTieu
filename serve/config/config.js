@@ -5,8 +5,8 @@ module.exports = {
         "callbackURL": 'http://localhost:3000/api/auth/google/callback'
     },
     'facebookAuth' : {
-		'clientID': '117384035758463',
-		'clientSecret': '90639c6e8d1888c62832a1f91ee7f72c',
+		'clientID': '1287710571326137',
+		'clientSecret': 'ec3398bfa59179056871fa00f7a0374f',
 		'callbackURL': 'http://localhost:3000/api/auth/facebook/callback'
     },
     'googleMap' : {

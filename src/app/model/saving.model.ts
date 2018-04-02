@@ -6,7 +6,8 @@ export interface ISaving {
     enddate?: String;
     image: String;
     percent?:Number;
-    dateRemain?:Date;
+    dateRemain?:Number;
+    status?:String;
     moneyTransaction?:Number;
     arrTransaction?:Array<any>;
     remainMoney?: Number;

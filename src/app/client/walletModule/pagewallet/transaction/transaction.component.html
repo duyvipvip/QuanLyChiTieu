@@ -5,14 +5,13 @@
         <div class="row">
             <!-- PHẦN THÊM CHI TIÊU -->
             <div class="articles card  add-spend">
-
                 <div class="card-header d-flex align-items-center">
                     <h2 class="h3"> {{ titleTransaction }} </h2>
                 </div>
                 <div class="card-body">
                     <div class="row-item">
                         <div class="img">
-                            <img src="assets/images/{{transaction.imagecategory}}.png" alt="">
+                            <img src="http://localhost:3000/images/{{transaction.imagecategory}}.png" alt="">
                         </div>
                         <span class="choose-category category" data-toggle="modal" data-target="#choose-category-add-wallet">{{ transaction.categorytransaction }}
                             <i aria-hidden="true" class="fa fa-caret-down"></i>
@@ -24,8 +23,7 @@
                         </div>
 
                         <div class="group">
-                            <input name="money" class="{{ this.transaction.groupcategory }}" [ngModel]="transaction.moneytransaction | toNumber | number:'1.0-0'"
-                                (ngModelChange)="transaction.moneytransaction=$event" type="text" required placeholder="Số tiền">
+                            <input type="text" [(ngModel)]="transaction.moneytransaction" required placeholder="Số tiền">
                             <span class="bar"></span>
                         </div>
                     </div>
@@ -43,9 +41,9 @@
                 </div>
                 <div class="footer-row-item row">
                     <div class="col-6 item-left" (click)="picker.open()">
-                        <p class="week">{{ dateCurrent.day }}</p>
-                        <p class="day-of-month">{{ dateCurrent.date }}</p>
-                        <p class="month-and-year">Tháng {{ dateCurrent.month }} {{ dateCurrent.year }}</p>
+                        <p class="week">{{ dateCurrent | weekday }}</p>
+                        <p class="day-of-month">{{ dateCurrent | date: 'dd' }}</p>
+                        <p class="month-and-year">Tháng {{ dateCurrent | date: 'MM' }} {{ dateCurrent | date: 'yyyy' }}</p>
                     </div>
                     <mat-form-field>
                         <input (dateChange)="changeDate($event)" matInput [matDatepicker]="picker" placeholder="Choose a date">
@@ -61,7 +59,7 @@
                 <div class="adddetail">
                     <div class="row-item" (click)="adddetail = !adddetail" [attr.aria-expanded]="!adddetail">
                         <i class="fa fa-caret-down"></i>
-                        <span>Thêm Chi Tiết</span>
+                        <span class="totaladddetail">Thêm Chi Tiết</span>
                     </div>
                     <div class="body-detail" [ngbCollapse]="adddetail">
                         <div class="row-item">
@@ -70,7 +68,7 @@
                             </div>
 
                             <div class="group">
-                                <input type="text" id="taguser" required placeholder="Với">
+                                <input type="text" id="taguser">
                                 <span class="bar"></span>
                             </div>
                         </div>
@@ -81,15 +79,6 @@
                             </div>
                             <div class="group addmap">
                                 <span>{{objLocation.name}}</span>
-                            </div>
-
-                        </div>
-                        <div class="row-item">
-                            <div class="img">
-                                <i class="fa fa-clock-o"></i>
-                            </div>
-                            <div class="group addmap">
-                                <span>Đặt nhắc nhở</span>
                             </div>
                         </div>
 
@@ -111,7 +100,7 @@
                 <div class="row">
                     <div class="offset-5"></div>
                     <div class="col-7">
-                        <button type="button" class="btn btn-success" (click)="submitTransaction()">{{ nameButtonTransaction }}</button>
+                        <button type="button" class="btn btn-success" (click)="submitTransaction(modalCheckMoney)">{{ nameButtonTransaction }}</button>
                     </div>
                 </div>
             </div>
@@ -128,10 +117,7 @@
 <!-- PHẦN MODEL HIỂN THỊ ĐỊA ĐIỂM -->
 <ng-template  #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        <h4 class="modal-title">Chọn địa điểm</h4>
     </div>
     <div id="modalloaction" class="modal-body">
         <div *ngIf="transaction.location"  class="row-item row" (click)="deleteLocation()" (click)="c('Close click')">
@@ -156,7 +142,16 @@
             </div>
         </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
-    </div>
 </ng-template>
+
+
+<ng-template #modalCheckMoney let-c="close" let-d="dismiss">
+    <div class="modal-body">
+      <p class="description">Số tiền hiện tại trong ví {{infoCheckMoney.namewallet}} là {{infoCheckMoney.moneywallet | number}} đ . Bạn đang muốn thêm 1 giao dịch {{infoCheckMoney.moneytrnasction | number}} đ
+          . Bạn cần chọn một trong các hành động dưới đây
+      </p>
+      <p class="btn-info-my" (click)="changeMoneyWallet()">Điều chỉnh số tiền trong ví lên {{infoCheckMoney.moneytrnasction | number}} đ</p>
+      <p *ngIf="infoCheckMoney.moneywallet > 0" class="btn-info-my" (click)="changeMoneyTransaction()">Điều chỉnh số tiền của giao dịch xuống {{infoCheckMoney.moneywallet | number}} đ</p>
+      <p class="btn-delete-only" (click)="d('Cross click')">ĐÓNG</p>
+    </div>
+  </ng-template>

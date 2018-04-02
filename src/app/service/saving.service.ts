@@ -13,21 +13,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class SavingService {
-    // urlSb = new Subject<String>();
-    // return a id / saving
-    // getSavingIdSb = new Subject<String>();
-
-    // // return list savings
-    // getSavingsSb = new BehaviorSubject(new Array());
-
-    // getAtransactionSb = new Subject();
-
-    // // return a saving - id
-    // getSavingSb = new Subject<ISaving>();
-    // // getSavingSb = new Subject<ISaving[]>();
-
-    // // get all transaction
-    // getTransactionSb = new Subject();
 
     // danh sách tất cả các budget
     private _allSaving:BehaviorSubject<any[]> = new BehaviorSubject(new Array());
@@ -46,33 +31,55 @@ export class SavingService {
     }
     // token
     token = JSON.parse(localStorage.getItem('currentUser')).token;
-    iduser = JSON.parse(localStorage.getItem('currentUser'))._id;
+    _iduser = JSON.parse(localStorage.getItem('currentUser'))._id;
     constructor(private http: Http, private router: Router,
         private LocalService:LocalService
         
     ) { }
 
-    // get savings() {
-    //     return this.getSavingsSb.asObservable();
-    // }
+    // SỬ DỤNG 1 KHOẢN TIẾT KIỆM
+    useSaving(saving){
+        const headers = new Headers({ 'Content-Type': 'application/json', "x-access-token": this.token });
+        const options = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Post
+        });
+        return this.http.post(this.LocalService.URL + '/api/saving/useSaving', JSON.stringify(saving), {headers:headers})
+        .toPromise()
+        .then((response) => {
+           return response.json();
+        })
+        .catch((err) => {
+            return err;
+        })
+    }
 
-    // get transactions() {
-    //     return this.getTransactionSb.asObservable();
-    // }
-
-    // get atransaction() {
-    //     return this.getAtransactionSb.asObservable();
-    // }
+    // XOÁ MỘT KHOẢN TIẾT KIỆM
+    deleteSaving(idsaving){
+        const headers = new Headers({ 'Content-Type': 'application/json', "x-access-token": this.token });
+        const options = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Post
+        });
+        return this.http.delete(this.LocalService.URL + '/api/saving/delete/'+idsaving, {headers:headers})
+        .toPromise()
+        .then((response) => {
+           return response.json();
+        })
+        .catch((err) => {
+            return err;
+        })
+    }
 
     // LẤY 1 KHOẢN TIẾT KIỆM
     getOnlySaving(idsaving) {
         return this.http
             .get(this.LocalService.URL + '/api/saving/only?idsaving=' + idsaving)
             .toPromise()
-            .then((response) => {
+            .then((response: Response) => {
                 let saving = response.json();
                 
-                return this.http.get(this.LocalService.URL + '/api/transaction/alltransaction')
+                return this.http.get(this.LocalService.URL + '/api/transaction/alltransaction/'+this._iduser)
                     .toPromise()
                     .then((transactions) => {
                         let a = new Date();
@@ -154,11 +161,11 @@ export class SavingService {
     // LẤY TẤT CẢ CÁC KHOẢN TIẾT KIÊM
     getSavings() {
         return this.http
-            .get(this.LocalService.URL + '/api/saving/all?iduser=' + this.iduser)
+            .get(this.LocalService.URL + '/api/saving/all?iduser=' + this._iduser)
             .toPromise()
             //.catch(this.handleError)
             .then((savings: Response) => {
-                return this.http.get(this.LocalService.URL + '/api/transaction/alltransaction')
+                return this.http.get(this.LocalService.URL + '/api/transaction/alltransaction/'+this._iduser)
                     .toPromise()
                     .then((transactions) => {
                         let data = [];
@@ -193,8 +200,6 @@ export class SavingService {
             });
     }
 
-    
-
     // TẠO MỚI MỘT KHOẢN TIẾT KIỆM 
     addSaving(saving: ISaving) {
         const headers = new Headers({ 'Content-Type': 'application/json', "x-access-token": this.token });
@@ -208,97 +213,7 @@ export class SavingService {
                 return response.json();
             })
     }
-    // addSaving(saving: ISaving) {
-    //     return this.http
-    //         .post(this.LocalService.URL + '/api/saving/create/', saving)
-    //         .subscribe(
-    //             res => {
-    //                 return this.getSavings();
-    //             });
-    // }
 
-    updateSaving(id, saving: ISaving) {
-        return this.http
-            .put(this.LocalService.URL + '/api/saving/update/' + id, saving)
-            //.catch(this.handleError)
-            .subscribe(
-                res => {
-                    return this.getSavings();
-                });
-    }
-
-    deleteSaving(id) {
-        return this.http
-            .delete(this.LocalService.URL + '/api/saving/delete/' + id)
-        //.catch(this.handleError);
-    }
-    // /transaction/get/:id
-
-    // getTransaction(id) {
-    //     return this.http
-    //         .get(this.LocalService.URL + '/api/transaction/get/' + id)
-    //         //.catch(this.handleError)
-    //         .subscribe((response: Response) => {
-    //             this.getTransactionSb.next(response.json());
-    //             return response.json();
-    //         })
-    // }
-
-    // getATransaction(id) {
-    //     return this.http
-    //         .get(this.LocalService.URL + '/api/transaction/a/' + id)
-    //         //.catch(this.handleError)
-    //         .subscribe((response: Response) => {
-    //             return this.getAtransactionSb.next(response.json());
-    //             // return response.json();
-    //         });
-    // }
-
-    addTransaction(transaction: ITransaction) {
-        return this.http
-            .post(this.LocalService.URL + '/api/transaction/create', transaction)
-            .subscribe(
-                res => {
-                    ///this.getTransaction(transaction.savingid);
-                    return res.json();
-                    // return this.getTransaction();
-                });
-    }
-
-    updateTransaction(id, transaction: ITransaction) {
-        return this.http
-            .put(this.LocalService.URL + '/api/transaction/update/' + id, transaction)
-            //.catch(this.handleError)
-            .subscribe(
-                res => {
-                    console.log(transaction);
-                    //return this.getTransaction(transaction.savingid);
-                });
-    }
-
-    // deleteTransaction(transactionid, savingid) {
-    //     return this.http
-    //         .delete(this.LocalService.URL + '/api/transaction/delete/' + transactionid)
-    //         //.catch(this.handleError)
-    //         .subscribe(
-    //             res => {
-    //                 return this.getTransaction(savingid);
-    //             }
-    //         )
-    // }
-
-    getWallet() {
-        return this.http
-            .get(this.LocalService.URL + '/api/wallets/get')
-            //.catch(this.handleError)
-            .map((response: Response) => {
-                return <ISaving>response.json();
-            });
-    }
-
-    // private handleError(error: Response) {
-    //     return Observable.throw(error.statusText);
-    // }
     // KHOẢNG CÁCH GIỮA 2 NGÀY
     dateDiffInDays(a, b) {
         let utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());

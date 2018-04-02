@@ -1,77 +1,70 @@
-<div *ngIf="arrTransactions" class="report-detail col-12">
-    <app-extentd-wallet></app-extentd-wallet>
+<div class="transaction-content">
+    <div *ngIf="arrTransactions" class="report-detail col-12">
+        <app-extentd-wallet></app-extentd-wallet>
 
-    <div class="card-header d-flex align-items-center">
-        <h2 class="h3">Báo cáo chi tiết </h2>
-    </div>
-    <div class="card-body no-padding">
-        <div class="content-card-body">
-            <div class="item">
-                <div class="row ">
-                    <p class="name-overview">Tổng quan</p>
-                </div>
-                <div class="row report-overview">
-                    <p class="col-6">Tiền vào</p>
-                    <p class="col-6" style="color: rgb(3, 155, 229);">{{ arrTransactions.totalAllMoneyIn | numberpipe | number:'1.0-0'}} đ</p>
-                </div>
-                <div class="row report-overview">
-                    <p class="col-6">Tiền ra</p>
-                    <p class="col-6" style="color: red;border-bottom:1px solid #e0e0e0;">{{ arrTransactions.totalAllMoneyOut | numberpipe | number:'1.0-0'}} đ</p>
-                </div>
-                <div class="row report-overview">
-                    <p class="col-6"></p>
-                    <p class="col-6" *ngIf="arrTransactions.remain > 0" [ngStyle]="{ color: '#039be5' }">{{ arrTransactions.remain | numberpipe | number:'1.0-0'}} đ</p>
-                    <p class="col-6" *ngIf="arrTransactions.remain < 0" [ngStyle]="{ color: 'red' }">{{ arrTransactions.remain | numberpipe | number:'1.0-0'}} đ</p>
-                    <p class="col-6" *ngIf="arrTransactions.remain == 0" [ngStyle]="{ color: 'red' }">0 đ</p>
-                </div>
-            </div>
-            <div *ngFor="let arrTransaction of arrTransactions" class="item">
-                <div class="row">
-                    <div class="date-view col-6">
-                        <span class="view-day">{{ arrTransaction.dateGroupTransaction }}</span>
-                        <span class="view-date">
-                            <span class="days">Monday</span>
-                            <span class="months">Tháng {{ arrTransaction.monthGroupTransaction }} {{ arrTransaction.yearGroupTransaction }}</span>
-                        </span>
-                    </div>
-                    <div class="amount col-6">
-                        <span *ngIf="arrTransaction.totalMoney > 0" [ngStyle]="{ color: '#039be5' }">{{ arrTransaction.totalMoney | numberpipe | number:'1.0-0'}} ₫</span>
-                        <span *ngIf="arrTransaction.totalMoney < 0" [ngStyle]="{ color: 'red' }">{{ arrTransaction.totalMoney | numberpipe | number:'1.0-0'}} ₫</span>
-                    </div>
-                </div>
-                <div class="line"></div>
-                <div class="row row-item" *ngFor="let transaction of arrTransaction" (click)="openModalUpdateTransaction(updateTransaction, transaction)"
-                    data-toggle="modal" data-target="#edit-transaction-report">
-                    <div class="col-7 left">
-                        <div class="img">
-                            <img src="assets/images/{{transaction.imagecategory}}.png" alt="">
-                        </div>
-                        <div class="info-detail">
-                            <p>{{ transaction.categorytransaction }}</p>
-                            <p style="max-width: 130px;">{{ transaction.notetransaction }}</p>
-                        </div>
-                    </div>
-                    <div class="col-5 right">
-                        <p class="{{ transaction.groupcategory }}">{{ transaction.moneytransaction | toNumber | numberpipe | number:'1.0-0' }} ₫</p>
-                    </div>
-
-                </div>
-
-                <div class="line"></div>
-            </div>
+        <div class="card-header d-flex align-items-center">
+            <h2 class="h3">Báo cáo chi tiết </h2>
         </div>
+        <div class="card-body no-padding">
+            <div class="content-card-body">
+                <div class="item">
+                    <div class="row ">
+                        <p class="name-overview">Tổng quan</p>
+                    </div>
+                    <div class="row report-overview">
+                        <p class="col-6">Tiền vào</p>
+                        <p class="col-6" style="color: rgb(3, 155, 229);">{{ arrTransactions.totalAllMoneyIn | numberpipe | number:'1.0-0'}} đ</p>
+                    </div>
+                    <div class="row report-overview">
+                        <p class="col-6">Tiền ra</p>
+                        <p class="col-6" style="color: red;border-bottom:1px solid #e0e0e0;">{{ arrTransactions.totalAllMoneyOut | numberpipe | number:'1.0-0'}} đ</p>
+                    </div>
+                    <div class="row report-overview">
+                        <p class="col-6"></p>
+                        <p class="col-6" *ngIf="arrTransactions.remain > 0" [ngStyle]="{ color: '#039be5' }">{{ arrTransactions.remain | numberpipe | number:'1.0-0'}} đ</p>
+                        <p class="col-6" *ngIf="arrTransactions.remain < 0" [ngStyle]="{ color: 'red' }">{{ arrTransactions.remain | numberpipe | number:'1.0-0'}} đ</p>
+                        <p class="col-6" *ngIf="arrTransactions.remain == 0" [ngStyle]="{ color: 'red' }">0 đ</p>
+                    </div>
+                </div>
+                <div *ngFor="let arrTransaction of arrTransactions" class="item">
+                    <div class="row">
+                        <div class="date-view col-6">
+                            <span class="view-day">{{ arrTransaction.dateGroupTransaction | date: 'dd' }}</span>
+                            <span class="view-date">
+                                <span class="days">{{arrTransaction.dateGroupTransaction | weekday}}</span>
+                                <span class="months">Tháng {{ arrTransaction.dateGroupTransaction | date: 'M' }} {{ arrTransaction.dateGroupTransaction | date: 'yyyy' }}</span>
+                            </span>
+                        </div>
+                        <div class="amount col-6">
+                            <span *ngIf="arrTransaction.totalMoney > 0" [ngStyle]="{ color: '#039be5' }">{{ arrTransaction.totalMoney | numberpipe | number:'1.0-0'}} ₫</span>
+                            <span *ngIf="arrTransaction.totalMoney < 0" [ngStyle]="{ color: 'red' }">{{ arrTransaction.totalMoney | numberpipe | number:'1.0-0'}} ₫</span>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="row row-item" *ngFor="let transaction of arrTransaction" (click)="openModalUpdateTransaction(updateTransaction, transaction)"
+                        data-toggle="modal" data-target="#edit-transaction-report">
+                        <div class="col-7 left">
+                            <div class="img">
+                                <img src="http://localhost:3000/images/{{transaction.imagecategory}}.png" alt="">
+                            </div>
+                            <div class="info-detail">
+                                <p>{{ transaction.categorytransaction }}</p>
+                                <p style="max-width: 130px;">{{ transaction.notetransaction }}</p>
+                            </div>
+                        </div>
+                        <div class="col-5 right">
+                            <p class="{{ transaction.groupcategory }}">{{ transaction.moneytransaction | toNumber | numberpipe | number:'1.0-0' }} ₫</p>
+                        </div>
 
+                    </div>
+
+                    <div class="line"></div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
-
-<!-- PHẦN MODAL CHỈNH SỬA GIAO DỊCH -->
-<!-- <app-update-transaction-report [transaction]="objchooseTransaction"></app-update-transaction-report> -->
-
-
-
-
-
-
 
 
 <!-- PHẦN MODAL CHỈNH SỬA GIAO DỊCH -->
@@ -106,7 +99,7 @@
                         </div>
                         <div class="row-item">
                             <div class="img">
-                                <img src="assets/images/{{_transaction.imagecategory}}.png" alt="">
+                                <img src="http://localhost:3000/images/{{_transaction.imagecategory}}.png" alt="">
                             </div>
                             <span class="choose-category category"> {{ _transaction.categorytransaction }}
                             </span>
@@ -126,7 +119,7 @@
                         </div>
                         <div class="row-item">
                             <div class="img img-wallet">
-                                <img alt="" src="assets/images/wallet.png">
+                                <img alt="" src="http://localhost:3000/images/wallet.png">
                             </div>
 
                             <div class="group">
@@ -135,16 +128,20 @@
                         </div>
                     </div>
 
-                    <div class="user" *ngIf="_transaction.taguser[0]">
-                        <div class="row-item">
-                            <div class="img">
-                                <i aria-hidden="true" class="fa fa-user-plus"></i>
-                            </div>
+                    <div *ngIf="_transaction.taguser[0]" class="user">
+                        <div class="user-item" *ngFor="let tag of _transaction.taguser">
+                            <div class="row-item">
+                                <div class="img">
+                                    <div class="imgUser">
+                                        <span>{{tag[0]}}</span>
+                                    </div>
+                                </div>
 
-                            <div class="group">
-                                <span class="name-user">
-                                    <span *ngFor="let name of _transaction.taguser">&nbsp;{{name}}&nbsp; ,</span>
-                                </span>
+                                <div class="group">
+                                    <span class="name-user">
+                                        <span>{{tag}}</span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -167,7 +164,51 @@
                         </div>
                     </div>
 
-                    <div class="delete" (click)="deleteTransaction()" (click)="c('Close click')">
+                    <div class="budget" *ngIf="budgetTransaction">
+                        <p class="titleBudget">Ngân sách</p>
+                        <p class="infoBudget">Giao dịch này thuộc về ngân sách sau.</p>
+
+                        <div class="row-item">
+                            <div class="img">
+                                <img src="http://localhost:3000/images/{{budgetTransaction.transactions.imagecategory}}.png" alt="">
+                            </div>
+
+                            <div class="group">
+                                <a href="http://localhost:4200/budget/{{budgetTransaction._id}}">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <span>{{budgetTransaction.transactions.categorytransaction}}</span>
+                                        </div>
+                                        <div class="col-6 align-right">
+                                            <span>{{budgetTransaction.targetmoney | number}} đ</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <span class="color-red">{{budgetTransaction.moneytransaction *-1 | number}} đ</span>
+                                        </div>
+                                        <div class="col-7 align-right">
+                                            <div *ngIf="budgetTransaction.moneyremain < 0">
+                                                <span class="color-gray">Bội chi &nbsp;</span>
+                                                <span class="color-red">{{budgetTransaction.moneyremain*-1 | number }} đ</span>
+                                            </div>
+                                            <div *ngIf="budgetTransaction.moneyremain >= 0">
+                                                <span class="color-gray">Cần thêm &nbsp;</span>
+                                                <span class="color-red">{{budgetTransaction.moneyremain | number }} đ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cssProgress">
+                                        <div class="progress4">
+                                            <div class="cssProgress-bar cssProgress-danger cssProgress-glow" [style.width.%]="20" data-percent="35"></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="delete" (click)=openModalDelete(modalDelete)>
                         <div class="row-item">
                             <div class="group">
                                 <span class="name-delete">
@@ -193,7 +234,8 @@
                         </div>
 
                         <div class="group">
-                            <input class="{{ _editTransaction.groupcategory }}" type="text" name="money" [ngModel]="_editTransaction.moneytransaction | toNumber | numberpipe | number:'1.0-0'"
+                                
+                            <input class="{{ _editTransaction.groupcategory }}" type="text" name="money" [ngModel]="_editTransaction.moneytransaction | numberpipe"
                                 (ngModelChange)="_editTransaction.moneytransaction=$event" required placeholder="Số tiền">
                             <span class="bar"></span>
                         </div>
@@ -208,19 +250,9 @@
                             <span class="bar"></span>
                         </div>
                     </div>
-                    <div class="row-item">
-                        <div class="img">
-                            <i class="fa fa-user-plus" aria-hidden="true"></i>
-                        </div>
-
-                        <div class="group">
-                            <input type="text" id="tag" required placeholder="Với">
-                            <span class="bar"></span>
-                        </div>
-                    </div>
                     <div class="footer-row-item row">
                         <div class="col-6 item-left" (click)="pickerEditTransaction.open()">
-                            <p class="week">{{ _editTransaction.datecreatetransaction | date: 'EEEE'}}</p>
+                            <p class="week">{{ _editTransaction.datecreatetransaction | weekday}}</p>
                             <p class="day-of-month">{{ _editTransaction.datecreatetransaction | date: 'dd'}}</p>
                             <p class="month-and-year">Tháng {{ _editTransaction.datecreatetransaction | date: 'MM' }} {{ _editTransaction.datecreatetransaction
                                 | date: 'yyyy'}}</p>
@@ -232,7 +264,7 @@
                         <div class="col-6 item-right">
                             <span class="title-wallet">Chọn Ví</span>
                             <app-choose-wallet [idWallet]="idWallet" (selectIDWallet)="chooseWallet($event)"></app-choose-wallet>
-                          </div>
+                        </div>
                     </div>
                     <div class="adddetail">
                         <div class="row-item" (click)="adddetail = !adddetail" [attr.aria-expanded]="!adddetail">
@@ -246,7 +278,7 @@
                                 </div>
 
                                 <div class="group">
-                                    <input type="text" id="taguser" required placeholder="Với">
+                                    <input type="text" id="taguserupdate" required placeholder="Với">
                                     <span class="bar"></span>
                                 </div>
                             </div>
@@ -255,15 +287,7 @@
                                 <div class="img">
                                     <i class="fa fa-map-marker"></i>
                                 </div>
-                               <app-choose-location (selectLocation)="selectLocation($event)" [objLocation]=(objLocation)></app-choose-location>
-                            </div>
-                            <div class="row-item">
-                                <div class="img">
-                                    <i class="fa fa-clock-o"></i>
-                                </div>
-                                <div class="group addmap">
-                                    <span>Đặt nhắc nhở</span>
-                                </div>
+                                <app-choose-location (selectLocation)="selectLocation($event)" [objLocation]=(objLocation)></app-choose-location>
                             </div>
                             <div class="row-item" *ngIf="urlImage">
                                 <span class="close-button" (click)="deleteImage()">×</span>
@@ -284,17 +308,69 @@
             </div>
         </div>
 
-        <!-- <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-success btn-add" (click)="submitUpdate()">Chỉnh sửa</button>
-        </div> -->
+
     </div>
-    <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
-    </div> -->
+</ng-template>
+
+<!-- MODAL XOÁ GIAO DỊCH ĐƯỢC TẶNG -->
+<ng-template #ModalRemoveTransaction let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Xoá giao dịch</h4>
+
+    </div>
+    <div class="modal-body">
+        <div class="info">
+            <span *ngIf="_transaction.moneytransaction > 0">
+                Việc xoá giao dịch {{_transaction.categorytransaction }}
+                <span class="green">{{_transaction.moneytransaction | number}}</span> đ sẽ kèm theo việc xoá {{transactionUserTransfer.cout}}
+                giao dịch sau.
+            </span>
+            <span *ngIf="_transaction.moneytransaction < 0">
+                Việc xoá giao dich {{_transaction.categorytransaction }}
+                <span class="color-red">{{_transaction.moneytransaction *-1 | number}}</span> đ sẽ kèm theo việc xoá {{transactionUserTransfer.cout}}
+                giao dịch sau.
+            </span>
+        </div>
+        <div *ngFor="let transaction of transactionUserTransfer">
+            <span class="info-date">{{transaction.datecreatetransaction | weekday }}, {{transaction.datecreatetransaction | date:'dd' }} tháng {{transaction.datecreatetransaction
+                | date:'M' }} {{transaction.datecreatetransaction | date:'yyyy' }}</span>
+            <div class="info">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="img">
+                            <img src="http://localhost:3000/images/{{transaction.imagecategory}}.png" alt="">
+                        </div>
+                        <div class="info-detail">
+                            <p>{{transaction.categorytransaction}}</p>
+                            <p>{{transaction.notetransaction}}</p>
+                        </div>
+                    </div>
+                    <div class="col-5 align-right">
+                        <p class="color-red" *ngIf="transaction.moneytransaction < 0">{{transaction.moneytransaction *-1 | number}}</p>
+                        <p class="green" *ngIf="transaction.moneytransaction > 0">{{transaction.moneytransaction | number}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="info">
+            <span>Bạn có muốn xoá {{transactionUserTransfer.cout}} giao dịch trên không</span>
+            <p class="btn-delete-all" (click)="d('Cross click')" (click)="deleteTransactionTimeAll(_transaction.time)">XOÁ {{transactionUserTransfer.cout}} GIAO DỊCH NÀY</p>
+            <p class="btn-delete-only" (click)="d('Cross click')" (click)="deleteTransactionTimeOnly()">KHÔNG</p>
+        </div>
+
+    </div>
 </ng-template>
 
 
-
-
-
-
+<ng-template #modalDelete let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Thông báo</h4>
+    </div>
+    <div class="modal-body" class="modalDelete">
+        <p>Bạn có chắc chắn muốn xoá đi giao dịch này không ?
+        </p>
+        <p class="yes" (click)="deleteTransaction(ModalRemoveTransaction)" (click)="c('Close click')">CÓ</p>
+        <p class="no" (click)="c('Close click')">KHÔNG</p>
+    </div>
+</ng-template>

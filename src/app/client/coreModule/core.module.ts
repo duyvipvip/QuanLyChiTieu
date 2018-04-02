@@ -1,3 +1,4 @@
+import { ExcelService } from './../../service/excel.service';
 import { LocalService } from './../../service/local.service';
 import { GooleMapsService } from './../../service/googlemaps.service';
 import { HttpModule } from '@angular/http';
@@ -26,6 +27,7 @@ import { TransactionService } from '../../service/transaction.service';
         BudgetModule,
         SavingService,
         UserService,
+        ExcelService,
         loginGuard, 
         AuthenticationService,
         WalletService, 

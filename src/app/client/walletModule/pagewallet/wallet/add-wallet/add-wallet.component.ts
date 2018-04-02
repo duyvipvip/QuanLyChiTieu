@@ -2,7 +2,7 @@ import { WalletService } from './../../../../../service/wallet.service';
 import { IWallet } from './../../../../../model/wallet.model';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Component, ViewContainerRef } from "@angular/core";
-
+declare var $: any;
 @Component({
     selector: "app-add-wallet",
     styleUrls: ["./add-wallet.component.scss"],
@@ -11,8 +11,8 @@ import { Component, ViewContainerRef } from "@angular/core";
 
 export class AddWalletComponent{
 
-    dataddWallet = {
-        money: '0',
+    dataddWallet: IWallet = {
+        money: '',
         namewallet: ''
     };
 
@@ -23,19 +23,35 @@ export class AddWalletComponent{
         this.toastr.setRootViewContainerRef(vcr);
     }
 
-    ngOnInit(){}
-
     submitAddWallet(){
-        this.WalletService.addDataWallet(this.dataddWallet)
+        if(this.dataddWallet.namewallet == ''){
+            this.toastr.warning('Bạn trưa nhập tên ví ! ', 'Waring ! ');
+        }else if(this.dataddWallet.money == ''){
+            this.toastr.warning('Bạn trưa nhập số tiền ! ', 'Waring ! ');
+        }else if(isNaN(this.dataddWallet.money)){
+            this.toastr.warning('Số tiền phải là 1 số ! ', 'Waring ! ');
+        }else{
+            this.WalletService.addDataWallet(this.dataddWallet)
         .then((result) => {
             // LOAD LẠI DATA VÍ KHI THÊM MỚI VÍ VÀO
             this.WalletService.getDataWallets()
                 .then((data) => {
+                    this.resetData();
+                    $('#themvi').modal('hide');
                     this.toastr.success('Thêm ví thành công ! ', 'Thành công ! ');
                 })
                 .catch((err) => {
                     this.toastr.error('Thêm ví thất bại ! ', 'Thất bại ! ');
                 })
         });
+        }
+    }
+
+    // RESET INPUT
+    resetData(){
+        this.dataddWallet = {
+            money: '',
+            namewallet: ''
+        };
     }
 }

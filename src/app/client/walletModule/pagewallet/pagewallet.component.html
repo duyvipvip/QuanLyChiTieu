@@ -2,14 +2,61 @@
     <div class="container-fluid">
         <div id="content">
             <div class="header-content">
-                <h4 >Quản Lý Ví</h4>
+                <h4>Quản Lý Ví</h4>
             </div>
             <app-wallet></app-wallet>
+            <div class="date-range" style="margin-bottom:20px;">
+                <div>
+                    <div value="24-02-2018">
+                        <div style="width: 100%; background-color: rgb(45, 184, 76); white-space: nowrap; display: flex;">
+                            <button tabindex="0" type="button" style="border: 10px; box-sizing: border-box; display: inline-block; font-family: Roboto, sans-serif; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); cursor: pointer; text-decoration: none; margin: 0px; padding: 0px; outline: none; font-size: 14px; font-weight: 500; position: relative; color: rgba(255, 255, 255, 0.7); width: 33.3333%; text-transform: uppercase; background: none;">
+                                <div>
+                                    <span style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; overflow: hidden; pointer-events: none;"></span>
+                                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 48px;">
+                                        <span id="tab0" (click)="chooseDate('tab0', tab0)">{{tab0.name}}</span>
+                                        <input type="hidden" value="{{tab0.value}}">
+                                    </div>
+                                </div>
+                            </button>
+                            <button tabindex="1" type="button" style="border: 10px; box-sizing: border-box; display: inline-block; font-family: Roboto, sans-serif; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); cursor: pointer; text-decoration: none; margin: 0px; padding: 0px; outline: none; font-size: 14px; font-weight: 500; position: relative; color: rgb(255, 255, 255); width: 33.3333%; text-transform: uppercase; background: none;">
+                                <div>
+                                    <span style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; overflow: hidden; pointer-events: none;"></span>
+                                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 48px;">
+                                        <span id="tab1" (click)="chooseDate('tab1', tab1)">{{tab1.name}}</span>
+                                        <input type="hidden" value="{{tab1.value}}">
+                                    </div>
+                                </div>
+                            </button>
+                            <button tabindex="2" type="button" style="border: 10px; box-sizing: border-box; display: inline-block; font-family: Roboto, sans-serif; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); cursor: pointer; text-decoration: none; margin: 0px; padding: 0px; outline: none; font-size: 14px; font-weight: 500; position: relative; color: rgba(255, 255, 255, 0.7); width: 33.3333%; text-transform: uppercase; background: none;">
+                                <div>
+                                    <span style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; overflow: hidden; pointer-events: none;"></span>
+                                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 48px;">
+                                        <span id="tab2" (click)="chooseDate('tab2', tab2)">{{tab2.name}}</span>
+                                        <input type="hidden" value="{{tab2.value}}">
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        <div style="width: 100%;">
+                            <div id="line-report" style="left: 33.3333%;"></div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="moneylover-toast">
+                        <div style="position: fixed; left: 180px; display: flex; bottom: 16px; z-index: 2900; visibility: hidden; transform: translate(-50%, 48px); transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, visibility 400ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+                            <div width="3" style="font-family: Roboto, sans-serif; background-color: rgb(51, 51, 51); padding: 0px 24px; height: 48px; line-height: 48px; border-radius: 2px; max-width: 568px; min-width: 288px; width: auto; flex-grow: 0;">
+                                <div style="font-size: 14px; color: rgb(255, 255, 255); opacity: 0; transition: opacity 400ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;">
+                                    <span>Jump to today</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div *ngIf="checkURL" class="row">
                 <app-transaction class="col-6"></app-transaction>
-                <app-report class="col-6" [inputTransactions]="transactions"></app-report>
+                <app-report class="col-6" [inputTransactions]="transactions" [timeDateString]="timeDateInput"></app-report>
             </div>
         </div>
     </div>
 </section>
-

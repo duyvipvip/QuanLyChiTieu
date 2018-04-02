@@ -17,11 +17,7 @@
     }
 } 
 #themvi .img{width:50px;display:inline-block;text-align:center;}
-#themvi i{
-    width:48px;
-    text-align:center;
-    color: #757575;
-}
+
 #themvi img{width:48px;height:48px;}
 #themvi .item-content-modal{position:relative;margin:5px 0px;padding:3px 0px;}
 #themvi .item-content-modal:hover{background-color:rgba(51, 51, 51, 0.1);cursor:pointer;}
@@ -29,7 +25,7 @@
 #themvi .item-content-modal img{width:48px;height:48px;}
 #themvi .item-content-modal span.name-vallet{position:absolute;top:7px;left:52px;}
 #themvi .item-content-modal span.money-vallet{position:absolute;top:26px;left:52px;color:rgba(0, 0, 0, 0.54);font-size:14px;}
-#themvi p{color:rgba(51, 51, 51, 0.54);font-size:14px;}
+#themvi p{font-size:14px;}
 .header-modal, #themvi h4{
    font-size:18px;
 }
@@ -95,16 +91,68 @@
  input:focus ~ .bar:before, input:focus ~ .bar:after{
      width:50%;
     }
+// Phần buuton add
+.button-close button, .button-save button, .button-arrow button{
+    border:10px;
+    background-color:rgb(90, 241, 88);
+    height:56px;
+    width:56px;
+    border-radius:50%;
+    color:rgba(0, 0, 0, 0.6);
+  }
+  
+  .button-close{
+    box-shadow:rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+    border-radius:50%;
+    display:inline-block;
+    position:absolute;
+    top: -28px;
+    right: -26px;
+    i{
+      color: #000 !important;
+    }
+  }
+.btn-delete-only {
+    border: 1px solid #898989;
+    color: #898989;
+    padding: 5px 0px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    margin: 10px;
+    &:hover{
+        color: #fff;
+        background: #898989;
+    }
+}
+.btn-delete-all {
+    border: 1px solid red;
+    color: red;
+    padding: 5px 0px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px;
+    &:hover{
+        color: #fff;
+        background: red;
+    }
+}
 
- /* HIỆU ỨNG CHECK BOX */
-.label-cbx{user-select:none;cursor:pointer;margin-bottom:0;}
-.label-cbx input:checked + .checkbox{border-color:#20C2E0;}
-.label-cbx input:checked + .checkbox svg path{fill:#20C2E0;}
-.label-cbx input:checked + .checkbox svg polyline{stroke-dashoffset:0;}
-.label-cbx:hover .checkbox svg path{stroke-dashoffset:0;}
-.label-cbx .checkbox{position:relative;top:2px;width:20px;height:20px;border:2px solid #C8CCD4;border-radius:3px;}
-.label-cbx .checkbox svg{position:absolute;top:-2px;left:-2px;}
-.label-cbx .checkbox svg path{fill:none;stroke:#20C2E0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:71px;stroke-dashoffset:71px;transition:all 0.6s ease;}
-.label-cbx .checkbox svg polyline{fill:none;stroke:#FFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:18px;stroke-dashoffset:18px;transition:all 0.3s ease;}
-.label-cbx > span{pointer-events:none;vertical-align:middle;}
-.invisible{position:absolute;z-index:-1;width:0;height:0;opacity:0;}
+.btn-delete-only {
+    border: 1px solid #898989;
+    color: #898989;
+    padding: 5px 0px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    margin: 10px;
+    &:hover{
+        color: #fff;
+        background: #898989;
+    }
+}
+
+.modal-content{
+    border-radius: 0px !important;
+}

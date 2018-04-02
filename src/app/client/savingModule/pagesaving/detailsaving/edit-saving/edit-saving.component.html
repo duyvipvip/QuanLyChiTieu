@@ -1,7 +1,7 @@
 <i class="fa fa-pencil" aria-hidden="true" (click)="openEditSaving(modalEditSaving)"></i>
 <ng-template #modalEditSaving let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Thêm Khoản Tiết Kiệm</h4>
+    <h4 class="modal-title">Chỉnh Sửa Khoản Tiết Kiệm</h4>
   </div>
   <div class="modal-body" id="edit">
     <div class="button-save">
@@ -12,7 +12,7 @@
     <div class="info">
       <div class="row-item namesaving">
         <div class="img">
-          <img alt="" src="assets/images/thuong.png">
+          <img alt="" src="http://localhost:3000/images/thuong.png">
         </div>
 
         <div class="group">
@@ -38,14 +38,12 @@
         </div>
       </div>
 
-      <div class="row-item">
+      <!-- <div class="row-item">
         <div class="img">
-            <img class="imagewallet" alt="" src="assets/images/icon.png">
+            <img class="imagewallet" alt="" src="http://localhost:3000/images/icon.png">
         </div>
-        <div class="group">
-          <span>Tất cả các ví</span>
-        </div>
-      </div>
+        <app-choose-wallet-transfer-money (selectIDToWallet)="selectIDToWallet($event)"></app-choose-wallet-transfer-money>
+      </div> -->
     </div>
   </div>
 </ng-template>

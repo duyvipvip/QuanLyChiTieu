@@ -23,8 +23,7 @@ function getAllWallet(iduser){
 
 // LẤY VÍ CÓ ID LÀ 
 function getWalletToIdWallet( iduser , idwallet){
-    return walletModel.findById({_id: idwallet, iduser: iduser})
-        .populate({ path: 'transactions', select: 'imagecategory categorytransaction iduser moneytransaction datecreatetransaction taguser idwallet notetransaction groupcategory' })
+    return walletModel.findOne({_id: idwallet})
         .then((wallet) => {
             return Promise.resolve(wallet);
         })
@@ -56,6 +55,7 @@ function addWallet(body){
             if(body.money > 0){
                 let objTransaction = {
                     "groupcategory" : "income",
+                    "idcategory": "5a7d25bd2504042b8e6be38c",
                     "notetransaction" : "Số tiền hiện có",
                     "datecreatetransaction" : new Date(),
                     "moneytransaction" : body.money,
@@ -101,26 +101,30 @@ function updateWallet(wallet){
                         "datecreatetransaction" : new Date(),
                         "moneytransaction" : remainMoney,
                         "imagecategory" : "khoanthukhac",
+                        "idcategory": "5a7d25bd2504042b8e6be38c",
                         "categorytransaction" : "Khoản thu khác",
                         "idwallet" : wallet._id,
                         "iduser" : obj.iduser,
                         "taguser" : [],
                     }
+                    
                     if(remainMoney > 0){
                         let newTransaction = new transactionModel(objTransaction);
                         return newTransaction.save().then((transaction) => {
                             return Promise.resolve(wallet);
                         })
+                        
                     }else if(remainMoney < 0){
+                        
                         objTransaction.groupcategory = "expense";
                         objTransaction.imagecategory = "khoanchikhac";
                         objTransaction.categorytransaction = "Khoản chi khác";
-                        
                         let newTransaction = new transactionModel(objTransaction);
                         return newTransaction.save().then((transaction) => {
                             return Promise.resolve(wallet);
                         })
                     }
+                  
                     return Promise.resolve(wallet);
                 })
         })

@@ -1,3 +1,9 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { WalletService } from './../../../../../service/wallet.service';
+import { TransactionService } from './../../../../../service/transaction.service';
+import { ActivatedRoute } from '@angular/router';
+import { ViewContainerRef } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr';
 import { InCome } from './../../../../../service/income.service';
 import { Debt_LoanSevice } from './../../../../../service/debt-loan.service';
 import { Expense } from './../../../../../service/expense.service';
@@ -10,12 +16,21 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 
 export class ChooseCategoryAddWalletComponent{
+    objDemove: any = {};
     constructor(
+        private ActivatedRoute: ActivatedRoute,
         private income: InCome,
+        private modalService: NgbModal,
+        private WalletService: WalletService,
+        private TransactionService: TransactionService,
         private expense: Expense,
-        private debt_loan: Debt_LoanSevice
+        private debt_loan: Debt_LoanSevice,
+        public toastr: ToastsManager,
+        vcr: ViewContainerRef,
 
     ){
+        this.toastr.setRootViewContainerRef(vcr);
+        
         this.getDataExpense();
         this.getDataDebt_Loan();
         this.getDataIncomes();
@@ -48,10 +63,18 @@ export class ChooseCategoryAddWalletComponent{
 
      // ========================== FUNCTION =========================
 
+     objectDemove(strCategory, idcategory){
+        this.objDemove = {
+            strCategory: strCategory,
+            idcategory: idcategory,
+        }
+     }
     // LẤY DATA CHI TIÊU TỪ CSDL
     getDataExpense() {
         this.expense.getDataExpense().then((result) => {
-            this.dataExpense = result.data;
+            this.expense.getAllExpense().subscribe((result) => {
+                this.dataExpense = result.data;
+            })
         });
     }
 
@@ -64,9 +87,53 @@ export class ChooseCategoryAddWalletComponent{
     }
      // LẤY DATA THU NHẬP TỪ CSDL
      getDataIncomes() {
-        this.income.getDataIncomes().then((result) => {
-            this.dataIncome = result.data;
+        this.income.getDataIncomes().then(() => {
+            this.income.getAllIncome().subscribe((result) => {
+                this.dataIncome = result.data;
+            })
         });
     }
+
+     // MỞ MODAL XEM CÓ XOÁ KHÔNG
+     openModalDelete(content){
+        this.modalService.open(content, { windowClass: 'modalDelete' });
+    }
+
+    // XOÁ CATEGORY
+    removeCategory(){
+        if(this.objDemove.strCategory == 'income'){
+           this.income.deleteIncome(this.objDemove.idcategory).then(() =>{
+               this.reloadData();
+                this.toastr.success('Xoá category thành công ! ', 'Success ! ');
+           })
+           .catch(() => {
+
+           })
+        }else if(this.objDemove.strCategory == 'expense'){
+            this.expense.deleteExpense(this.objDemove.idcategory).then(() =>{
+                this.reloadData();
+                 this.toastr.success('Xoá category thành công ! ', 'Success ! ');
+            })
+            .catch(() => {
+ 
+            })
+        }
+    }
+
+    reloadData(){
+        // lấy lại danh sách income
+        this.income.getDataIncomes();
+        // lấy lại danh sách expense
+        this.expense.getDataExpense();
+
+        let urlIdWallet = (this.ActivatedRoute.snapshot.params.idwallet == undefined) ? '' : this.ActivatedRoute.snapshot.params.idwallet;
+        // LOAD LẠI CẬP NHẬT BÁO CÁO
+        if(urlIdWallet != ''){
+            this.TransactionService.getTransactions(urlIdWallet);
+        }
+
+         // LOAD CẬP NHẬT LẠI TẤT CẢ CÁC VÍ
+         this.WalletService.getDataWallets();
+      }
 
 }

@@ -28,6 +28,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SharedModule } from './client/sharedModule/shared.module';
 import { CoreModule } from './client/coreModule/core.module';
 import { ChooseCategoryComponent } from './client/reusableComponent/report/choose-category/choose-category.component';
+import { ReportModule } from './client/reportModule/report.module';
 
 // CONFIG ROUTER
 const appRoutes: Routes = [
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
     AppRoutingModule,
     CoreModule,
     SavingModule,
+    ReportModule,
     SharedModule,
     BrowserModule,
     WalletModule,

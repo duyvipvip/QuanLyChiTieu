@@ -33,11 +33,13 @@ export class ClientLoginComponent{
             if(token != undefined){
                 this.UserService.getUser(token)
                     .then((user) => {
+                        console.log(user);
                         let obj ={
                             "token": token,
                             "username": user.username,
                             "hinhanh": user.hinhanh,
                             "email": user.email,
+                            "_id": user._id,
                         }
                         localStorage.setItem('currentUser', JSON.stringify(obj));
                         this.Router.navigateByUrl('/');

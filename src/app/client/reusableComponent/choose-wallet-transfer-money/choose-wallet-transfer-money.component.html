@@ -6,13 +6,12 @@
 <ng-template #modalChooseWallet let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title">Chọn Ví</h4>
-        <span class="close-button" (click)="d('Cross click')">×</span>
     </div>
     <div class="modal-body">
         <div *ngFor="let wallet of dataWallets" >
             <div class="item-content-modal" *ngIf="wallet._id != idWalletUrl" (click)="d('Cross click')">
 
-                <img (click)="chooseWallet($event)" src="assets/images/wallet.png" alt="">
+                <img (click)="chooseWallet($event)" src="http://localhost:3000/images/wallet.png" alt="">
                 <span class="name-vallet" (click)="chooseWallet($event)">{{ wallet.namewallet }}</span>
                 <span class="money-vallet" (click)="chooseWallet($event)">{{ wallet.money | number:'1.0-0' }} đ</span>
                 <input type="hidden" value="{{ wallet._id }}" name="id">
@@ -21,9 +20,5 @@
 
             </div>
         </div>
-
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>

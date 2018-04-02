@@ -17,7 +17,8 @@ const routes: Routes = [
         { path: '', redirectTo: 'wallet', pathMatch: 'full'},
         {path: 'wallet', loadChildren: './client/walletModule/wallet.module#WalletModule'},
         {path: 'budget', loadChildren: './client/budgetModule/budget.module#BudgetModule'},
-        {path: 'savings', loadChildren: './client/savingModule/saving.module#SavingModule'}
+        {path: 'savings', loadChildren: './client/savingModule/saving.module#SavingModule'},
+        {path: 'report', loadChildren: './client/reportModule/report.module#ReportModule'}
       ] 
     },
   

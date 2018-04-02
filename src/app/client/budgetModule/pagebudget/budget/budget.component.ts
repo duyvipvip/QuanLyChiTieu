@@ -1,3 +1,4 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Router } from '@angular/router';
 import { BudgetSevice } from './../../../../service/budget.servive';
@@ -21,11 +22,15 @@ export class BudgetComponent{
         "targetmoney": '',
         "datestart": new Date().toDateString(),
         "dateend": new Date().toDateString(),
-    }]
+    }];
+
+    idBudgetDelete: String;
+
     constructor(private BudgetSevice:BudgetSevice,
         private Router:Router,
+        private modalService: NgbModal,
         public toastr: ToastsManager,
-        vcr: ViewContainerRef
+        vcr: ViewContainerRef,
         ){
         this.toastr.setRootViewContainerRef(vcr);
         // LẤY TẤT CẢ CÁC NGÂN SÁCH
@@ -37,9 +42,13 @@ export class BudgetComponent{
         this.budget = budget;
     }
 
+    selectIdBudgetDelete(idbudget){
+        this.idBudgetDelete = idbudget;
+    }
+
     // XOÁ BUDGET
-    trashBudget(idbudget){
-        this.BudgetSevice.deleteBudget(idbudget)
+    trashBudget(){
+        this.BudgetSevice.deleteBudget(this.idBudgetDelete)
             .then((data) => {
                 this.reloadData();
                 this.toastr.success('Xoá Ngân Sách Thành Công ! ', 'Thành công ! ');
@@ -67,5 +76,10 @@ export class BudgetComponent{
     reloadData(){
         // CHẠY LẠI THÔNG TIN CỦA 1 NGÂN SÁCH
         this.BudgetSevice.getDataBudgets();
+    }
+
+    // MỞ MODAL XEM CÓ XOÁ KHÔNG
+    openModalDelete(content){
+        this.modalService.open(content, { windowClass: 'modalDelete' });
     }
 }

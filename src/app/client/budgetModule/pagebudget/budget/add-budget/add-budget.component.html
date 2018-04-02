@@ -4,12 +4,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Thêm Kế Hoạch</h4>
-                <span class="close-button" data-dismiss="modal">×</span>
+                <div class="button-close" (click)="submitAddBudget()">
+                    <button tabindex="0" type="button">
+                        <i class="fa fa-save"></i>
+                    </button>
+                </div>
             </div>
             <div class="modal-body">
                 <div class="row-item">
                     <div class="img">
-                        <img src="assets/images/{{ budget.imagecategory }}.png" alt="">
+                        <img src="http://localhost:3000/images/{{ budget.imagecategory }}.png" alt="">
                     </div>
 
                     <div class="group" data-toggle="modal" data-target="#choose-category-add-budget">
@@ -25,7 +29,7 @@
                     </div>
 
                     <div class="group">
-                        <input [ngModel]="budget.targetmoney | toNumber | number:'1.0-0'" (ngModelChange)="budget.targetmoney=$event"  type="text" required placeholder="Số tiền ngân sách">
+                        <input [(ngModel)]="budget.targetmoney"  type="text" required placeholder="Số tiền ngân sách">
                         <span class="bar"></span>
                     </div>
                 </div>
@@ -53,7 +57,7 @@
                 </div>
                 <div class="row-item">
                     <div class="img img-wallet">
-                        <img src="assets/images/wallet.png" alt="">
+                        <img src="http://localhost:3000/images/wallet.png" alt="">
                     </div>
 
                     <div class="group">
@@ -64,9 +68,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-add" (click)="submitAddBudget()" data-dismiss="modal">Thêm kế hoạch</button>
-            </div>
+            <p class="btn-delete-only" data-dismiss="modal">ĐÓNG</p>
         </div>
     </div>
 </div>

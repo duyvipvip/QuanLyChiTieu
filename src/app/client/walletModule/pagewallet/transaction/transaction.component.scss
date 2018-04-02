@@ -28,7 +28,7 @@
     border-radius:0.25rem;
     background-color:lightgray;
     position: absolute;
-    bottom: 253px;
+    bottom: 273px;
     right: 15px;
 }
 .close-button:hover{
@@ -86,11 +86,47 @@ agm-map{
         }
     }
 }
+.description{
+    font-size: 14px;
+}
+.modal-header{
+    background: #2db84c;
+}
+.btn-delete-only{
+    border: 1px solid #898989;
+    color: #898989;
+    padding: 5px 0px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    margin: 10px;
+    &:hover{
+        color: #fff;
+        background: #898989;
+    }
+}
+.btn-info-my{
+    border: 1px solid #79bd8a;
+    color: #79bd8a;
+    padding: 5px 0px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px;
+    &:hover{
+        color: #fff;
+        background: #79bd8a;
+    }
+}
+.totaladddetail{
+    color: #79bd8a;
+}
 /* PHẦN THÊM GIAO DICH */
 .add-spend{
     padding:0px 0px 15px 0px !important;
     .card-header{
-        padding: 10px 10px;
+        background: #2db84c;
+        padding: 15px;
     }
     width: 360px;
     .img{

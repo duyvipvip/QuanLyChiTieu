@@ -1,0 +1,43 @@
+<div class="modal fade" id="modalAddCategory" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Thêm Nhóm Mới</h4>
+      </div>
+      <div class="modal-body">
+        <div class="info">
+          <div class="row-item namesaving">
+            <label for="filecategory">
+              <div class="img">
+                <img alt="" src="{{url}}">
+              </div>
+            </label>
+            <input id="filecategory" type="file" name="filecategory" style="display:none" (change)="onSelectFile($event)" />
+            
+            <div class="group">
+              <input type="text" placeholder="Tên" [(ngModel)]="nameCategory">
+            </div>
+          </div>
+          <div class="item">
+            <div class="lable">
+              <span>Thu nhập/Chi tiêu: </span>
+            </div>
+
+            <div class="group-btn">
+              <div class="row">
+                <div id="clickincome" (click)="chooseGroup('income')" class="active col-md-6">
+                  <span>Thu Nhập</span>
+                </div>
+                <div id="clickexpense" (click)="chooseGroup('expense')" class="col-md-6">
+                  <span>Chi Tiêu</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <p class="btn-save" (click)="submitSave()">Lưu</p>
+    </div>
+  </div>
+</div>

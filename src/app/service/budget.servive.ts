@@ -38,7 +38,7 @@ export class BudgetSevice{
         return this.Http.get(this.LocalService.URL + '/api/budget/all?iduser='+ this._iduser)
         .toPromise()
         .then(budgets => {
-            return this.Http.get(this.LocalService.URL + '/api/transaction/alltransaction')
+            return this.Http.get(this.LocalService.URL + '/api/transaction/alltransaction/'+this._iduser)
                 .toPromise()
                 .then((transactions) => {
                     let data = [];
@@ -100,7 +100,7 @@ export class BudgetSevice{
         .toPromise()
         .then(budget => {
             let budgetonly = budget.json();
-            return this.Http.get(this.LocalService.URL + '/api/transaction/alltransaction')
+            return this.Http.get(this.LocalService.URL + '/api/transaction/alltransaction/'+this._iduser)
                 .toPromise()
                 .then((transactions) => {
                     let totalmoney = 0

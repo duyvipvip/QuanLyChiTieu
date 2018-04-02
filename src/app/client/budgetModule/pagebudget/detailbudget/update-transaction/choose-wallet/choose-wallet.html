@@ -9,7 +9,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="item-content-modal" *ngFor="let wallet of dataWallets"  data-dismiss="modal">
-                        <img (click)="chooseWallet($event)" src="assets/images/wallet.png" alt="">
+                        <img (click)="chooseWallet($event)" src="http://localhost:3000/images/wallet.png" alt="">
                         <span class="name-vallet" (click)="chooseWallet($event)">{{ wallet.namewallet }}</span>
                         <span class="money-vallet" (click)="chooseWallet($event)">{{ wallet.money | number:'1.0-0' }} đ</span>
                         <input type="hidden" value="{{ wallet._id }}" name="id">

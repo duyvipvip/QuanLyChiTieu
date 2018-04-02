@@ -1,0 +1,88 @@
+<div class="header-content">
+    <div class="choose-wallet">
+        <div class="row">
+            <div class="col-md-4 wallet">
+                <img src="http://localhost:3000/images/icon.png" alt="">
+                <app-choose-wallet-report (selectIDToWallet)="chooseWallet($event)" [idWallet]="idWallet"></app-choose-wallet-report>
+            </div>
+            <div class="col-md-6">
+                <app-choose-date-report (objDate)=choosedate($event)></app-choose-date-report>
+            </div>
+            <div class="col-md-2 export" (click)="exportToExcel()">
+                <img src="http://localhost:3000/images/export.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="tab">
+        <ul class="nav nav-tabs">
+            <li>
+                <a href="#income" data-toggle="tab" class="active">THU NHẬP
+                    <div class="line"></div>
+                </a>
+            </li>
+            <li>
+                <a href="#expense" data-toggle="tab">CHI TIÊU
+                    <div class="line"></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+
+        <!-- PHẦN THU NHẬP -->
+        <div class="tab-pane active" id="income">
+            <div class="report">
+                <div class="row">
+                    <div class="income" *ngIf="dataTransaction">
+                        <p class="color-gray">Thu Nhập</p>
+                        <p class="color-blue">{{tempincome.totalMoney | number}} đ</p>
+                        <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="income" [legend]="false" [explodeSlices]="false" [labels]="true"
+                            [doughnut]="doughnut" [gradient]="gradient">
+                        </ngx-charts-pie-chart>
+                    </div>
+                </div>
+            </div>
+            <div class="info-report" *ngIf="tempincome">
+                <div *ngFor="let transaction of tempincome">
+                    <div class="row-item" (click)="chooseDetail(transaction)" routerLink="detail">
+                        <span>{{transaction.name}}</span>
+                        <i class="fa fa-chevron-right"></i>
+                        <span class="color-blue float-right">{{transaction.value | number}} đ</span>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- PHẦN THU NHẬP -->
+
+        <!-- PHẦN CHI TIÊU -->
+        <div class="tab-pane" id="expense">
+            <div class="report">
+                <div class="row">
+                    <div class="expense" *ngIf="dataTransaction">
+                        <p class="color-gray">Chi Tiêu</p>
+                        <p class="color-red">{{tempexpense.totalMoney | number}} đ</p>
+                        <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="expense" [legend]="false" [explodeSlices]="false" [labels]="true"
+                            [doughnut]="doughnut" [gradient]="gradient">
+                        </ngx-charts-pie-chart>
+                    </div>
+                </div>
+            </div>
+            <div class="info-report" *ngIf="tempexpense">
+                <div *ngFor="let transaction of tempexpense">
+                    <div class="row-item" (click)="chooseDetail(transaction)" routerLink="detail">
+                        <span>{{transaction.name}}</span>
+                        <i class="fa fa-chevron-right"></i>
+                        <span class="color-blue float-right">{{transaction.value | number}} đ</span>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- PHẦN CHI TIÊU -->
+
+    </div>
+
+</div>

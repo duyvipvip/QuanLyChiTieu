@@ -34,7 +34,7 @@
                     <div *ngIf="budget.dateRemain > 0" class="row item-budget">
 
                         <div class="image col-2">
-                            <img src="assets/images/{{ budget.imagecategory }}.png" alt="">
+                            <img src="http://localhost:3000/images/{{ budget.imagecategory }}.png" alt="">
                         </div>
 
                         <div [routerLink]="budget._id" *ngIf="budget.dateRemain > 0 || budget.moneytransaction*-1 < budget.targetmoney" class="row content-item-budget col-9">
@@ -73,7 +73,7 @@
                            
                         </div>
                         <div class="image col-1">
-                            <div class="icontrash" (click)="trashBudget(budget._id)">
+                            <div class="icontrash" (click)=openModalDelete(modalDelete) (click)="selectIdBudgetDelete(budget._id)">
                                 <i class="fa fa-trash"></i>
                             </div>
                         </div>
@@ -86,12 +86,12 @@
         <!-- PHẦN KẾ HOẠCH KẾT THÚC -->
         <div class="tab-pane" id="finished">
             <div class="budget col-lg-6">
-                <div *ngFor="let budget of budgets" [routerLink]="budget._id" (click)="chooseBudget(budget)">
+                <div *ngFor="let budget of budgets" (click)="chooseBudget(budget)">
                     <div *ngIf="budget.dateRemain <= 0" class="row item-budget">
                         <div class="image col-2">
-                            <img src="assets/images/{{ budget.imagecategory }}.png" alt="">
+                            <img src="http://localhost:3000/images/{{ budget.imagecategory }}.png" alt="">
                         </div>
-                        <div class="row content-item-budget col-9">
+                        <div [routerLink]="budget._id"  class="row content-item-budget col-9">
                             <div class="row name-budget col-12">
                                 <div class="col-6">
                                     <p>{{ budget.namecategory }}</p>
@@ -117,7 +117,7 @@
                             </div>
                         </div>
                         <div class="image col-1">
-                            <div class="icontrash" (click)="trashBudget(budget._id)">
+                            <div class="icontrash" (click)=openModalDelete(modalDelete) (click)="selectIdBudgetDelete(budget._id)">
                                 <i class="fa fa-trash"></i>
                             </div>
                         </div>
@@ -131,3 +131,15 @@
     </div>
 </div>
 <app-addBudget></app-addBudget>
+
+<ng-template #modalDelete let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Thông báo</h4>
+    </div>
+    <div class="modal-body" class="modalDelete">
+        <p>Bạn có chắc chắn muốn xoá đi ngân sách này không ?
+        </p>
+        <p class="yes" (click)="trashBudget()" (click)="c('Close click')">CÓ</p>
+        <p class="no" (click)="c('Close click')">KHÔNG</p>
+    </div>
+</ng-template>

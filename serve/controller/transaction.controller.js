@@ -10,7 +10,19 @@ module.exports = {
     getAllTransaction: getAllTransaction,
     deleteTransaction: deleteTransaction,
     uploadImage: uploadImage,
-    updateTransactionWallet: updateTransactionWallet
+    updateTransactionWallet: updateTransactionWallet,
+    deleteTransactionToTime: deleteTransactionToTime
+}
+
+// XOÁ CÁC GIAO DỊCH CÓ CÙNG TIME
+function deleteTransactionToTime(time){
+    return transactionModel.remove({time: time})
+        .then((data) => {
+            return Promise.resolve(data);
+        })
+        .catch((err) => {
+            return Promise.reject(err);
+        })
 }
 
 // UPLOAD FILE
@@ -54,8 +66,8 @@ function getTransactions(idwallet){
 }
 
 // LẤY TẤT CẢ TOÀN BỘ GIAO DỊCH
-function getAllTransaction(){
-    return transactionModel.find()
+function getAllTransaction(iduser){
+    return transactionModel.find({iduser: iduser})
         .then((transacrion) => {
             return Promise.resolve(transacrion);
         })

@@ -6,6 +6,9 @@ const expenseSchema = new mongoose.Schema({
     image: {
         type: String
     },
+    iduser: {
+        type: String,
+    },
     detect: {
         type: String
     }
