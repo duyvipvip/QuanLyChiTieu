@@ -1,7 +1,8 @@
+import { WalletService } from './../../../service/wallet.service';
 import { TransactionService } from './../../../service/transaction.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {Component , ViewContainerRef } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ITransaction } from '../../../model/transaction.model';
 declare var $: any;
 
@@ -34,7 +35,9 @@ export class PageWalletComponent{
     // TRUYỀN CHO COMPONENT CON ĐỂ RELOAD ĐÚNG TAB 
     timeDateInput = new Date().getTime();
 
-    constructor(private route: ActivatedRoute,
+    constructor(private ActivatedRoute: ActivatedRoute,
+        private Router: Router,
+        private WalletService: WalletService,
         public toastr: ToastsManager,
         private TransactionService: TransactionService,
         vcr: ViewContainerRef
@@ -42,15 +45,24 @@ export class PageWalletComponent{
         this.toastr.setRootViewContainerRef(vcr);
         
          // LẤY ID WALLET TỪ URL
-         route.paramMap
+         ActivatedRoute.paramMap
          .subscribe((params) => {
              if(params['params'].idwallet != undefined){
                  this.checkURL = true;
+             }else{
+                // // HÀM LẤY DATA WALLET TỪ MỘT ID
+                // this.WalletService.getDataWallets().then((d)=>)
+                // this.WalletService.getAllWallet.subscribe((wallets) => {
+                //     if(wallets[0] != undefined){
+                //         Router.navigateByUrl('wallet/'+wallets[0]._id);
+                //     }
+                // })
+                
              }
          })
 
          // LẤY ID WALLET TỪ URL
-        route.paramMap
+         ActivatedRoute.paramMap
         .subscribe((params) => {
             this.idWalletUrl = (params['params'].idwallet == undefined) ? '' : params['params'].idwallet;
             
@@ -93,7 +105,6 @@ export class PageWalletComponent{
                     value: this.tab2.value + ((1000 * 60 * 60 * 24) * 30)
                 };
             }
-            console.log(this.tab1.name,this.tab2.name);
             if(this.tab2.name == monthBeforeString){
                 this.tab2.name = "Tháng Trước"
             }else if(this.tab2.name == monthString){

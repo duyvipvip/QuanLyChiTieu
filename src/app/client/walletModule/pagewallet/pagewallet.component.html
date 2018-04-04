@@ -5,7 +5,7 @@
                 <h4>Quản Lý Ví</h4>
             </div>
             <app-wallet></app-wallet>
-            <div class="date-range" style="margin-bottom:20px;">
+            <div *ngIf="checkURL" class="date-range" style="margin-bottom:20px;">
                 <div>
                     <div value="24-02-2018">
                         <div style="width: 100%; background-color: rgb(45, 184, 76); white-space: nowrap; display: flex;">

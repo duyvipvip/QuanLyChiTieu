@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { WalletService } from './../../../../../service/wallet.service';
 import { IWallet } from './../../../../../model/wallet.model';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -18,6 +19,7 @@ export class AddWalletComponent{
 
     constructor(private WalletService:WalletService,
         public toastr: ToastsManager,
+        private Router: Router,
         vcr: ViewContainerRef
     ){
         this.toastr.setRootViewContainerRef(vcr);
@@ -36,8 +38,8 @@ export class AddWalletComponent{
             // LOAD LẠI DATA VÍ KHI THÊM MỚI VÍ VÀO
             this.WalletService.getDataWallets()
                 .then((data) => {
-                    this.resetData();
                     $('#themvi').modal('hide');
+                    this.resetData();
                     this.toastr.success('Thêm ví thành công ! ', 'Thành công ! ');
                 })
                 .catch((err) => {

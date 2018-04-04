@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema({
     },
     cauhoi: {
         type: String,
-        required: true
     },
     kichhoat: {
         type: String,

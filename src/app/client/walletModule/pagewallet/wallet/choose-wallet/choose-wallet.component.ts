@@ -1,7 +1,7 @@
 import { WalletService } from './../../../../../service/wallet.service';
 import { IWallet } from './../../../../../model/wallet.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, Input, OnInit , Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { templateJitUrl } from '@angular/compiler';
 
 @Component({
@@ -13,7 +13,6 @@ export class ChooseWalletHomeComponent implements OnInit{
     idWalletUrl: string = '';
     dataWallets: IWallet[];
     totalMoney: Number = 0;
-    
 
     constructor(private route:ActivatedRoute, private router: Router, private WalletService: WalletService){
         // LẤY ID WALLET TỪ URL
@@ -36,16 +35,16 @@ export class ChooseWalletHomeComponent implements OnInit{
     //================================= FUNCTION ================================
     // HÀM LẤY DATA TẤT CÁ CẢ VÍ
     getDataWallets() {
-        this.WalletService.getDataWallets();
         let arrId = [];
-        this.WalletService.getAllWallet.subscribe((wallet) => {
-            this.dataWallets = wallet;
-            // TÌNH TỔNG TIỀN
-            this.totalMoney=0;
-            wallet.forEach((item) => {
-                this.totalMoney += item.money;
+        this.WalletService.getDataWallets().then(()=> {
+            this.WalletService.getAllWallet.subscribe((wallet) => {
+                this.dataWallets = wallet;
+                // TÌNH TỔNG TIỀN
+                this.totalMoney=0;
+                wallet.forEach((item) => {
+                    this.totalMoney += item.money;
+                })
             })
-        })
-        
+        });
     }
 }

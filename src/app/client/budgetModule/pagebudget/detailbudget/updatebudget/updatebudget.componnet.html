@@ -30,8 +30,7 @@
                     </div>
 
                     <div class="group">
-                        <input [ngModel]="budget.targetmoney | toNumber | number:'1.0-0'" (ngModelChange)="budget.targetmoney=$event" type="text"
-                            required placeholder="Số tiền ngân sách">
+                        <input [(ngModel)]="budget.targetmoney" placeholder="Số tiền ngân sách">
                         <span class="bar"></span>
                     </div>
                 </div>

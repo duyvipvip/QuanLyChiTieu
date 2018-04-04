@@ -13,9 +13,13 @@ export class TransactionService{
     ){
     }
     private _allTransaction:BehaviorSubject<ITransaction[]> = new BehaviorSubject(new Array());
-    
+    private _allSearchTransaction:BehaviorSubject<ITransaction[]> = new BehaviorSubject(new Array());
+
     get getAllTransaction(){
         return this._allTransaction.asObservable();
+    }
+    get getallSearchTransaction(){
+        return this._allSearchTransaction.asObservable();
     }
 
     // XOÁ TẤT CẢ CÁC GIAO DỊCH CÙNG TIME
@@ -80,6 +84,30 @@ export class TransactionService{
     }
 
     // LẤY TẤT CẢ CÁC GIAO DỊCH CỦA 1 VÍ 
+    getSearchTransactions(idwallet, strSearch){
+        return this.Http.get(this.LocalService.URL + '/api/transaction/all?idwallet='+ idwallet)
+        .toPromise()
+        .then((data) => {
+            let arrdata = [];
+            data.json().forEach(transaction => {
+                if(transaction.notetransaction != undefined){
+                    if(transaction.categorytransaction.search(strSearch) != -1 || transaction.notetransaction.search(strSearch) != -1){
+                        arrdata.push(transaction);
+                    }
+                }else{
+                    if(transaction.categorytransaction.search(strSearch) != -1){
+                        arrdata.push(transaction);
+                    }
+                }
+            });
+           
+            let resultThenFormat = this.formatArrayWalletTransaction(arrdata);
+            this._allSearchTransaction.next(resultThenFormat);
+            return resultThenFormat;
+        })
+    }
+
+    // LẤY TẤT CẢ CÁC GIAO DỊCH CỦA 1 VÍ 
     getTransactions(idwallet, time = null, changeFomat = true, report = {}){
         let monthCurrrent = new Date().getMonth()+1;
         let yearCurrrent = new Date().getFullYear();
@@ -88,6 +116,7 @@ export class TransactionService{
         return this.Http.get(this.LocalService.URL + '/api/transaction/all?idwallet='+ idwallet)
             .toPromise()
             .then((data) => {
+                // KHI NGƯỜI DÙNG MUỐN FORMAT GIAO DIỆN
                 if(changeFomat == true){
                     let tempData =[];
                     if(time != null){
@@ -130,35 +159,25 @@ export class TransactionService{
                         this._allTransaction.next(resultThenFormat);
                         return resultThenFormat;
                     }else{
-                       
                         let resultThenFormat = this.formatArrayWalletTransaction(data.json());
                         this._allTransaction.next(resultThenFormat);
                         return resultThenFormat;
                     }
                 }else if(changeFomat == false){
-                    let dayFrom = new Date(report['start']).getDate();
-                    let monthFrom = new Date(report['start']).getMonth()+1;
-                    let yearFrom = new Date(report['start']).getFullYear();
-
-                    let dayTo = new Date(report['end']).getDate();
-                    let monthTo = new Date(report['end']).getMonth()+1;
-                    let yearTo = new Date(report['end']).getFullYear();
+                    console.log(report);
                     let dataTemp = [];
-
+                    let timeFrom = new Date(report['start']).getTime();
+                    let timeTo = new Date(report['end']).getTime();
 
                     data.json().forEach(transaction => {
+                        
                         let dayTransaction = new Date(transaction.datecreatetransaction).getDate();
                         let monthTransaction = new Date(transaction.datecreatetransaction).getMonth()+1;
                         let yearTransaction = new Date(transaction.datecreatetransaction).getFullYear();
 
-                        if(dayTransaction <= dayTo && dayTransaction >= dayFrom){
-                            if(yearTransaction <= yearTo && yearTransaction >= yearFrom){
-                                
-                                if(monthTransaction <= monthTo && monthTransaction >= monthFrom){
-                                    dataTemp.push(transaction);
-                                } 
-                            }
-                            
+                        let timeTransaction = new Date(transaction.datecreatetransaction).getTime();
+                        if(timeTransaction >= timeFrom && timeTransaction <= timeTo){
+                            dataTemp.push(transaction);
                         }
                     });
 

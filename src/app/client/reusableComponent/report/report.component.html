@@ -1,4 +1,4 @@
-<div class="transaction-content">
+<div class="transaction-content" *ngIf="fomatDisplay">
     <div *ngIf="arrTransactions" class="report-detail col-12">
         <app-extentd-wallet></app-extentd-wallet>
 
@@ -32,7 +32,8 @@
                             <span class="view-day">{{ arrTransaction.dateGroupTransaction | date: 'dd' }}</span>
                             <span class="view-date">
                                 <span class="days">{{arrTransaction.dateGroupTransaction | weekday}}</span>
-                                <span class="months">Tháng {{ arrTransaction.dateGroupTransaction | date: 'M' }} {{ arrTransaction.dateGroupTransaction | date: 'yyyy' }}</span>
+                                <span class="months">Tháng {{ arrTransaction.dateGroupTransaction | date: 'M' }} {{ arrTransaction.dateGroupTransaction
+                                    | date: 'yyyy' }}</span>
                             </span>
                         </div>
                         <div class="amount col-6">
@@ -66,6 +67,70 @@
     </div>
 </div>
 
+<!-- Tuy chỉnh giao diện tìm kiếm -->
+<div class="transaction-content" *ngIf="!fomatDisplay">
+    <div *ngIf="arrTransactions" class="report-detail col-12">
+        <div class="">
+            <div class="">
+                <div class="item">
+                    <div class="row ">
+                        <p class="name-overview">Tổng quan</p>
+                    </div>
+                    <div class="row report-overview">
+                        <p class="col-6">Tiền vào</p>
+                        <p class="col-6" style="color: rgb(3, 155, 229);">{{ arrTransactions.totalAllMoneyIn | numberpipe | number:'1.0-0'}} đ</p>
+                    </div>
+                    <div class="row report-overview">
+                        <p class="col-6">Tiền ra</p>
+                        <p class="col-6" style="color: red;border-bottom:1px solid #e0e0e0;">{{ arrTransactions.totalAllMoneyOut | numberpipe | number:'1.0-0'}} đ</p>
+                    </div>
+                    <div class="row report-overview">
+                        <p class="col-6"></p>
+                        <p class="col-6" *ngIf="arrTransactions.remain > 0" [ngStyle]="{ color: '#039be5' }">{{ arrTransactions.remain | numberpipe | number:'1.0-0'}} đ</p>
+                        <p class="col-6" *ngIf="arrTransactions.remain < 0" [ngStyle]="{ color: 'red' }">{{ arrTransactions.remain | numberpipe | number:'1.0-0'}} đ</p>
+                        <p class="col-6" *ngIf="arrTransactions.remain == 0" [ngStyle]="{ color: 'red' }">0 đ</p>
+                    </div>
+                </div>
+                <div *ngFor="let arrTransaction of arrTransactions" class="item">
+                    <div class="row">
+                        <div class="date-view col-6">
+                            <span class="view-day">{{ arrTransaction.dateGroupTransaction | date: 'dd' }}</span>
+                            <span class="view-date">
+                                <span class="days">{{arrTransaction.dateGroupTransaction | weekday}}</span>
+                                <span class="months">Tháng {{ arrTransaction.dateGroupTransaction | date: 'M' }} {{ arrTransaction.dateGroupTransaction
+                                    | date: 'yyyy' }}</span>
+                            </span>
+                        </div>
+                        <div class="amount col-6">
+                            <span *ngIf="arrTransaction.totalMoney > 0" [ngStyle]="{ color: '#039be5' }">{{ arrTransaction.totalMoney | numberpipe | number:'1.0-0'}} ₫</span>
+                            <span *ngIf="arrTransaction.totalMoney < 0" [ngStyle]="{ color: 'red' }">{{ arrTransaction.totalMoney | numberpipe | number:'1.0-0'}} ₫</span>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="row row-item" *ngFor="let transaction of arrTransaction" (click)="openModalUpdateTransaction(updateTransaction, transaction)"
+                        data-toggle="modal" data-target="#edit-transaction-report">
+                        <div class="col-7 left">
+                            <div class="img">
+                                <img src="http://localhost:3000/images/{{transaction.imagecategory}}.png" alt="">
+                            </div>
+                            <div class="info-detail">
+                                <p class="searchName">{{ transaction.categorytransaction}}</p>
+                                <p class="searchName" style="max-width: 130px;">{{ transaction.notetransaction }}</p>
+                            </div>
+                        </div>
+                        <div class="col-5 right">
+                            <p class="{{ transaction.groupcategory }}">{{ transaction.moneytransaction | toNumber | numberpipe | number:'1.0-0' }} ₫</p>
+                        </div>
+
+                    </div>
+
+                    <div class="line"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <!-- PHẦN MODAL CHỈNH SỬA GIAO DỊCH -->
 <ng-template #updateTransaction let-c="close" let-d="dismiss">
@@ -234,7 +299,7 @@
                         </div>
 
                         <div class="group">
-                                
+
                             <input class="{{ _editTransaction.groupcategory }}" type="text" name="money" [ngModel]="_editTransaction.moneytransaction | numberpipe"
                                 (ngModelChange)="_editTransaction.moneytransaction=$event" required placeholder="Số tiền">
                             <span class="bar"></span>

@@ -76,38 +76,29 @@ export class ReportDetailComponent implements OnDestroy {
   }
   totalTransaction(arrWalletTransactions) {
     let totalAllMoneyIn = 0;
-    let totalAllMoneyOut = 0;
-    arrWalletTransactions.forEach((arrWalletTransaction) => {
-      let totalMoney = 0;
-      let dateGroupTransaction = 0;
-      let monthGroupTransaction = 0;
-      let yearGroupTransaction = 0;
-      let dayGroupTransaction = 0;
-      let moneyIn = 0;
-      let moneyOut = 0;
-
-      arrWalletTransaction.forEach((item) => {
-        totalMoney += Number(item.moneytransaction);
-        dateGroupTransaction = new Date(item.datecreatetransaction).getDate();
-        dayGroupTransaction = new Date(item.datecreatetransaction).getDay();
-        monthGroupTransaction = new Date(item.datecreatetransaction).getMonth() + 1;
-        yearGroupTransaction = new Date(item.datecreatetransaction).getFullYear();
-        (item.moneytransaction > 0) ? moneyIn += Number(item.moneytransaction) : moneyOut += Number(item.moneytransaction);
-        (item.moneytransaction > 0) ? totalAllMoneyIn += Number(item.moneytransaction) : totalAllMoneyOut += Number(item.moneytransaction);
-
-      })
-      arrWalletTransaction.totalMoney = totalMoney;
-      arrWalletTransaction.dateGroupTransaction = dateGroupTransaction;
-      arrWalletTransaction.dayGroupTransaction = dayGroupTransaction;
-      arrWalletTransaction.monthGroupTransaction = monthGroupTransaction;
-      arrWalletTransaction.yearGroupTransaction = yearGroupTransaction;
-      arrWalletTransaction.moneyIn = moneyIn;
-      arrWalletTransaction.moneyOut = moneyOut;
-    })
-    arrWalletTransactions.totalAllMoneyIn = totalAllMoneyIn;
-    arrWalletTransactions.totalAllMoneyOut = totalAllMoneyOut;
-    arrWalletTransactions.remain = totalAllMoneyIn + totalAllMoneyOut;
-    return arrWalletTransactions;
+        let totalAllMoneyOut = 0;
+        arrWalletTransactions.forEach((arrWalletTransaction) => {
+            let totalMoney = 0;
+            let dateGroupTransaction = 0;
+            let moneyIn = 0;
+            let moneyOut = 0;
+            
+            arrWalletTransaction.forEach((item) => {
+                totalMoney += Number(item.moneytransaction);
+                dateGroupTransaction = item.datecreatetransaction;
+                (item.moneytransaction > 0) ? moneyIn += Number(item.moneytransaction) : moneyOut += Number(item.moneytransaction);
+                (item.moneytransaction > 0) ? totalAllMoneyIn += Number(item.moneytransaction) : totalAllMoneyOut += Number(item.moneytransaction);
+                
+            })
+            arrWalletTransaction.totalMoney = totalMoney;
+            arrWalletTransaction.dateGroupTransaction = dateGroupTransaction;
+            arrWalletTransaction.moneyIn = moneyIn;
+            arrWalletTransaction.moneyOut = moneyOut;
+        })
+        arrWalletTransactions.totalAllMoneyIn = totalAllMoneyIn;
+        arrWalletTransactions.totalAllMoneyOut = totalAllMoneyOut;
+        arrWalletTransactions.remain = totalAllMoneyIn + totalAllMoneyOut;
+       return arrWalletTransactions;
   }
 
 }

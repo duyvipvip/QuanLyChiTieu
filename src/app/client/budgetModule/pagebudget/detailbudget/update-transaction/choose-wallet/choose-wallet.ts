@@ -22,10 +22,12 @@ export class ChooseWalletUpdateTransactionBudgetComponent{
 
     // HÀM LẤY DATA TẤT CÁ CẢ VÍ
     getDataWallets() {
-        this.WalletService.getDataWallets();
-        this.WalletService.getAllWallet.subscribe((data) => {
-            this.dataWallets = data;            
-        })
+        this.WalletService.getDataWallets().then(() => {
+            this.WalletService.getAllWallet.subscribe((data) => {
+                this.dataWallets = data;            
+            })
+        });
+       
     }
 
     // HIỆN THỊ DẤU TÍCH

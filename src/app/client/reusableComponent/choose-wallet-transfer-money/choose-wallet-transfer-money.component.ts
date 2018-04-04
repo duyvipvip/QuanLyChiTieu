@@ -46,14 +46,16 @@ export class ChooseWalletTransferMoneyComponent implements OnInit {
   }
 
   getWalletToID(idwallet) {
-    this.WalletService.getDataWallets();
-    this.WalletService.getAllWallet.subscribe((wallets) => {
-      wallets.forEach(wallet => {
-        if (wallet._id == idwallet) {
-          this.nameWallet = wallet.namewallet;
-        }
-      });
-    })
+    this.WalletService.getDataWallets().then(() => {
+      this.WalletService.getAllWallet.subscribe((wallets) => {
+        wallets.forEach(wallet => {
+          if (wallet._id == idwallet) {
+            this.nameWallet = wallet.namewallet;
+          }
+        });
+      })
+    });
+    
   }
 
 
@@ -65,10 +67,12 @@ export class ChooseWalletTransferMoneyComponent implements OnInit {
 
   // HÀM LẤY DATA TẤT CÁ CẢ VÍ
   getDataWallets() {
-    this.WalletService.getDataWallets();
-    this.WalletService.getAllWallet.subscribe((data) => {
-      this.dataWallets = data;
-    })
+    this.WalletService.getDataWallets().then(() => {
+      this.WalletService.getAllWallet.subscribe((data) => {
+        this.dataWallets = data;
+      })
+    });
+    
   }
 
   // LẤY THÔNG TIN VÍ ĐƯỢC CHỌN
@@ -88,14 +92,16 @@ export class ChooseWalletTransferMoneyComponent implements OnInit {
 
   // LẤY TÊN VÍ
   getNameWallet() {
-    this.WalletService.getDataWallets();
-    this.WalletService.getAllWallet.subscribe((wallets) => {
-      wallets.forEach(wallet => {
-        if (wallet._id == this.idWallet) {
-          this.nameWallet = wallet.namewallet;
-        }
-      });
-    })
+    this.WalletService.getDataWallets().then(() => {
+      this.WalletService.getAllWallet.subscribe((wallets) => {
+        wallets.forEach(wallet => {
+          if (wallet._id == this.idWallet) {
+            this.nameWallet = wallet.namewallet;
+          }
+        });
+      })
+    });
+    
   }
 
 

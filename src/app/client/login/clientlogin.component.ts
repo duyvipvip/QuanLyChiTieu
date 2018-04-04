@@ -33,7 +33,6 @@ export class ClientLoginComponent{
             if(token != undefined){
                 this.UserService.getUser(token)
                     .then((user) => {
-                        console.log(user);
                         let obj ={
                             "token": token,
                             "username": user.username,

@@ -8,6 +8,21 @@
         padding: 15px;
     }
 }
+ul{
+  li{
+    list-style: none;
+  }
+}
+img.fa-info{
+  position: absolute;
+  top: 8px;
+  right: 164px;
+  color: #4c6ef5;
+  cursor: pointer;
+  z-index: 1000;
+  width: 16px;
+  height: 16px;
+}
 i{
     display: block;
 }

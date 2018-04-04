@@ -12,7 +12,7 @@ router.get('/google/callback',
         res.redirect('http://localhost:4200/dangnhap;token=' + req.user.token);
     });
 router.get('/facebook',
-    passport.authenticate('facebook'));
+    passport.authenticate('facebook', { scope: ['email'] }));
 router.get('/facebook/callback',
     passport.authenticate('facebook', { failureRedirect: 'http://localhost:4200/dangnhap' }),
     function (req, res) {

@@ -7,7 +7,6 @@
 <ng-template #modalChooseWallet let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title">Chọn Ví</h4>
-        <span class="close-button" (click)="d('Cross click')">×</span>
     </div>
     <div class="modal-body">
         <div *ngFor="let wallet of dataWallets" >
@@ -20,9 +19,5 @@
                 <i class="{{ iconTick(wallet._id) }}" aria-hidden="true"></i>
             </div>
         </div>
-
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>

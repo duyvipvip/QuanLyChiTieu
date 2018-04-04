@@ -48,7 +48,7 @@ const appRoutes: Routes = [
     LayOutComponent,
     ProfileComponent,
     ChangePasswordComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
   ],
   imports: [
     AppRoutingModule,

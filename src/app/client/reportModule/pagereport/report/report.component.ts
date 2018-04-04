@@ -5,7 +5,7 @@ import { TransactionService } from './../../../../service/transaction.service';
 import { WalletService } from './../../../../service/wallet.service';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 @Component({
   selector: 'app-report1',
   templateUrl: './report.component.html',
@@ -30,19 +30,42 @@ export class ReportComponent1 implements OnInit {
     private excelService: ExcelService,
     private location: Location,
     private TransactionService: TransactionService) {
-    
-    this.excelService = excelService;
     // LẤY DANH SÁCH TẤT CẢ CÁC VÍ
     this.WalletService.getDataWallets().then((wallets) => {
       this.idWallet = wallets[0]._id;
       this.getTransaction();
     })
-
-    
   }
 
   exportToExcel() {
-    this.excelService.exportAsExcelFile(PERSONS, 'persons');
+    let dataexport = [];
+    let obj = {
+      tengiaodich: 'Tên Giao Dich',
+      sotien: 'Số tiền',
+      ngay: "Ngày giao dịch"
+    }
+    dataexport.push(obj);
+    this.dataTransaction.forEach(transaction => {
+      let day = new Date(transaction.datecreatetransaction).getDate();
+      let month = new Date(transaction.datecreatetransaction).getMonth();
+      let year = new Date(transaction.datecreatetransaction).getFullYear();
+      let obj = {
+        tengiaodich: transaction.categorytransaction,
+        sotien: transaction.moneytransaction,
+        ngay: day +"/"+month+"/"+year
+      }
+      dataexport.push(obj);
+    });
+    let tempobj = {
+      tongthunhap: 'Tổng thu nhập: '+ this.tempincome.totalMoney,
+      
+    }
+    dataexport.push(tempobj);
+    tempobj= {
+      tongthunhap: 'Tổng chi tiêu: '+ this.tempexpense.totalMoney
+    }
+    dataexport.push(tempobj);
+    new Angular2Csv(dataexport, 'quanlychitieu');
   }
 
   getTransaction() {
@@ -51,6 +74,7 @@ export class ReportComponent1 implements OnInit {
     this.TransactionService.getTransactions(this.idWallet, null, false, this.modelDate)
       .then((data) => {
         this.dataTransaction = data;
+        console.log(data);
         this.fomatMap(data);
       })
   }
@@ -155,20 +179,3 @@ export class ReportComponent1 implements OnInit {
   }
 
 }
-export class Person {
-  id: number;
-  name: String;
-  surname: String;
-  age: number;
-}
-export const PERSONS = [
-  {
-      id: 1
-  },
-  {
-      id: 2,
-  },
-  {
-      id: 3,
-  }
-];

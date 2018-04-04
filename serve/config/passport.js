@@ -28,18 +28,23 @@ module.exports = function(passport) {
 	    			if(user)
 	    				return done(null, user);
 	    			else {
-						console.log(profile);
-	    				// var newUser = new User();
-	    				// newUser.facebook.id = profile.id;
-	    				// newUser.facebook.token = accessToken;
-	    				// newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-	    				// newUser.facebook.email = profile.emails[0].value;
-
-	    				// newUser.save(function(err){
-	    				// 	if(err)
-	    				// 		throw err;
-	    				// 	return done(null, newUser);
-	    				// })
+	    				let obj = {
+							"username": profile.displayName,
+							"password": '',
+							"email": profile.id,
+							"hinhanh": "avatar.jpeg",
+							"kichhoat": 'true',
+						}
+	    				let newUser = new User(obj);
+	    				newUser.save(function(err){
+	    					if(err)
+								throw err;
+							jwt.sign({
+								email: newUser.email
+							}, function (err, token) {
+								return done(null, {token: token});
+							})
+	    				})
 	    			}
 	    		});
 	    	});

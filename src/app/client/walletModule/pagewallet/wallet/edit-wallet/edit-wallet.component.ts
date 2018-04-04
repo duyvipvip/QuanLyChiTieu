@@ -86,6 +86,6 @@ export class EditWalletComponent{
         // LOAD LẠI CẬP NHẬT BÁO CÁO
         this.TransactionService.getTransactions(urlIdWallet);
         // LOAD CẬP NHẬT LẠI TẤT CẢ CÁC VÍ
-        this.WalletService.getDataWallets();      
+        this.WalletService.getDataWallets();  
     }
 }

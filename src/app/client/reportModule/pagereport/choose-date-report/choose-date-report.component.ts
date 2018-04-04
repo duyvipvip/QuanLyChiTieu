@@ -1,5 +1,5 @@
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, ViewContainerRef, Output, EventEmitter } from '@angular/core';
 declare var $: any;
 
@@ -13,6 +13,7 @@ export class ChooseDateReportComponent {
   arrayDate = [];
   stingDate: String;
   date = new Date();
+  modalChooseDate: NgbModalRef;
   @Output() objDate: EventEmitter<object> = new EventEmitter<object>();
   modelDate = {
     "start": '',
@@ -28,7 +29,7 @@ export class ChooseDateReportComponent {
   }
 
   open(content){
-    this.modalService.open(content, { windowClass: 'modalChooseDate' });
+    this.modalChooseDate = this.modalService.open(content, { windowClass: 'modalChooseDate' });
   }
 
   fomatdate(time){
@@ -42,8 +43,7 @@ export class ChooseDateReportComponent {
       this.toastr.warning('Bạn trưa chọn ngày ! ', 'Waring ! ');
     }else{
       this.stingDate = this.fomatDateTwoTime(this.modelDate.start , this.modelDate.end);
-      $(".modalChooseDate").hide();
-      $(".modal-backdrop").hide();
+      this.modalChooseDate.close();
       this.objDate.emit(this.modelDate);
     }
   }

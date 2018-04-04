@@ -36,14 +36,16 @@ export class ChooseWalletReportComponent implements OnInit {
   }
 
   getWalletToID(idwallet) {
-    this.WalletService.getDataWallets();
-    this.WalletService.getAllWallet.subscribe((wallets) => {
-      wallets.forEach(wallet => {
-        if (wallet._id == idwallet) {
-          this.nameWallet = wallet.namewallet;
-        }
-      });
-    })
+    this.WalletService.getDataWallets().then(() => {
+      this.WalletService.getAllWallet.subscribe((wallets) => {
+        wallets.forEach(wallet => {
+          if (wallet._id == idwallet) {
+            this.nameWallet = wallet.namewallet;
+          }
+        });
+      })
+    });
+    
   }
 
   // MỞ MODAL CHỌN VÍ
@@ -78,14 +80,16 @@ export class ChooseWalletReportComponent implements OnInit {
 
   // LẤY TÊN VÍ
   getNameWallet() {
-    this.WalletService.getDataWallets();
-    this.WalletService.getAllWallet.subscribe((wallets) => {
-      wallets.forEach(wallet => {
-        if (wallet._id == this.idWallet) {
-          this.nameWallet = wallet.namewallet;
-        }
-      });
-    })
+    this.WalletService.getDataWallets().then(()=> {
+      this.WalletService.getAllWallet.subscribe((wallets) => {
+        wallets.forEach(wallet => {
+          if (wallet._id == this.idWallet) {
+            this.nameWallet = wallet.namewallet;
+          }
+        });
+      })
+    });
+    
   }
 
 }

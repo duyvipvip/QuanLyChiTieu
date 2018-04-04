@@ -63,6 +63,14 @@ ul.tag-editor{
     }
 }
 
+// PHẦN MODAL TÌM KIẾM GIAO DỊCH
+.modalSearchTransaction{
+    z-index: 999;
+    .modal-content{
+        width: 450px;
+    }
+}
+
 // PHẦN MODAL CHỌN NGÀY HIỆN THỊ
 .modalChooseDate{
     .modal-content{

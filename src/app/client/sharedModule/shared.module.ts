@@ -1,3 +1,5 @@
+import { SearchPipe } from './../../pipe/search.pipe';
+import { SearchTransactionComponent } from './../reusableComponent/extentd-wallet/search-transaction/search-transaction.component';
 import { ChooseWalletTransferMoneyComponent } from './../reusableComponent/choose-wallet-transfer-money/choose-wallet-transfer-money.component';
 import { ChooseCategoryTransferMoneyComponent } from './../reusableComponent/extentd-wallet/transfer-money/choose-category-transfer-money/choose-category-transfer-money.component';
 import { ChooseCategoryComponent } from './../reusableComponent/report/choose-category/choose-category.component';
@@ -24,6 +26,8 @@ import { AgmCoreModule } from '@agm/core';
 import { ReportComponent } from '../reusableComponent/report/report.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+
+
 @NgModule({
     imports: [
         NgxChartsModule,
@@ -58,6 +62,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
         ExtentdWalletComponent,
         ReportComponent,
         WeekDayPipe,
+        SearchPipe,
         ReactiveFormsModule,
         AgmCoreModule,
         NgbModule,
@@ -76,6 +81,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
         MenuComponent,
         NumberPipe,
         FooterComponent,
+        SearchTransactionComponent,
     ],
     declarations: [
         ChooseWalletTransferMoneyComponent,
@@ -90,8 +96,10 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
         NumberPipe,
         WeekDayPipe,
         ToNumberPipe,
+        SearchPipe,
         MenuComponent,
         FooterComponent,
+        SearchTransactionComponent
     ],
     providers: [],
 })

@@ -112,10 +112,12 @@ export class UpdateBudgetComponent{
 
     // HÀM LẤY DATA TẤT CÁ CẢ VÍ
     getDataWallets() {
-        this.WalletService.getDataWallets();
-        this.WalletService.getAllWallet.subscribe((wallet) => {
-            this.dataWallets = wallet;
-        })
+        this.WalletService.getDataWallets().then(() => {
+            this.WalletService.getAllWallet.subscribe((wallet) => {
+                this.dataWallets = wallet;
+            })
+        });
+        
     }
 
     // RELOAD DATA

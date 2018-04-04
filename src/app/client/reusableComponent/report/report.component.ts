@@ -32,10 +32,17 @@ export class ReportComponent {
         if (transaction != undefined) {
             this.arrTransactions = transaction;
         }
-
-
     }
     @Input() timeDateString;
+
+    // TUỲ CHỈNH GIAO DIỆN
+    fomatDisplay: boolean = true;
+    @Input()
+    set inputFomatDisplay(str) {
+        if (str != undefined) {
+            this.fomatDisplay =  str;
+        }
+    }
 
     // một giao dich
     _transaction: any;
@@ -378,6 +385,12 @@ export class ReportComponent {
         } else {
             this.TransactionService.getTransactions(urlIdWallet);
         }
+
+        if(this.arrTransactions != null){
+            this.TransactionService.getSearchTransactions(urlIdWallet, this.arrTransactions['searchStr']);
+        }
+       
+
         // CHẠY LẠI THÔNG TIN CỦA 1 NGÂN SÁCH
         let urlIdBudget = (this.route.snapshot.params.idbudget == undefined) ? '' : this.route.snapshot.params.idbudget;
         if (urlIdBudget != '') this.BudgetSevice.getDataBudget(urlIdBudget);
@@ -393,6 +406,7 @@ export class ReportComponent {
             this.SavingService.getSavings();
         }
 
+        
     }
 
 }
