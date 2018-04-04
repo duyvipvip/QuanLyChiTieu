@@ -85,15 +85,17 @@ export class TransferMoneyComponent implements OnInit {
 
   // HÀM LẤY DATA TẤT CÁ CẢ VÍ
   getDataWallets() {
-    this.WalletService.getDataWallets();
-    this.WalletService.getAllWallet.subscribe((wallets) => {
-      this.dataWallets = wallets;
-      wallets.forEach(wallet => {
-        if (wallet._id == this.idWalletUrl) {
-          this.nameWallet = wallet.namewallet;
-        }
-      });
-    })
+    this.WalletService.getDataWallets().then(() => {
+      this.WalletService.getAllWallet.subscribe((wallets) => {
+        this.dataWallets = wallets;
+        wallets.forEach(wallet => {
+          if (wallet._id == this.idWalletUrl) {
+            this.nameWallet = wallet.namewallet;
+          }
+        });
+      })
+    });
+    
 
   }
 

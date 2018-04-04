@@ -1,0 +1,73 @@
+.modal-header{
+    background: #2db84c;
+}
+.btn-info-my{
+    border: 1px solid rgb(3, 155, 229);
+    color: rgb(3, 155, 229);
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px;
+    &:hover{
+        background: rgb(3, 155, 229);
+        color: #fff;
+    }
+}
+.search{
+    background: #fff;
+    border-radius: 10px;
+    padding-left: 5px;
+}
+.modalSearchTransaction{
+    background: #eef5f9;
+}
+/* HIỆU ỨNG INPUT */
+.group{
+    width:68%;
+    margin-left: 13px;
+    display:inline-block;
+}
+ input{
+     font-size:18px;
+     padding:-1px 10px 8px 5px;
+     display:block;width:100%;
+     border:none;
+     border-bottom:1px solid rgba(0, 0, 0, 0.3);
+}
+ input::placeholder{
+     color:rgba(0, 0, 0, 0.3);
+}
+ input:focus{
+     outline:none;
+     border-bottom:0px
+}
+ input:focus ~ label, input:valid ~ label{
+     top:-20px;
+     font-size:14px;
+     color:rgb(45, 184, 76);
+}
+ .bar{
+     position:relative;
+     display:block;
+     width:100%;
+}
+ .bar:before, .bar:after{
+     content:'';
+     height:2px;
+     width:0;
+     bottom:1px;
+     position:absolute;
+     background:rgb(45, 184, 76);
+     transition:0.2s ease all;
+     -moz-transition:0.2s ease all;
+     -webkit-transition:0.2s ease all;
+}
+ .bar:before{
+     left:50%;
+}
+ .bar:after{
+     right:50%;
+}
+ input:focus ~ .bar:before, input:focus ~ .bar:after{
+     width:50%;
+    }

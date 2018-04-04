@@ -1,0 +1,22 @@
+<a class="dropdown-item" (click)="openSearchTransaction(modalSearchTransaction)">
+  <i class="fa fa-search"></i>Tìm kiếm giao dịch
+</a>
+<ng-template #modalSearchTransaction let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Tìm Kiếm Giao Dịch</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modalSearchTransaction">
+    <div class="search">
+      <div class="group">
+        <input type="text" [(ngModel)]="searchStr" placeholder="Nhập một kí tự gì đó">
+        <span class="bar"></span>
+      </div>
+      <button class="btn-info-my" (click)="searchTransaction()"> Tìm kiếm</button>
+    </div>
+
+    <app-report class="col-6" [inputTransactions]="transactions" [inputFomatDisplay]="false"></app-report>
+  </div>
+</ng-template>
